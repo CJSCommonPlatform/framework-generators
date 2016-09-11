@@ -1,5 +1,6 @@
 package uk.gov.justice.api;
 
+import static java.util.UUID.randomUUID;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -15,13 +16,14 @@ import uk.gov.justice.services.core.annotation.ServiceComponent;
 import uk.gov.justice.services.core.cdi.LoggerProducer;
 import uk.gov.justice.services.core.dispatcher.DispatcherCache;
 import uk.gov.justice.services.core.dispatcher.DispatcherFactory;
-import uk.gov.justice.services.core.dispatcher.EmptySystemUserProvider;
 import uk.gov.justice.services.core.dispatcher.RequesterProducer;
 import uk.gov.justice.services.core.dispatcher.ServiceComponentObserver;
+import uk.gov.justice.services.core.dispatcher.SystemUserProvider;
+import uk.gov.justice.services.core.dispatcher.SystemUserUtil;
 import uk.gov.justice.services.core.eventbuffer.PassThroughEventBufferService;
 import uk.gov.justice.services.core.extension.BeanInstantiater;
 import uk.gov.justice.services.core.interceptor.InterceptorChainProcessor;
-import uk.gov.justice.services.core.jms.JmsDestinations;
+import uk.gov.justice.services.core.jms.DefaultJmsDestinations;
 import uk.gov.justice.services.core.jms.JmsSenderFactory;
 import uk.gov.justice.services.core.sender.ComponentDestination;
 import uk.gov.justice.services.core.sender.Sender;
@@ -30,9 +32,11 @@ import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.test.util.RecordingJmsEnvelopeSender;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.UUID;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.apache.openejb.OpenEjbContainer;
@@ -52,6 +56,7 @@ import org.junit.runner.RunWith;
 @ServiceComponent(COMMAND_API)
 public class RemoteCommandControllerIT {
 
+    private static final UUID TEST_SYS_USER_ID = randomUUID();
     private static int port = -1;
 
     @Inject
@@ -59,6 +64,7 @@ public class RemoteCommandControllerIT {
 
     @Inject
     RecordingJmsEnvelopeSender envelopeSender;
+    private static final String COMMAND_NAME = "contexta.commanda";
 
     @BeforeClass
     public static void beforeClass() {
@@ -82,7 +88,7 @@ public class RemoteCommandControllerIT {
             ComponentDestination.class,
             DispatcherCache.class,
             DispatcherFactory.class,
-            JmsDestinations.class,
+            DefaultJmsDestinations.class,
             JmsSenderFactory.class,
             PolicyEvaluator.class,
             RecordingJmsEnvelopeSender.class,
@@ -92,7 +98,8 @@ public class RemoteCommandControllerIT {
             ServiceComponentObserver.class,
             PassThroughEventBufferService.class,
             LoggerProducer.class,
-            EmptySystemUserProvider.class,
+            TestSystemUserProvider.class,
+            SystemUserUtil.class,
             BeanInstantiater.class
     })
     public WebApp war() {
@@ -107,13 +114,36 @@ public class RemoteCommandControllerIT {
 
     @Test
     public void shouldPassEnvelopeToEnvelopeSender() throws Exception {
-        final String name = "contexta.commanda";
-        final UUID id = UUID.randomUUID();
-        sender.send(envelope().with(metadataOf(id, name)).build());
+        final UUID id = randomUUID();
+        final String userId = "userId1234";
+        sender.send(envelope().with(metadataOf(id, COMMAND_NAME).withUserId(userId)).build());
 
         final List<JsonEnvelope> sentEnvelopes = envelopeSender.envelopesSentTo("contexta.controller.command");
         assertThat(sentEnvelopes, hasSize(1));
-        assertThat(sentEnvelopes.get(0).metadata().name(), is(name));
+        assertThat(sentEnvelopes.get(0).metadata().name(), is(COMMAND_NAME));
         assertThat(sentEnvelopes.get(0).metadata().id(), is(id));
+        assertThat(sentEnvelopes.get(0).metadata().userId().get(), is(userId));
+    }
+
+    @Test
+    public void shouldPassEnvelopeWithSystemUserIdToEnvelopeSender() throws Exception {
+        final UUID id = randomUUID();
+        final String userId = "userId1235";
+        sender.sendAsAdmin(envelope().with(metadataOf(id, COMMAND_NAME).withUserId(userId)).build());
+
+        final List<JsonEnvelope> sentEnvelopes = envelopeSender.envelopesSentTo("contexta.controller.command");
+        assertThat(sentEnvelopes, hasSize(1));
+        assertThat(sentEnvelopes.get(0).metadata().name(), is(COMMAND_NAME));
+        assertThat(sentEnvelopes.get(0).metadata().id(), is(id));
+        assertThat(sentEnvelopes.get(0).metadata().userId().get(), is(TEST_SYS_USER_ID.toString()));
+    }
+
+    @ApplicationScoped
+    public static class TestSystemUserProvider implements SystemUserProvider {
+
+        @Override
+        public Optional<UUID> getContextSystemUserId() {
+            return Optional.of(TEST_SYS_USER_ID);
+        }
     }
 }
