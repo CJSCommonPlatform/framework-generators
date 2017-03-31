@@ -1,4 +1,4 @@
-package uk.gov.justice.services.adapter.rest.mutipart;
+package uk.gov.justice.services.adapter.rest.multipart;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -19,8 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MediaType;
-
 import com.google.common.collect.ImmutableMap;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -31,13 +29,13 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FileInputDetailsFactoryTest {
+public class DefaultFileInputDetailsFactoryTest {
 
     @Mock
     private InputPartFileNameExtractor inputPartFileNameExtractor;
 
     @InjectMocks
-    private FileInputDetailsFactory fileInputDetailsFactory;
+    private DefaultFileInputDetailsFactory fileInputDetailsFactory;
 
     @Test
     public void shouldCreateFileInputDetailsFromFilePart() throws Exception {

@@ -1,4 +1,4 @@
-package uk.gov.justice.services.adapter.rest.mutipart;
+package uk.gov.justice.services.adapter.rest.multipart;
 
 import static java.util.regex.Pattern.compile;
 

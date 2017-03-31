@@ -1,4 +1,4 @@
-package uk.gov.justice.services.adapter.rest;
+package uk.gov.justice.services.adapter.rest.mapping;
 
 import static java.lang.String.format;
 import static java.util.Collections.emptyMap;
@@ -13,17 +13,19 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
 
-public class BasicActionMapper {
+public class BasicActionMapperHelper implements ActionMapperHelper {
 
     private static final String MEDIA_TYPE_SEPARATOR = "/";
 
     private final Map<String, Map<String, String>> methodToMediaTypeAndActionMap = new HashMap<>();
 
-    protected void add(final String methodName, final String mediaType, final String actionName) {
+    @Override
+    public void add(final String methodName, final String mediaType, final String actionName) {
         methodToMediaTypeAndActionMap.computeIfAbsent(methodName, key -> new HashMap<>())
                 .put(mediaType, actionName);
     }
 
+    @Override
     public String actionOf(final String methodName, final String httpMethod, final HttpHeaders headers) {
         final String action = methodToMediaTypeAndActionMap.getOrDefault(methodName, emptyMap())
                 .get(mediaTypeOf(httpMethod, headers));

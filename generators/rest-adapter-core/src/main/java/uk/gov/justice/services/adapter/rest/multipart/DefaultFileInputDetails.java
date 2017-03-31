@@ -1,18 +1,14 @@
-package uk.gov.justice.services.adapter.rest.mutipart;
+package uk.gov.justice.services.adapter.rest.multipart;
 
 import java.io.InputStream;
 
-import javax.ws.rs.core.MediaType;
-
-public class FileInputDetails {
-
-    public static final String FILE_INPUT_DETAILS_LIST = "fileInputDetailsList";
+public class DefaultFileInputDetails implements FileInputDetails {
 
     private final String fileName;
     private final String fieldName;
     private final InputStream inputStream;
 
-    public FileInputDetails(
+    public DefaultFileInputDetails(
             final String fileName,
             final String fieldName,
             final InputStream inputStream) {

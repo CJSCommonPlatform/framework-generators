@@ -17,8 +17,9 @@ import javax.enterprise.inject.Default;
  * application classes.
  */
 @Default
-public class CommonProviders {
+public class DefaultCommonProviders implements CommonProviders {
 
+    @Override
     public Set<Class<?>> providers() {
         final HashSet<Class<?>> classes = new HashSet<>();
         classes.add(BadRequestExceptionMapper.class);

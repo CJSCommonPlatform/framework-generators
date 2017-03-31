@@ -14,11 +14,11 @@ import java.util.Set;
 
 import org.junit.Test;
 
-public class CommonProvidersTest {
+public class DefaultCommonProvidersTest {
 
     @Test
     public void shouldReturnAllCommonProviders() throws Exception {
-        Set<Class<?>> providers = new CommonProviders().providers();
+        Set<Class<?>> providers = new DefaultCommonProviders().providers();
         assertThat(providers, containsInAnyOrder(
                 BadRequestExceptionMapper.class,
                 ConflictedResourceExceptionMapper.class,

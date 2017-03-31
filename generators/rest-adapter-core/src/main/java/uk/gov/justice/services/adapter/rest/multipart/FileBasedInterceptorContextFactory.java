@@ -1,6 +1,6 @@
-package uk.gov.justice.services.adapter.rest.mutipart;
+package uk.gov.justice.services.adapter.rest.multipart;
 
-import static uk.gov.justice.services.adapter.rest.mutipart.FileInputDetails.FILE_INPUT_DETAILS_LIST;
+import static uk.gov.justice.services.adapter.rest.multipart.FileInputDetails.FILE_INPUT_DETAILS_LIST;
 import static uk.gov.justice.services.core.interceptor.DefaultInterceptorContext.interceptorContextWithInput;
 
 import uk.gov.justice.services.core.interceptor.InterceptorContext;

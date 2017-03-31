@@ -8,13 +8,11 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import uk.gov.justice.services.rest.ParameterType;
-
-public class ParameterTest {
+public class DefaultParameterTest {
 
     @Test
     public void shouldCreateStringParameter() {
-        Parameter param = Parameter.valueOf("paramName", "someStringValue", ParameterType.STRING);
+        Parameter param = DefaultParameter.valueOf("paramName", "someStringValue", ParameterType.STRING);
         assertThat(param.getType(), is(ParameterType.STRING));
         assertThat(param.getName(), is("paramName"));
         assertThat(param.getStringValue(), is("someStringValue"));
@@ -23,7 +21,7 @@ public class ParameterTest {
 
     @Test
     public void shouldCreateNumericParameterFromInt() {
-        Parameter param = Parameter.valueOf("paramName2", "123", ParameterType.NUMERIC);
+        Parameter param = DefaultParameter.valueOf("paramName2", "123", ParameterType.NUMERIC);
         assertThat(param.getType(), is(ParameterType.NUMERIC));
         assertThat(param.getName(), is("paramName2"));
         assertThat(param.getNumericValue(), is(BigDecimal.valueOf(123)));
@@ -32,7 +30,7 @@ public class ParameterTest {
 
     @Test
     public void shouldCreateNumericParameterFromFloat() {
-        Parameter param = Parameter.valueOf("paramName3", "123.02", ParameterType.NUMERIC);
+        Parameter param = DefaultParameter.valueOf("paramName3", "123.02", ParameterType.NUMERIC);
         assertThat(param.getType(), is(ParameterType.NUMERIC));
         assertThat(param.getName(), is("paramName3"));
         assertThat(param.getNumericValue(), is(BigDecimal.valueOf(123.02)));
@@ -41,7 +39,7 @@ public class ParameterTest {
 
     @Test
     public void shouldCreateBooleanParameter() {
-        Parameter param = Parameter.valueOf("paramName4", "true", ParameterType.BOOLEAN);
+        Parameter param = DefaultParameter.valueOf("paramName4", "true", ParameterType.BOOLEAN);
         assertThat(param.getType(), is(ParameterType.BOOLEAN));
         assertThat(param.getName(), is("paramName4"));
         assertThat(param.getBooleanValue(), is(true));
@@ -50,12 +48,12 @@ public class ParameterTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionIfInvalidNumericParamValuePassed() throws Exception {
-        Parameter.valueOf("paramName3", "aaa", ParameterType.NUMERIC);
+        DefaultParameter.valueOf("paramName3", "aaa", ParameterType.NUMERIC);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionIfInvalidBooleanParamValuePassed() throws Exception {
-        Parameter.valueOf("paramName3", "aaa", ParameterType.BOOLEAN);
+        DefaultParameter.valueOf("paramName3", "aaa", ParameterType.BOOLEAN);
     }
 
 }

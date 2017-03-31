@@ -1,4 +1,4 @@
-package uk.gov.justice.services.adapter.rest;
+package uk.gov.justice.services.adapter.rest.mapping;
 
 
 import static org.hamcrest.CoreMatchers.is;
@@ -7,19 +7,29 @@ import static uk.gov.justice.services.generators.test.utils.builder.HeadersBuild
 
 import uk.gov.justice.services.adapter.rest.exception.BadRequestException;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class BasicActionMapperTest {
+public class BasicActionMapperHelperTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
+    private BasicActionMapperHelper mapping;
+
+    @Before
+    public void setup() {
+        mapping = new BasicActionMapperHelper();
+        mapping.add("methodA", "application/vnd.blah+json", "actionNameA");
+        mapping.add("methodA", "application/vnd.blah2+json", "actionNameB");
+        mapping.add("methodA", "application/vnd.blah3+json", "actionNameB");
+        mapping.add("methodB", "application/vnd.blah+json", "actionNameC");
+    }
+
     @Test
     public void shouldReturnActionForGETRequests() throws Exception {
-        TestActionMapper mapping = new TestActionMapper();
-
         assertThat(mapping.actionOf("methodA", "GET",
                 headersWith("Accept", "application/vnd.blah+json")), is("actionNameA"));
         assertThat(mapping.actionOf("methodA", "GET",
@@ -32,8 +42,6 @@ public class BasicActionMapperTest {
 
     @Test
     public void shouldReturnActionForPOSTRequests() throws Exception {
-        TestActionMapper mapping = new TestActionMapper();
-
         assertThat(mapping.actionOf("methodA", "POST",
                 headersWith("Content-Type", "application/vnd.blah+json")), is("actionNameA"));
         assertThat(mapping.actionOf("methodA", "POST",
@@ -46,16 +54,12 @@ public class BasicActionMapperTest {
 
     @Test
     public void shouldReturnActionForGetRequestIfCharsetIncludedInMediaType() throws Exception {
-        TestActionMapper mapping = new TestActionMapper();
-
         assertThat(mapping.actionOf("methodA", "GET",
                 headersWith("Accept", "application/vnd.blah+json; charset=ISO-8859-1")), is("actionNameA"));
     }
-    
+
     @Test
     public void shouldReturnActionForPOSTRequestIfCharsetIncludedInMediaType() throws Exception {
-        TestActionMapper mapping = new TestActionMapper();
-
         assertThat(mapping.actionOf("methodA", "POST",
                 headersWith("Content-Type", "application/vnd.blah+json; charset=ISO-8859-1")), is("actionNameA"));
     }
@@ -65,17 +69,6 @@ public class BasicActionMapperTest {
         exception.expect(BadRequestException.class);
         exception.expectMessage("No matching action for accept media types: [application/vnd.unknown+json]");
 
-        new TestActionMapper().actionOf("methodA", "GET", headersWith("Accept", "application/vnd.unknown+json"));
-
-    }
-
-    private static class TestActionMapper extends BasicActionMapper {
-
-        public TestActionMapper() {
-            add("methodA", "application/vnd.blah+json", "actionNameA");
-            add("methodA", "application/vnd.blah2+json", "actionNameB");
-            add("methodA", "application/vnd.blah3+json", "actionNameB");
-            add("methodB", "application/vnd.blah+json", "actionNameC");
-        }
+        mapping.actionOf("methodA", "GET", headersWith("Accept", "application/vnd.unknown+json"));
     }
 }

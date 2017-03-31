@@ -1,4 +1,4 @@
-package uk.gov.justice.services.adapter.rest.mutipart;
+package uk.gov.justice.services.adapter.rest.multipart;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
@@ -18,11 +18,12 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 @ApplicationScoped
-public class FileInputDetailsFactory {
+public class DefaultFileInputDetailsFactory implements FileInputDetailsFactory {
 
     @Inject
     InputPartFileNameExtractor inputPartFileNameExtractor;
 
+    @Override
     public List<FileInputDetails> createFileInputDetailsFrom(final MultipartFormDataInput multipartFormDataInput, final List<String> fieldNames) {
         final Map<String, List<InputPart>> formDataMap = multipartFormDataInput.getFormDataMap();
 
@@ -34,7 +35,7 @@ public class FileInputDetailsFactory {
 
     private FileInputDetails fileInputDetailsFrom(final Map<String, List<InputPart>> formDataMap, final String fieldName) {
 
-        if(! formDataMap.containsKey(fieldName)) {
+        if (!formDataMap.containsKey(fieldName)) {
             throw new BadRequestException(format("Failed to find input part named '%s' as specified in the raml", fieldName));
         }
 
@@ -48,7 +49,7 @@ public class FileInputDetailsFactory {
 
         final String fileName = inputPartFileNameExtractor.extractFileName(inputPart);
 
-        return new FileInputDetails(
+        return new DefaultFileInputDetails(
                 fileName,
                 fieldName,
                 inputStreamFrom(inputPart, fileName));

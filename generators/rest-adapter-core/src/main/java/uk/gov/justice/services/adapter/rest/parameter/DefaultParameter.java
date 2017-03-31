@@ -4,16 +4,14 @@ import static org.apache.commons.lang3.BooleanUtils.toBooleanObject;
 
 import java.math.BigDecimal;
 
-import uk.gov.justice.services.rest.ParameterType;
 /**
  * Query or path parameter
  */
-public class Parameter {
+public class DefaultParameter implements Parameter {
     private static final String INVALID_BOOLEAN_VALUE = "Invalid boolean value";
     private final String name;
     private final Object value;
     private final ParameterType type;
-
 
     /**
      * Builds parameter out of given arguments
@@ -26,7 +24,7 @@ public class Parameter {
      *                                  the given value
      */
     public static Parameter valueOf(final String name, final String value, final ParameterType type) {
-        return new Parameter(name, valueFromString(value, type), type);
+        return new DefaultParameter(name, valueFromString(value, type), type);
     }
 
     private static Object valueFromString(final String value, final ParameterType type) {
@@ -45,28 +43,33 @@ public class Parameter {
         }
     }
 
-    private Parameter(final String name, final Object value, final ParameterType type) {
+    private DefaultParameter(final String name, final Object value, final ParameterType type) {
         this.name = name;
         this.value = value;
         this.type = type;
     }
 
+    @Override
     public ParameterType getType() {
         return type;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getStringValue() {
         return (String) value;
     }
 
+    @Override
     public BigDecimal getNumericValue() {
         return (BigDecimal) value;
     }
 
+    @Override
     public Boolean getBooleanValue() {
         return (Boolean) value;
     }
