@@ -23,7 +23,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EventSourcesFileParserTest {
+public class EventSourcesFileParserTestDefinition {
 
     @Mock
     EventSourcesParser eventSourcesParser;
