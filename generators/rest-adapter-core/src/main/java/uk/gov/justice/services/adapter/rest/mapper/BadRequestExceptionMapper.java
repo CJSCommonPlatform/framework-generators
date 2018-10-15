@@ -16,6 +16,7 @@ import javax.ws.rs.ext.Provider;
 
 import org.slf4j.Logger;
 
+// TODO: Remove me (moved to framework)
 @Provider
 public class BadRequestExceptionMapper implements ExceptionMapper<BadRequestException> {
 

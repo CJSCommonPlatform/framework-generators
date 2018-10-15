@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>generators</artifactId>
-        <groupId>uk.gov.justice.services</groupId>
-        <version>5.0.0-SNAPSHOT</version>
+        <groupId>uk.gov.justice.framework-generators</groupId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -53,9 +53,9 @@
             <artifactId>utilities-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>uk.gov.justice.services</groupId>
+            <groupId>uk.gov.justice.event-store</groupId>
             <artifactId>event-subscription</artifactId>
-            <version>${project.version}</version>
+            <version>${event-store.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -86,7 +86,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>uk.gov.justice.services</groupId>
+            <groupId>uk.gov.justice.framework-generators</groupId>
             <artifactId>generators-test-utils</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
@@ -94,13 +94,13 @@
         <dependency>
             <groupId>uk.gov.justice.services</groupId>
             <artifactId>test-utils-common</artifactId>
-            <version>${project.version}</version>
+            <version>${framework.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>uk.gov.justice.services</groupId>
             <artifactId>core</artifactId>
-            <version>${project.version}</version>
+            <version>${framework.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
