@@ -20,6 +20,7 @@
 
     <modules>
         <module>generators</module>
+        <module>raml-lint-check</module>
     </modules>
 
     <scm>
@@ -36,6 +37,7 @@
         <framework-api.version>3.0.0-M14</framework-api.version>
         <framework.version>5.0.0-SNAPSHOT</framework.version>
         <generator-maven-plugin.version>2.6.1</generator-maven-plugin.version>
+        <raml-maven-plugin.version>1.6.3</raml-maven-plugin.version>
         <test-utils.version>1.17.3</test-utils.version>
         <utilities.version>1.15.1</utilities.version>
 
