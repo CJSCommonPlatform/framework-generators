@@ -40,9 +40,6 @@
         <raml-maven-plugin.version>1.6.3</raml-maven-plugin.version>
         <test-utils.version>1.17.3</test-utils.version>
         <utilities.version>1.15.1</utilities.version>
-
-        <!--<file.service.version>1.16.4</file.service.version>-->
-        <!--<catalog-test-utils.version>1.4.1</catalog-test-utils.version>-->
     </properties>
     
     <dependencyManagement>
@@ -59,11 +56,6 @@
                 <artifactId>utilities-core</artifactId>
                 <version>${utilities.version}</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>org.jboss.ejb3</groupId>-->
-                <!--<artifactId>jboss-ejb3-ext-api</artifactId>-->
-                <!--<version>${jboss-ejb3-ext-api.version}</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>uk.gov.justice.utils</groupId>
                 <artifactId>test-utils-logging-simple</artifactId>
