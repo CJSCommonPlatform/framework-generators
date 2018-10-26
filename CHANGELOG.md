@@ -5,10 +5,10 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [1.0.0-M1] - 2018-10-26
+
 ### Added
+- Extracted project from related modules in Microservices Framework 5.0.0-M1: https://github.com/CJSCommonPlatform/microservice_framework
 
-### Changed
-
-### Removed
 
 

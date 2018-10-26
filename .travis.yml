@@ -16,6 +16,7 @@ before_script:
 addons:
   postgresql: '9.5'
   sonarcloud:
+    organization: cjscommonplatform
     token:
       secure: P3NV1Pmf1AbqWnr/AYiTez8qVxeH+6Pv1T0pt5QgC0PJizQF3BQcThplDl1Kf5tmCfBPnC2WbHrBPB2ruzZPO1xt/hDBEWsSDgNhfg2A0lXxx6STcgknVCUb8PrrMU1H8lrw4CJZt32phyVn1ebwWJ+sKdUvn72j82NrAtUY5sJcwGbmF3QOO1mLRTXRnjIiEiH26ClPtIBPSm2bWPyxkbFsLZXp0X9AkC5/054F24suoOKLs1Co2HO8XPdsZLEBjGmiBowajMwTLuXh1642lCDqLxkpGc3F9gBH1CKqjsJ5jzM2VZbncc3uq4UgTs1RHU0ni2WoiUci7VtGb0uN/cvFJ2gncEoZuZaVmPt7YBd7B6a9AJcFztgA3C0IZjdYVuiSaNl6Z//+Cg14+8QAfmFeBIrnEQZrgU2LL4p24v9FkGNVcDJjVTZ7SndcYxZV2Ymo6Cwe4lXMxTqMzlV8DezTaYKDIx+BuoDWuutvR5gZB/wIHAps6O7FzWDonX6QEWk3VCZEqZ9UHu78kX1r63yMgavI+q+iKyoiFjeijXzothxSCXbKAakFnUIgAq2sz9iwRA1nBhoxF5nRIx6jhLIT+ZwAUN9NUb5htTUkrvQNA+g+bl9ry7Dp+0Pw1q6kkBeA9z47ilTu+Tmdl6q8/tKmcfobcvhf8OMoN6QM/jc=
     github_token:
