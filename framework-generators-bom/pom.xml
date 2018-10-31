@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>framework-generators</artifactId>
+        <groupId>uk.gov.justice.framework-generators</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>framework-generators-bom</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <framework-generators.version>${project.version}</framework-generators.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>uk.gov.justice.framework-generators</groupId>
+                <artifactId>direct-adapter-core</artifactId>
+                <version>${framework-generators.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>uk.gov.justice.framework-generators</groupId>
+                <artifactId>messaging-adapter-core</artifactId>
+                <version>${framework-generators.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>uk.gov.justice.framework-generators</groupId>
+                <artifactId>rest-adapter-core</artifactId>
+                <version>${framework-generators.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>uk.gov.justice.framework-generators</groupId>
+                <artifactId>rest-client-core</artifactId>
+                <version>${framework-generators.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
