@@ -34,6 +34,7 @@ import static uk.gov.justice.services.test.utils.core.messaging.MetadataBuilderF
 import uk.gov.justice.schema.service.CatalogProducer;
 import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.schema.service.SchemaCatalogService;
+import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.clients.core.DefaultRestClientHelper;
 import uk.gov.justice.services.clients.core.DefaultRestClientProcessor;
 import uk.gov.justice.services.clients.core.webclient.BaseUriFactory;
@@ -52,7 +53,6 @@ import uk.gov.justice.services.core.accesscontrol.AllowAllPolicyEvaluator;
 import uk.gov.justice.services.core.accesscontrol.DefaultAccessControlService;
 import uk.gov.justice.services.core.accesscontrol.PolicyEvaluator;
 import uk.gov.justice.services.core.annotation.ServiceComponent;
-import uk.gov.justice.services.core.cdi.LoggerProducer;
 import uk.gov.justice.services.core.dispatcher.DispatcherCache;
 import uk.gov.justice.services.core.dispatcher.DispatcherFactory;
 import uk.gov.justice.services.core.dispatcher.EmptySystemUserProvider;
@@ -87,6 +87,7 @@ import uk.gov.justice.services.core.sender.SenderProducer;
 import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
+import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
 
 import java.util.Properties;
 import java.util.UUID;
@@ -210,7 +211,9 @@ public class RemoteExampleEventProcessorIT {
             EnvelopeInspector.class,
 
             MediaTypesMappingCacheInitialiser.class,
-            SchemaIdMappingCacheInitialiser.class
+            SchemaIdMappingCacheInitialiser.class,
+
+            DefaultEventSourceDefinitionFactory.class
     })
     public WebApp war() {
         return new WebApp()

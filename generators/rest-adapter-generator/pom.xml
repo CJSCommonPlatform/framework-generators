@@ -136,6 +136,13 @@
         <dependency>
             <groupId>uk.gov.justice.services</groupId>
             <artifactId>core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>uk.gov.justice.event-store</groupId>
+            <artifactId>event-subscription-registry</artifactId>
+            <version>${event-store.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

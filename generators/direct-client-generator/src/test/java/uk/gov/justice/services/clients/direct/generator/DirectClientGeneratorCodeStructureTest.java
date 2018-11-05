@@ -72,7 +72,6 @@ public class DirectClientGeneratorCodeStructureTest {
         assertThat(generatedClass.getAnnotation(Direct.class).target(), is("QUERY_API"));
         assertThat(generatedClass.getAnnotation(FrameworkComponent.class), not(nullValue()));
         assertThat(generatedClass.getAnnotation(FrameworkComponent.class).value(), is("SOME_COMPONENT"));
-
     }
 
     @Test
@@ -136,7 +135,6 @@ public class DirectClientGeneratorCodeStructureTest {
         final Handles handlesAnnotation2 = method2.getAnnotation(Handles.class);
         assertThat(handlesAnnotation2, not(nullValue()));
         assertThat(handlesAnnotation2.value(), is("actionBCD"));
-
     }
 
     @Test
@@ -200,8 +198,5 @@ public class DirectClientGeneratorCodeStructureTest {
 
         final Class<?> compiledClass = COMPILER.compiledClassOf(outputFolder.getRoot(), outputFolder.getRoot(), BASE_PACKAGE, "DirectSomeComponent2QueryApiServiceClient");
         assertThat(methodsOf(compiledClass), hasSize(0));
-
     }
-
-
 }

@@ -29,10 +29,10 @@ import uk.gov.justice.services.adapter.rest.processor.response.AcceptedStatusNoE
 import uk.gov.justice.services.adapter.rest.processor.response.OkStatusEnvelopeEntityResponseStrategy;
 import uk.gov.justice.services.adapter.rest.processor.response.OkStatusEnvelopePayloadEntityResponseStrategy;
 import uk.gov.justice.services.adapter.rest.processor.response.ResponseStrategyHelper;
+import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.configuration.ServiceContextNameProvider;
 import uk.gov.justice.services.common.converter.StringToJsonObjectConverter;
 import uk.gov.justice.services.common.converter.jackson.ObjectMapperProducer;
-import uk.gov.justice.services.core.cdi.LoggerProducer;
 import uk.gov.justice.services.core.envelope.EnvelopeInspector;
 import uk.gov.justice.services.core.envelope.MediaTypeProvider;
 import uk.gov.justice.services.core.extension.BeanInstantiater;
@@ -55,6 +55,7 @@ import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.logging.DefaultHttpTraceLoggerHelper;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
+import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
@@ -174,7 +175,9 @@ public class DefaultCustomUserIdResourceIT {
             DefaultJsonValidationLoggerHelper.class,
 
             MediaTypesMappingCacheInitialiser.class,
-            SchemaIdMappingCacheInitialiser.class
+            SchemaIdMappingCacheInitialiser.class,
+
+            DefaultEventSourceDefinitionFactory.class
 
     })
     public WebApp war() {
