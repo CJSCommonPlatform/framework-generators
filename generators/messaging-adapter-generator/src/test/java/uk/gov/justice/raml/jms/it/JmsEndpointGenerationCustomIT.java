@@ -20,10 +20,10 @@ import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.schema.service.SchemaCatalogService;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsProcessor;
+import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.configuration.ServiceContextNameProvider;
 import uk.gov.justice.services.common.converter.StringToJsonObjectConverter;
 import uk.gov.justice.services.common.converter.jackson.ObjectMapperProducer;
-import uk.gov.justice.services.core.cdi.LoggerProducer;
 import uk.gov.justice.services.core.extension.BeanInstantiater;
 import uk.gov.justice.services.core.json.BackwardsCompatibleJsonSchemaValidator;
 import uk.gov.justice.services.core.json.DefaultJsonValidationLoggerHelper;
@@ -46,6 +46,7 @@ import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.jms.DefaultEnvelopeConverter;
 import uk.gov.justice.services.messaging.logging.DefaultJmsMessageLoggerHelper;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
+import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
 
 import java.util.UUID;
 
@@ -121,7 +122,9 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             BackwardsCompatibleJsonSchemaValidator.class,
 
             MediaTypesMappingCacheInitialiser.class,
-            SchemaIdMappingCacheInitialiser.class
+            SchemaIdMappingCacheInitialiser.class,
+
+            DefaultEventSourceDefinitionFactory.class
     })
     public WebApp war() {
         return new WebApp()

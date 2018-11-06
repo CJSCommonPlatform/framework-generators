@@ -90,11 +90,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.trajano.commons</groupId>
-            <artifactId>commons-testing</artifactId>
+            <groupId>uk.gov.justice.event-store</groupId>
+            <artifactId>event-subscription-registry</artifactId>
+            <version>${event-store.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>

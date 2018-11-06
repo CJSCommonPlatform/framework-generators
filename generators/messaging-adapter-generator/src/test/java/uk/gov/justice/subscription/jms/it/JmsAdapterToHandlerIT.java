@@ -23,6 +23,8 @@ import uk.gov.justice.services.adapter.messaging.DefaultJmsProcessor;
 import uk.gov.justice.services.adapter.messaging.DefaultSubscriptionJmsProcessor;
 import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor;
 import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
+import uk.gov.justice.services.cdi.LoggerProducer;
+import uk.gov.justice.services.cdi.QualifierAnnotationExtractor;
 import uk.gov.justice.services.common.configuration.GlobalValueProducer;
 import uk.gov.justice.services.common.configuration.ServiceContextNameProvider;
 import uk.gov.justice.services.common.converter.ObjectToJsonValueConverter;
@@ -35,8 +37,6 @@ import uk.gov.justice.services.core.accesscontrol.DefaultAccessControlService;
 import uk.gov.justice.services.core.accesscontrol.PolicyEvaluator;
 import uk.gov.justice.services.core.annotation.Handles;
 import uk.gov.justice.services.core.annotation.ServiceComponent;
-import uk.gov.justice.services.core.cdi.LoggerProducer;
-import uk.gov.justice.services.core.cdi.QualifierAnnotationExtractor;
 import uk.gov.justice.services.core.dispatcher.DispatcherCache;
 import uk.gov.justice.services.core.dispatcher.DispatcherFactory;
 import uk.gov.justice.services.core.dispatcher.EmptySystemUserProvider;
@@ -85,6 +85,7 @@ import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
 import uk.gov.justice.services.test.utils.common.envelope.TestEnvelopeRecorder;
 import uk.gov.justice.subscription.ParserProducer;
 import uk.gov.justice.subscription.YamlFileFinder;
+import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
 import uk.gov.justice.subscription.registry.SubscriptionsDescriptorsRegistryProducer;
 import uk.gov.justice.subscription.yaml.parser.YamlParser;
 import uk.gov.justice.subscription.yaml.parser.YamlSchemaLoader;
@@ -218,6 +219,8 @@ public class JmsAdapterToHandlerIT extends AbstractJmsAdapterGenerationIT {
             TestEventSourceProducer.class,
 
             EventBufferSelector.class,
+
+            DefaultEventSourceDefinitionFactory.class
     })
     public WebApp war() {
         return new WebApp()

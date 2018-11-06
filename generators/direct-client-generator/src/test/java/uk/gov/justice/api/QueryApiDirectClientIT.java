@@ -1,6 +1,5 @@
 package uk.gov.justice.api;
 
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static uk.gov.justice.services.test.utils.core.messaging.JsonEnvelopeBuilder.envelope;
@@ -12,13 +11,13 @@ import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.schema.service.SchemaCatalogService;
 import uk.gov.justice.services.adapter.direct.SynchronousDirectAdapter;
 import uk.gov.justice.services.adapter.direct.SynchronousDirectAdapterCache;
+import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.configuration.GlobalValueProducer;
 import uk.gov.justice.services.common.configuration.JndiBasedServiceContextNameProvider;
 import uk.gov.justice.services.common.configuration.ValueProducer;
 import uk.gov.justice.services.common.converter.StringToJsonObjectConverter;
 import uk.gov.justice.services.core.annotation.DirectAdapter;
 import uk.gov.justice.services.core.annotation.FrameworkComponent;
-import uk.gov.justice.services.core.cdi.LoggerProducer;
 import uk.gov.justice.services.core.dispatcher.DispatcherCache;
 import uk.gov.justice.services.core.dispatcher.DispatcherFactory;
 import uk.gov.justice.services.core.dispatcher.EmptySystemUserProvider;
@@ -58,6 +57,7 @@ import uk.gov.justice.services.messaging.jms.EnvelopeConverter;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
 import uk.gov.justice.services.test.utils.common.envelope.EnvelopeRecordingInterceptor;
 import uk.gov.justice.services.test.utils.common.envelope.TestEnvelopeRecorder;
+import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -139,7 +139,9 @@ public class QueryApiDirectClientIT {
             EnvelopeInspector.class,
 
             MediaTypesMappingCacheInitialiser.class,
-            SchemaIdMappingCacheInitialiser.class
+            SchemaIdMappingCacheInitialiser.class,
+
+            DefaultEventSourceDefinitionFactory.class
     })
     public WebApp war() {
         return new WebApp()
