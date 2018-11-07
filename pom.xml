@@ -34,13 +34,14 @@
         <cpp.repo.name>framework-generators</cpp.repo.name>
 
         <common-bom.version>1.28.0</common-bom.version>
-        <event-store.version>1.0.0-M6</event-store.version>
-        <framework-api.version>3.0.0-M14</framework-api.version>
-        <framework.version>5.0.0-M3</framework.version>
+        <event-store.version>1.0.1</event-store.version>
+        <framework-api.version>3.0.0</framework-api.version>
+        <framework.version>5.0.2</framework.version>
         <generator-maven-plugin.version>2.6.1</generator-maven-plugin.version>
         <raml-maven-plugin.version>1.6.3</raml-maven-plugin.version>
         <test-utils.version>1.18.0</test-utils.version>
         <utilities.version>1.16.0</utilities.version>
+        <file.service.version>1.17.0</file.service.version>
     </properties>
     
     <dependencyManagement>
@@ -89,6 +90,11 @@
                 <version>${event-store.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>uk.gov.justice.services</groupId>
+                <artifactId>file-service-persistence</artifactId>
+                <version>${file.service.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
