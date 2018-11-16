@@ -5,14 +5,21 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [1.0.2] - 2018-11-16
+
+### Changed
+- Updated framework-api to 3.0.1
+- Updated framework to 5.0.4
+- Updated event-store to 1.0.4
+
 ## [1.0.1] - 2018-11-13
 
-### Updated
+### Changed
 - Updated event-store to 1.0.3
 
 ## [1.0.0] - 2018-11-07
 
-### Updated
+### Changed
 - First release of framework-generators 1.0.0
 
 ## [1.0.0-M4] - 2018-11-06

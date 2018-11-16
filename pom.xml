@@ -34,9 +34,9 @@
         <cpp.repo.name>framework-generators</cpp.repo.name>
 
         <common-bom.version>1.28.0</common-bom.version>
-        <event-store.version>1.0.3</event-store.version>
-        <framework-api.version>3.0.0</framework-api.version>
-        <framework.version>5.0.3</framework.version>
+        <event-store.version>1.0.4</event-store.version>
+        <framework-api.version>3.0.1</framework-api.version>
+        <framework.version>5.0.4</framework.version>
         <generator-maven-plugin.version>2.6.1</generator-maven-plugin.version>
         <raml-maven-plugin.version>1.6.3</raml-maven-plugin.version>
         <test-utils.version>1.18.1</test-utils.version>
