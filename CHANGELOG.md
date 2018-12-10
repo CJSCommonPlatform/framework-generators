@@ -5,6 +5,12 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+### Changed
+- Updated framework-api to 3.1.0-M2
+- Updated framework to 5.1.0-M3
+- Updated event-store to 1.1.0-M1
+- Updated test-utils to 1.19.0
+
 ## [1.0.2] - 2018-11-16
 
 ### Changed

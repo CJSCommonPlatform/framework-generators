@@ -17,6 +17,7 @@ import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor;
 import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.configuration.GlobalValueProducer;
+import uk.gov.justice.services.common.configuration.ServiceContextNameProvider;
 import uk.gov.justice.services.common.converter.ObjectToJsonValueConverter;
 import uk.gov.justice.services.common.converter.StringToJsonObjectConverter;
 import uk.gov.justice.services.common.converter.jackson.ObjectMapperProducer;
@@ -120,7 +121,7 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
             JsonSchemaValidationInterceptor.class,
             JmsLoggerMetadataInterceptor.class,
             DefaultJmsParameterChecker.class,
-            JmsAdapterToHandlerIT.TestServiceContextNameProvider.class,
+            TestServiceContextNameProvider.class,
             JsonSchemaLoader.class,
             SchemaCatalogResolverProducer.class,
             StringToJsonObjectConverter.class,
@@ -271,6 +272,15 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
 
         public String validatedEventName() {
             return validatedEventName;
+        }
+    }
+
+    @ApplicationScoped
+    public static class TestServiceContextNameProvider implements ServiceContextNameProvider {
+
+        @Override
+        public String getServiceContextName() {
+            return "test-component";
         }
     }
 }

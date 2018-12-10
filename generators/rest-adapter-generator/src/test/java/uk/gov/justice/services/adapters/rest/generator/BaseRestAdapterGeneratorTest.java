@@ -83,11 +83,7 @@ public abstract class BaseRestAdapterGeneratorTest {
 
     @Before
     public void before() {
-        try {
-            setField(generator, LOGGER_FIELD, logger);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException("Failed to set mock logger on generator under test", e);
-        }
+        setField(generator, LOGGER_FIELD, logger);
     }
 
     protected Object getInstanceOf(final Class<?> resourceClass) throws InstantiationException, IllegalAccessException {

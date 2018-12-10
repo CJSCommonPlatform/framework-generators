@@ -15,11 +15,7 @@ public class GeneratorPropertiesFactory {
 
     public GeneratorProperties withServiceComponentOf(final String serviceComponent) {
         final CommonGeneratorProperties properties = new CommonGeneratorProperties();
-        try {
-            setField(properties, SERVICE_COMPONENT_KEY, serviceComponent);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        setField(properties, SERVICE_COMPONENT_KEY, serviceComponent);
         return properties;
     }
 }
