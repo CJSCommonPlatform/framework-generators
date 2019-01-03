@@ -5,7 +5,7 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
-## [1.1.0-M7] - 2018-01-03
+## [1.1.0-M5] - 2018-01-03
 ### Changed
 - Updated event-store tp 1.1.0-M7
 
