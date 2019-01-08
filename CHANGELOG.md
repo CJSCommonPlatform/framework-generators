@@ -5,9 +5,13 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [1.1.0-M6] - 2018-01-08
+### Changed
+- Updated event-store to 1.1.0-M8
+
 ## [1.1.0-M5] - 2018-01-03
 ### Changed
-- Updated event-store tp 1.1.0-M7
+- Updated event-store to 1.1.0-M7
 
 ## [1.1.0-M4] - 2018-01-02
 ### Changed
