@@ -248,11 +248,6 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
         public void process(final JsonEnvelope jsonEnvelope) {
             record(jsonEnvelope);
         }
-
-        @Override
-        public void startSubscription() {
-
-        }
     }
 
     @ApplicationScoped
