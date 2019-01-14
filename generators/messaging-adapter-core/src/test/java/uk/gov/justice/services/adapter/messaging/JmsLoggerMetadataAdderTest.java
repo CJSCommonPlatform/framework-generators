@@ -4,6 +4,7 @@ import static com.jayway.jsonpath.matchers.JsonPathMatchers.isJson;
 import static com.jayway.jsonpath.matchers.JsonPathMatchers.withJsonPath;
 import static java.util.UUID.randomUUID;
 import static javax.json.Json.createObjectBuilder;
+import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
@@ -34,7 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.MDC;
 
 @RunWith(MockitoJUnitRunner.class)
-public class JmsLoggerMetadataInterceptorTest {
+public class JmsLoggerMetadataAdderTest {
 
     @Mock
     private Logger logger;
@@ -55,7 +56,7 @@ public class JmsLoggerMetadataInterceptorTest {
     private TraceLogger traceLogger;
 
     @InjectMocks
-    private JmsLoggerMetadataInterceptor jmsLoggerMetadataInterceptor;
+    private JmsLoggerMetadataAdder jmsLoggerMetadataAdder;
 
     @Test
     @SuppressWarnings("deprecation")
@@ -64,7 +65,7 @@ public class JmsLoggerMetadataInterceptorTest {
         final String clientCorrelationId = randomUUID().toString();
         final String name = "someName";
 
-        final JsonEnvelope jsonEnvelope =  envelopeFrom(metadataBuilder()
+        final JsonEnvelope jsonEnvelope = envelopeFrom(metadataBuilder()
                         .withId(messageId)
                         .withName(name)
                         .withClientCorrelationId(clientCorrelationId),
@@ -79,25 +80,28 @@ public class JmsLoggerMetadataInterceptorTest {
         when(textMessage.getText()).thenReturn(jsonEnvelope.toDebugStringPrettyPrint());
 
         when(jmsMessageLoggerHelper.metadataAsJsonObject(textMessage)).thenReturn(jsonObject);
+        when(serviceContextNameProvider.getServiceContextName()).thenReturn("exampleService");
 
         when(context.proceed()).thenAnswer(invocationOnMock -> {
-            assertThat(MDC.get(REQUEST_DATA), isJson(
-                    withJsonPath("$.metadata.id", equalTo(messageId.toString()))
+            assertThat(MDC.get(REQUEST_DATA), isJson(allOf(
+                    withJsonPath("$.metadata.id", equalTo(messageId.toString())),
+                    withJsonPath("$.serviceContext", equalTo("exampleService")),
+                    withJsonPath("$.serviceComponent", equalTo("EVENT_LISTENER")))
             ));
             return null;
         });
 
-        jmsLoggerMetadataInterceptor.addRequestDataToMappedDiagnosticContext(context);
+        jmsLoggerMetadataAdder.addRequestDataToMdc(context, "EVENT_LISTENER");
 
         assertThat(MDC.get(REQUEST_DATA), nullValue());
     }
 
     @Test
-    @SuppressWarnings({"unchecked", "deprecation"})
+    @SuppressWarnings({"deprecation"})
     public void shouldProceedWithContextAndReturnResult() throws Exception {
         final Object expectedResult = mock(Object.class);
 
-        final JsonEnvelope jsonEnvelope =  envelopeFrom(metadataBuilder()
+        final JsonEnvelope jsonEnvelope = envelopeFrom(metadataBuilder()
                         .withId(UUID.randomUUID())
                         .withName("someName"),
                 createObjectBuilder()
@@ -109,13 +113,12 @@ public class JmsLoggerMetadataInterceptorTest {
         when(textMessage.getText()).thenReturn(jsonEnvelope.toDebugStringPrettyPrint());
         when(context.proceed()).thenReturn(expectedResult);
 
-        final Object actualResult = jmsLoggerMetadataInterceptor.addRequestDataToMappedDiagnosticContext(context);
+        final Object actualResult = jmsLoggerMetadataAdder.addRequestDataToMdc(context, "EVENT_LISTENER");
 
         assertThat(actualResult, is(expectedResult));
     }
 
     @Test
-    @SuppressWarnings({"unchecked", "deprecation"})
     public void shouldReturnMessageInMetadataIfExceptionThrownWhenAccessingTextMessage() throws Exception {
         final TextMessage textMessage = mock(TextMessage.class);
 
@@ -128,6 +131,6 @@ public class JmsLoggerMetadataInterceptorTest {
             return null;
         });
 
-        jmsLoggerMetadataInterceptor.addRequestDataToMappedDiagnosticContext(context);
+        jmsLoggerMetadataAdder.addRequestDataToMdc(context, "EVENT_LISTENER");
     }
 }

@@ -3,11 +3,8 @@ package uk.gov.justice.services.adapters.rest.generator;
 import static com.squareup.javapoet.TypeSpec.classBuilder;
 import static javax.lang.model.element.Modifier.PUBLIC;
 import static org.apache.commons.lang3.StringUtils.defaultIfBlank;
-import static uk.gov.justice.services.generators.commons.helper.Names.RESOURCE_PACKAGE_NAME;
 import static uk.gov.justice.services.generators.commons.helper.Names.buildJavaFriendlyName;
-import static uk.gov.justice.services.generators.commons.helper.Names.packageNameOf;
 
-import uk.gov.justice.maven.generator.io.files.parser.core.GeneratorConfig;
 import uk.gov.justice.services.adapter.rest.application.CommonProviders;
 import uk.gov.justice.services.generators.commons.helper.RestResourceBaseUri;
 
@@ -38,28 +35,17 @@ class JaxRsApplicationCodeGenerator {
     private static final String COMMON_PROVIDERS_FIELD = "commonProviders";
     private static final String APPLICATION_NAME_SUFFIX = "Application";
 
-    private final GeneratorConfig config;
-
-    /**
-     * Constructor.
-     *
-     * @param config the generator configuration
-     */
-    JaxRsApplicationCodeGenerator(final GeneratorConfig config) {
-        this.config = config;
-    }
-
     /**
      * Create an implementation of the {@link Application}.
      *
-     * @param raml                the RAML document being generated from
-     * @param implementationNames a collection of fully qualified class names of the resource
-     *                            implementation classes
+     * @param raml       the RAML document being generated from
+     * @param classNames a collection of fully qualified class names of the resource implementation
+     *                   classes
      * @return the fully defined application class
      */
-    TypeSpec generateFor(final Raml raml, final Collection<String> implementationNames) {
+    TypeSpec generateFor(final Raml raml, final Collection<ClassName> classNames) {
         return classSpecFrom(raml)
-                .addMethod(generateGetClassesMethod(implementationNames))
+                .addMethod(generateGetClassesMethod(classNames))
                 .build();
     }
 
@@ -85,10 +71,10 @@ class JaxRsApplicationCodeGenerator {
     /**
      * Generate the getClasses method that returns the set of implemented resource classes.
      *
-     * @param implementationNames the collection of implementation class names
+     * @param classNames the collection of implementation class names
      * @return the {@link MethodSpec} that represents the getClasses method
      */
-    private MethodSpec generateGetClassesMethod(final Collection<String> implementationNames) {
+    private MethodSpec generateGetClassesMethod(final Collection<ClassName> classNames) {
         final ParameterizedTypeName wildcardClassType = ParameterizedTypeName.get(ClassName.get(Class.class), WildcardTypeName.subtypeOf(Object.class));
         final ParameterizedTypeName classSetType = ParameterizedTypeName.get(ClassName.get(Set.class), wildcardClassType);
 
@@ -97,7 +83,7 @@ class JaxRsApplicationCodeGenerator {
                 .addAnnotation(Override.class)
                 .addCode(CodeBlock.builder()
                         .addStatement("$T classes = $L.providers()", classSetType, COMMON_PROVIDERS_FIELD)
-                        .add(statementsToAddClassToSetForEach(implementationNames))
+                        .add(statementsToAddClassToSetForEach(classNames))
                         .addStatement("return classes")
                         .build())
                 .returns(classSetType)
@@ -107,14 +93,14 @@ class JaxRsApplicationCodeGenerator {
     /**
      * Generate code to add each resource implementation class to the classes hash set.
      *
-     * @param implementationNames the collection of implementation class names
+     * @param classNames the collection of implementation class names
      * @return the {@link CodeBlock} that represents the generated statements
      */
-    private CodeBlock statementsToAddClassToSetForEach(final Collection<String> implementationNames) {
+    private CodeBlock statementsToAddClassToSetForEach(final Collection<ClassName> classNames) {
         final CodeBlock.Builder codeBlockBuilder = CodeBlock.builder();
 
-        implementationNames.forEach(implementationClassName ->
-                codeBlockBuilder.addStatement("classes.add($T.class)", classNameTypeOf(implementationClassName)));
+        classNames.forEach(implementationClassName ->
+                codeBlockBuilder.addStatement("classes.add($T.class)", implementationClassName));
 
         return codeBlockBuilder.build();
     }
@@ -122,16 +108,5 @@ class JaxRsApplicationCodeGenerator {
     private static String applicationNameFrom(final RestResourceBaseUri baseUri) {
         return buildJavaFriendlyName(baseUri.pathWithoutWebContext())
                 .concat(APPLICATION_NAME_SUFFIX);
-    }
-
-    /**
-     * Create {@link ClassName} that fully qualifies the implementation class
-     *
-     * @param className the class name to define
-     * @return the {@link ClassName} that represents the full package and class name of the
-     * implementation class
-     */
-    private ClassName classNameTypeOf(final String className) {
-        return ClassName.get(packageNameOf(config, RESOURCE_PACKAGE_NAME), className);
     }
 }

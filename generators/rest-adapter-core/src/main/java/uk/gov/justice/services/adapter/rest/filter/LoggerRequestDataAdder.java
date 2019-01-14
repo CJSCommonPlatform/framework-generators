@@ -31,24 +31,20 @@ import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.Provider;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.MDC;
 
 /**
- * Filter listens to all requests and adds request information to the Logger Mapped Diagnostic
- * Context.  This can be added to the log output by setting %X{frameworkRequestData} in the logger
- * pattern.
+ * Adds request information to the Logger Mapped Diagnostic Context.  This can be added to the log
+ * output by setting %X{frameworkRequestData} in the logger pattern.
  */
-@Provider
-public class LoggerRequestDataFilter implements ContainerRequestFilter, ContainerResponseFilter {
+public class LoggerRequestDataAdder {
+
+    private static final String SERVICE_COMPONENT = "serviceComponent";
 
     @Inject
     Logger logger;
@@ -62,9 +58,7 @@ public class LoggerRequestDataFilter implements ContainerRequestFilter, Containe
     @Inject
     JsonObjectEnvelopeConverter jsonObjectEnvelopeConverter;
 
-
-    @Override
-    public void filter(final ContainerRequestContext requestContext) throws IOException {
+    public void addToMdc(final ContainerRequestContext requestContext, final String componentName) throws IOException {
         trace(logger, () -> "Adding request data to MDC");
 
         final JsonObjectBuilder builder = createObjectBuilder();
@@ -72,7 +66,11 @@ public class LoggerRequestDataFilter implements ContainerRequestFilter, Containe
 
         Optional.ofNullable(serviceContextNameProvider.getServiceContextName())
                 .ifPresent(value -> builder.add(SERVICE_CONTEXT, value));
+
+        builder.add(SERVICE_COMPONENT, componentName);
+
         addContentTypeAndAcceptIfPresent(builder, headers);
+
         mergeHeadersWithPayloadMetadataIfPresent(requestContext, headers)
                 .ifPresent(metadataBuilder -> builder.add(METADATA, metadataBuilder));
 
@@ -81,8 +79,7 @@ public class LoggerRequestDataFilter implements ContainerRequestFilter, Containe
         trace(logger, () -> "Request data added to MDC");
     }
 
-    @Override
-    public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
+    public void clearMdc() {
         trace(logger, () -> "Clearing MDC");
         MDC.clear();
     }

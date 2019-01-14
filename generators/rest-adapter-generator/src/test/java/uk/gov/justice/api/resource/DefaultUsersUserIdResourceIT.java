@@ -12,6 +12,7 @@ import static uk.gov.justice.services.test.utils.core.messaging.JsonEnvelopeBuil
 import static uk.gov.justice.services.test.utils.core.messaging.MetadataBuilderFactory.metadataWithDefaults;
 
 import uk.gov.justice.api.QueryApiRestExampleApplication;
+import uk.gov.justice.api.filter.QueryApiRestExampleLoggerRequestDataFilter;
 import uk.gov.justice.api.mapper.DefaultQueryApiUsersResourceActionMapper;
 import uk.gov.justice.api.mapper.DefaultQueryApiUsersUserIdResourceActionMapper;
 import uk.gov.justice.api.mapper.RestAdapterGeneratorMediaTypeToSchemaIdMapper;
@@ -22,7 +23,7 @@ import uk.gov.justice.services.adapter.rest.application.CommonProviders;
 import uk.gov.justice.services.adapter.rest.application.DefaultCommonProviders;
 import uk.gov.justice.services.adapter.rest.envelope.RestEnvelopeBuilderFactory;
 import uk.gov.justice.services.adapter.rest.filter.JsonValidatorRequestFilter;
-import uk.gov.justice.services.adapter.rest.filter.LoggerRequestDataFilter;
+import uk.gov.justice.services.adapter.rest.filter.LoggerRequestDataAdder;
 import uk.gov.justice.services.adapter.rest.interceptor.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.adapter.rest.mapper.BadRequestExceptionMapper;
 import uk.gov.justice.services.adapter.rest.mapping.BasicActionMapperHelper;
@@ -143,6 +144,10 @@ public class DefaultUsersUserIdResourceIT {
 
     @Module
     @Classes(cdi = true, value = {
+            DefaultQueryApiUsersUserIdResourceActionMapper.class,
+            DefaultQueryApiUsersResourceActionMapper.class,
+            QueryApiRestExampleLoggerRequestDataFilter.class,
+
             DefaultRestProcessor.class,
             OkStatusEnvelopeEntityResponseStrategy.class,
             OkStatusEnvelopePayloadEntityResponseStrategy.class,
@@ -157,12 +162,10 @@ public class DefaultUsersUserIdResourceIT {
             BadRequestExceptionMapper.class,
             JsonValidatorRequestFilter.class,
             JsonSchemaValidationInterceptor.class,
-            LoggerRequestDataFilter.class,
+            LoggerRequestDataAdder.class,
             TestServiceContextNameProvider.class,
             FileBasedJsonSchemaValidator.class,
             JsonSchemaLoader.class,
-            DefaultQueryApiUsersUserIdResourceActionMapper.class,
-            DefaultQueryApiUsersResourceActionMapper.class,
             BasicActionMapperHelper.class,
             LoggerProducer.class,
             StringToJsonObjectConverter.class,

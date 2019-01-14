@@ -9,16 +9,18 @@ import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventFilte
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventListenerInterceptorChainProvider;
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventValidationInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventJmsListener;
+import uk.gov.justice.api.subscription.CustomEventListenerExampleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventFilter;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventFilterInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventListenerInterceptorChainProvider;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventValidationInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventJmsListener;
+import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsProcessor;
 import uk.gov.justice.services.adapter.messaging.DefaultSubscriptionJmsProcessor;
-import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor;
+import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
 import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.configuration.GlobalValueProducer;
@@ -103,12 +105,14 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             CustomEventListenerPeopleEventEventListenerInterceptorChainProvider.class,
             CustomEventListenerPeopleEventEventValidationInterceptor.class,
             CustomEventListenerPeopleEventJmsListener.class,
+            CustomEventListenerPeopleEventJmsLoggerMetadataInterceptor.class,
 
             CustomEventListenerExampleEventEventFilter.class,
             CustomEventListenerExampleEventEventFilterInterceptor.class,
             CustomEventListenerExampleEventEventListenerInterceptorChainProvider.class,
             CustomEventListenerExampleEventEventValidationInterceptor.class,
             CustomEventListenerExampleEventJmsListener.class,
+            CustomEventListenerExampleEventJmsLoggerMetadataInterceptor.class,
 
             RecordingJsonSchemaValidator.class,
 
@@ -120,7 +124,6 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             DefaultJmsEnvelopeSender.class,
             DefaultEnvelopeConverter.class,
             JsonSchemaValidationInterceptor.class,
-            JmsLoggerMetadataInterceptor.class,
             DefaultJmsParameterChecker.class,
             TestServiceContextNameProvider.class,
             JsonSchemaLoader.class,
@@ -176,7 +179,8 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             TestSubscriptionManagerProducer.class,
             RecordingSubscriptionManager.class,
 
-            DefaultEventSourceDefinitionFactory.class
+            DefaultEventSourceDefinitionFactory.class,
+            JmsLoggerMetadataAdder.class
     })
     public WebApp war() {
         return new WebApp()
