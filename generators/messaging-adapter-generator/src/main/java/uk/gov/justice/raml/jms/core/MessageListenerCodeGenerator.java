@@ -13,8 +13,8 @@ import static uk.gov.justice.raml.jms.core.JmsEndPointGeneratorUtil.shouldListen
 import static uk.gov.justice.raml.jms.core.MediaTypesUtil.containsGeneralJsonMimeType;
 import static uk.gov.justice.raml.jms.core.MediaTypesUtil.mediaTypesFrom;
 import static uk.gov.justice.services.generators.commons.helper.Names.namesListStringFrom;
+import static uk.gov.justice.subscription.jms.core.ClassNameFactory.JMS_LOGGER_METADATA_INTERCEPTOR;
 
-import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor;
 import uk.gov.justice.services.adapter.messaging.JmsProcessor;
 import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.core.annotation.Adapter;
@@ -76,7 +76,8 @@ class MessageListenerCodeGenerator {
     /**
      * Create an implementation of the {@link MessageListener}.
      *
-     * @param resource                  the resource definition this listener is being generated for
+     * @param resource                  the resource definition this listener is being generated
+     *                                  for
      * @param baseUri                   the base URI
      * @param commonGeneratorProperties used to query the generator properties
      * @param classNameFactory          creates the class name for this generated class
@@ -94,7 +95,8 @@ class MessageListenerCodeGenerator {
     /**
      * Generate the @link MessageListener} class implementation.
      *
-     * @param resource                  the resource definition this listener is being generated for
+     * @param resource                  the resource definition this listener is being generated
+     *                                  for
      * @param baseUri                   the base URI
      * @param commonGeneratorProperties used to query the generator properties
      * @return the {@link TypeSpec.Builder} that defines the class
@@ -131,7 +133,7 @@ class MessageListenerCodeGenerator {
 
             if (!containsGeneralJsonMimeType(resource.getActions())) {
                 AnnotationSpec.Builder builder = AnnotationSpec.builder(Interceptors.class)
-                        .addMember(DEFAULT_ANNOTATION_PARAMETER, CLASS_NAME, JmsLoggerMetadataInterceptor.class)
+                        .addMember(DEFAULT_ANNOTATION_PARAMETER, CLASS_NAME, classNameFactory.classNameFor(JMS_LOGGER_METADATA_INTERCEPTOR))
                         .addMember(DEFAULT_ANNOTATION_PARAMETER, CLASS_NAME, getValidationInterceptorClassName(classNameFactory, resource, baseUri));
 
                 typeSpecBuilder.addAnnotation(builder.build());

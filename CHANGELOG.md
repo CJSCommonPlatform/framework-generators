@@ -5,6 +5,9 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+### Added
+- Service component name to MDC logging data
+
 ## [1.0.6] - 2019-01-15
 ### Changed
 - Updated event-store to 1.0.8

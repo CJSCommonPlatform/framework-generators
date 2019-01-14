@@ -38,8 +38,6 @@ import static uk.gov.justice.subscription.domain.builders.SubscriptionsDescripto
 import uk.gov.justice.maven.generator.io.files.parser.core.Generator;
 import uk.gov.justice.maven.generator.io.files.parser.core.GeneratorProperties;
 import uk.gov.justice.raml.jms.config.GeneratorPropertiesFactory;
-import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor;
-import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.adapter.messaging.SubscriptionJmsProcessor;
 import uk.gov.justice.services.core.annotation.Adapter;
 import uk.gov.justice.services.core.annotation.Component;
@@ -410,11 +408,19 @@ public class SubscriptionJmsEndpointGeneratorTest {
                 BASE_PACKAGE,
                 "ContextEventProcessorPeopleHandlerCommandJmsListener");
 
+        final Class<?> interceptorClass = COMPILER.compiledClassOf(
+                outputFolder.getRoot(),
+                outputFolder.getRoot(),
+                BASE_PACKAGE,
+                "ContextEventProcessorPeopleHandlerCommandJmsLoggerMetadataInterceptor");
+
         final Interceptors interceptorsAnnotation = clazz.getAnnotation(Interceptors.class);
 
         assertThat(interceptorsAnnotation, not(nullValue()));
-        assertThat(interceptorsAnnotation.value(), hasItemInArray(JsonSchemaValidationInterceptor.class));
-        assertThat(interceptorsAnnotation.value(), hasItemInArray(JmsLoggerMetadataInterceptor.class));
+        final Class[] interceptorClasses = interceptorsAnnotation.value();
+
+        assertThat(interceptorClasses[0].getName(), is("uk.test.ContextEventProcessorPeopleHandlerCommandJmsLoggerMetadataInterceptor"));
+        assertThat(interceptorClasses[1].getName(), is("uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor"));
     }
 
     @Test

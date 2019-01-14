@@ -11,6 +11,7 @@ import static org.raml.model.ActionType.PATCH;
 import static org.raml.model.ActionType.POST;
 import static org.raml.model.ActionType.PUT;
 import static uk.gov.justice.services.generators.commons.helper.GeneratedClassWriter.writeClass;
+import static uk.gov.justice.services.generators.commons.helper.Names.FILTER_PACKAGE_NAME;
 import static uk.gov.justice.services.generators.commons.helper.Names.MAPPER_PACKAGE_NAME;
 import static uk.gov.justice.services.generators.commons.helper.Names.RESOURCE_PACKAGE_NAME;
 import static uk.gov.justice.services.generators.commons.helper.Names.packageNameOf;
@@ -32,6 +33,7 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeSpec;
 import org.raml.model.Raml;
 import org.slf4j.Logger;
@@ -57,20 +59,25 @@ public class RestAdapterGenerator implements Generator<Raml> {
         validator.validate(raml);
 
         final JaxRsInterfaceGenerator interfaceGenerator = new JaxRsInterfaceGenerator();
-        final ResponseStrategyFactory responseStrategyFactory = new ResponseStrategyFactory();
-        final JaxRsImplementationGenerator implementationGenerator = new JaxRsImplementationGenerator(configuration, responseStrategyFactory);
-        final JaxRsApplicationCodeGenerator applicationGenerator = new JaxRsApplicationCodeGenerator(configuration);
+        final JaxRsImplementationGenerator implementationGenerator = new JaxRsImplementationGenerator(configuration, new ResponseStrategyFactory());
+        final JaxRsApplicationCodeGenerator applicationGenerator = new JaxRsApplicationCodeGenerator();
         final ActionMappingGenerator actionMappingGenerator = new ActionMappingGenerator();
         final RamlMediaTypeToSchemaIdGenerator ramlMediaTypeToSchemaIdGenerator = new RamlMediaTypeToSchemaIdGenerator();
         final ActionNameToMediaTypesGenerator actionNameToMediaTypesGenerator = new ActionNameToMediaTypesGenerator();
+        final LoggerRequestDataFilterGenerator loggerRequestDataFilterGenerator = new LoggerRequestDataFilterGenerator();
 
         writeToSubPackage(interfaceGenerator.generateFor(raml), configuration, RESOURCE_PACKAGE_NAME);
-        final List<String> implementationNames = writeToSubPackage(
+
+        final List<ClassName> implementationNames = writeToSubPackage(
                 implementationGenerator.generateFor(raml), configuration, RESOURCE_PACKAGE_NAME);
 
-        writeToBasePackage(applicationGenerator.generateFor(raml, implementationNames), configuration);
-        writeToSubPackage(actionMappingGenerator.generateFor(raml), configuration, MAPPER_PACKAGE_NAME);
+        implementationNames.addAll(
+                writeToSubPackage(
+                        loggerRequestDataFilterGenerator.generateFor(raml, configuration), configuration, FILTER_PACKAGE_NAME));
 
+        writeToBasePackage(applicationGenerator.generateFor(raml, implementationNames), configuration);
+
+        writeToSubPackage(actionMappingGenerator.generateFor(raml), configuration, MAPPER_PACKAGE_NAME);
         ramlMediaTypeToSchemaIdGenerator.generateMediaTypeToSchemaIdMapper(raml, configuration);
         actionNameToMediaTypesGenerator.generateActionNameToMediaTypes(raml, configuration);
     }
@@ -94,9 +101,9 @@ public class RestAdapterGenerator implements Generator<Raml> {
      * @return the list of class names written to file
      * @throws IllegalStateException if an IOException is thrown while writing to file
      */
-    private List<String> writeToSubPackage(final List<TypeSpec> typeSpecs,
-                                           final GeneratorConfig configuration,
-                                           final String subPackageName) {
+    private List<ClassName> writeToSubPackage(final List<TypeSpec> typeSpecs,
+                                              final GeneratorConfig configuration,
+                                              final String subPackageName) {
         return writeToPackage(typeSpecs, configuration, packageNameOf(configuration, subPackageName));
     }
 
@@ -119,14 +126,14 @@ public class RestAdapterGenerator implements Generator<Raml> {
      * @return the list of class names written to file
      * @throws IllegalStateException if an IOException is thrown while writing to file
      */
-    private List<String> writeToPackage(final List<TypeSpec> typeSpecs,
-                                        final GeneratorConfig configuration,
-                                        final String packageName) {
-        final List<String> implementationNames = new LinkedList<>();
+    private List<ClassName> writeToPackage(final List<TypeSpec> typeSpecs,
+                                           final GeneratorConfig configuration,
+                                           final String packageName) {
+        final List<ClassName> implementationNames = new LinkedList<>();
 
         typeSpecs.forEach(typeSpec -> {
             writeClass(configuration, packageName, typeSpec, logger);
-            implementationNames.add(typeSpec.name);
+            implementationNames.add(ClassName.get(packageName, typeSpec.name));
         });
 
         return implementationNames;

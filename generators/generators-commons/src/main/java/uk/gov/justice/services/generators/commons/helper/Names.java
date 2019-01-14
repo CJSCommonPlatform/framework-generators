@@ -27,6 +27,7 @@ public final class Names {
     public static final String DEFAULT_ANNOTATION_PARAMETER = "value";
     public static final String GENERIC_PAYLOAD_ARGUMENT_NAME = "entity";
     public static final String RESOURCE_PACKAGE_NAME = "resource";
+    public static final String FILTER_PACKAGE_NAME = "filter";
     public static final String MAPPER_PACKAGE_NAME = "mapper";
     public static final String JAVA_FILENAME_SUFFIX = ".java";
 
