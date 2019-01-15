@@ -5,9 +5,9 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
-## [1.1.0] - 2019-01-09
+## [1.1.1] - 2019-01-15
 ### Changed
-- Updated event-store to 1.1.0 for release
+- Updated event-store to 1.1.1 for release
 
 ## [1.1.0-M6] - 2019-01-08
 ### Changed
