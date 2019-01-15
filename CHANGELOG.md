@@ -5,7 +5,7 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
-## [1.0.6] - 2018-12-20
+## [1.0.6] - 2019-01-15
 ### Changed
 - Updated event-store to 1.0.8
 
