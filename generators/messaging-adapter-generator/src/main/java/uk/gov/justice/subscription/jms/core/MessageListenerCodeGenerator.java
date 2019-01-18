@@ -9,10 +9,10 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 import static javax.lang.model.element.Modifier.STATIC;
 import static uk.gov.justice.subscription.jms.core.ClassNameFactory.EVENT_VALIDATION_INTERCEPTOR;
 import static uk.gov.justice.subscription.jms.core.ClassNameFactory.JMS_LISTENER;
+import static uk.gov.justice.subscription.jms.core.ClassNameFactory.JMS_LOGGER_METADATA_INTERCEPTOR;
 import static uk.gov.justice.subscription.jms.core.JmsEndPointGeneratorUtil.shouldGenerateEventFilter;
 import static uk.gov.justice.subscription.jms.core.JmsEndPointGeneratorUtil.shouldListenToAllMessages;
 
-import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor;
 import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.adapter.messaging.SubscriptionJmsProcessor;
 import uk.gov.justice.services.core.annotation.Adapter;
@@ -135,7 +135,7 @@ public class MessageListenerCodeGenerator {
 
             if (!subscription.getEvents().isEmpty()) {
                 AnnotationSpec.Builder builder = AnnotationSpec.builder(Interceptors.class)
-                        .addMember(DEFAULT_ANNOTATION_PARAMETER, CLASS_NAME, JmsLoggerMetadataInterceptor.class)
+                        .addMember(DEFAULT_ANNOTATION_PARAMETER, CLASS_NAME, classNameFactory.classNameFor(JMS_LOGGER_METADATA_INTERCEPTOR))
                         .addMember(DEFAULT_ANNOTATION_PARAMETER, CLASS_NAME, getValidationInterceptorClassName(classNameFactory, serviceComponent, subscription.getEvents()));
 
                 typeSpecBuilder.addAnnotation(builder.build());

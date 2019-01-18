@@ -17,10 +17,11 @@ import uk.gov.justice.api.Service2EventListenerPeopleEventEventFilterInterceptor
 import uk.gov.justice.api.Service2EventListenerPeopleEventEventListenerInterceptorChainProvider;
 import uk.gov.justice.api.Service2EventListenerPeopleEventEventValidationInterceptor;
 import uk.gov.justice.api.Service2EventListenerPeopleEventJmsListener;
+import uk.gov.justice.api.Service2EventListenerPeopleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsProcessor;
-import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor;
+import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
 import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.configuration.GlobalValueProducer;
@@ -133,6 +134,7 @@ public class JmsAdapterToHandlerIT extends AbstractJmsAdapterGenerationIT {
             Service2EventListenerPeopleEventEventListenerInterceptorChainProvider.class,
             Service2EventListenerPeopleEventEventValidationInterceptor.class,
             Service2EventListenerPeopleEventJmsListener.class,
+            Service2EventListenerPeopleEventJmsLoggerMetadataInterceptor.class,
 
             RecordingEventAAHandler.class,
             AllEventsHandler.class,
@@ -153,7 +155,6 @@ public class JmsAdapterToHandlerIT extends AbstractJmsAdapterGenerationIT {
             DefaultJmsEnvelopeSender.class,
             DefaultEnvelopeConverter.class,
             JsonSchemaValidationInterceptor.class,
-            JmsLoggerMetadataInterceptor.class,
             DefaultJmsParameterChecker.class,
             TestServiceContextNameProvider.class,
             JsonSchemaLoader.class,
@@ -198,7 +199,8 @@ public class JmsAdapterToHandlerIT extends AbstractJmsAdapterGenerationIT {
             MediaTypesMappingCacheInitialiser.class,
             SchemaIdMappingCacheInitialiser.class,
 
-            DefaultEventSourceDefinitionFactory.class
+            DefaultEventSourceDefinitionFactory.class,
+            JmsLoggerMetadataAdder.class
     })
     public WebApp war() {
         return new WebApp()

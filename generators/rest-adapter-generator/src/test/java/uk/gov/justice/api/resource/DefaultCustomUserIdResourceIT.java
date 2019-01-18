@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import uk.gov.justice.api.CustomApiRestExampleApplication;
+import uk.gov.justice.api.filter.CustomApiRestExampleLoggerRequestDataFilter;
 import uk.gov.justice.api.mapper.DefaultCustomApiRestExampleCustomUserIdResourceActionMapper;
 import uk.gov.justice.api.mapper.RestAdapterGeneratorMediaTypeToSchemaIdMapper;
 import uk.gov.justice.schema.service.CatalogProducer;
@@ -15,7 +16,7 @@ import uk.gov.justice.services.adapter.rest.application.CommonProviders;
 import uk.gov.justice.services.adapter.rest.application.DefaultCommonProviders;
 import uk.gov.justice.services.adapter.rest.envelope.RestEnvelopeBuilderFactory;
 import uk.gov.justice.services.adapter.rest.filter.JsonValidatorRequestFilter;
-import uk.gov.justice.services.adapter.rest.filter.LoggerRequestDataFilter;
+import uk.gov.justice.services.adapter.rest.filter.LoggerRequestDataAdder;
 import uk.gov.justice.services.adapter.rest.interceptor.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.adapter.rest.mapper.BadRequestExceptionMapper;
 import uk.gov.justice.services.adapter.rest.mapping.BasicActionMapperHelper;
@@ -123,6 +124,9 @@ public class DefaultCustomUserIdResourceIT {
 
     @Module
     @Classes(cdi = true, value = {
+            DefaultCustomApiRestExampleCustomUserIdResourceActionMapper.class,
+            CustomApiRestExampleLoggerRequestDataFilter.class,
+
             DefaultRestProcessor.class,
             OkStatusEnvelopeEntityResponseStrategy.class,
             OkStatusEnvelopePayloadEntityResponseStrategy.class,
@@ -137,10 +141,9 @@ public class DefaultCustomUserIdResourceIT {
             BadRequestExceptionMapper.class,
             JsonValidatorRequestFilter.class,
             JsonSchemaValidationInterceptor.class,
-            LoggerRequestDataFilter.class,
+            LoggerRequestDataAdder.class,
             TestServiceContextNameProvider.class,
             FileBasedJsonSchemaValidator.class,
-            DefaultCustomApiRestExampleCustomUserIdResourceActionMapper.class,
             BasicActionMapperHelper.class,
             LoggerProducer.class,
             StringToJsonObjectConverter.class,

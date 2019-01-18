@@ -12,6 +12,7 @@ import uk.gov.justice.api.Service1CommandHandlerStructureHandlerCommandJmsListen
 import uk.gov.justice.api.Service2EventListenerPeopleEventEventFilter;
 import uk.gov.justice.api.Service2EventListenerPeopleEventEventValidationInterceptor;
 import uk.gov.justice.api.Service2EventListenerPeopleEventJmsListener;
+import uk.gov.justice.api.Service2EventListenerPeopleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.api.Service2EventProcessorStructureEventJmsListener;
 import uk.gov.justice.api.mapper.ListenerMediaTypeToSchemaIdMapper;
 import uk.gov.justice.schema.service.CatalogProducer;
@@ -19,6 +20,7 @@ import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.schema.service.SchemaCatalogService;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsProcessor;
+import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
 import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.configuration.ServiceContextNameProvider;
 import uk.gov.justice.services.common.converter.StringToJsonObjectConverter;
@@ -96,6 +98,8 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
             Service2EventProcessorStructureEventJmsListener.class,
             Service2EventListenerPeopleEventJmsListener.class,
             Service2EventListenerPeopleEventEventFilter.class,
+            Service2EventListenerPeopleEventJmsLoggerMetadataInterceptor.class,
+
             Service1CommandHandlerStructureHandlerCommandJmsListener.class,
             ContextaEventProcessorPublicEventJmsListener.class,
             ObjectMapperProducer.class,
@@ -137,7 +141,8 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
             MediaTypesMappingCacheInitialiser.class,
             SchemaIdMappingCacheInitialiser.class,
 
-            DefaultEventSourceDefinitionFactory.class
+            DefaultEventSourceDefinitionFactory.class,
+            JmsLoggerMetadataAdder.class
     })
     public WebApp war() {
         return new WebApp()

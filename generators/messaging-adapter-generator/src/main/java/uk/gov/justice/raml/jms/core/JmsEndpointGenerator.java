@@ -9,6 +9,7 @@ import uk.gov.justice.maven.generator.io.files.parser.core.GeneratorConfig;
 import uk.gov.justice.raml.jms.interceptor.EventFilterInterceptorCodeGenerator;
 import uk.gov.justice.raml.jms.interceptor.EventListenerInterceptorChainProviderCodeGenerator;
 import uk.gov.justice.raml.jms.interceptor.EventValidationInterceptorCodeGenerator;
+import uk.gov.justice.raml.jms.interceptor.JmsLoggerMetadataInterceptorCodeGenerator;
 import uk.gov.justice.raml.jms.validator.BaseUriRamlValidator;
 import uk.gov.justice.services.generators.commons.config.CommonGeneratorProperties;
 import uk.gov.justice.services.generators.commons.helper.MessagingAdapterBaseUri;
@@ -40,6 +41,7 @@ public class JmsEndpointGenerator implements Generator<Raml> {
     private final EventFilterInterceptorCodeGenerator eventFilterInterceptorCodeGenerator = new EventFilterInterceptorCodeGenerator();
     private final EventValidationInterceptorCodeGenerator eventValidationInterceptorCodeGenerator = new EventValidationInterceptorCodeGenerator();
     private final EventListenerInterceptorChainProviderCodeGenerator eventListenerInterceptorChainProviderCodeGenerator = new EventListenerInterceptorChainProviderCodeGenerator();
+    private final JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator = new JmsLoggerMetadataInterceptorCodeGenerator();
 
     private final RamlValidator validator = new CompositeRamlValidator(
             new ContainsResourcesRamlValidator(),
@@ -96,12 +98,15 @@ public class JmsEndpointGenerator implements Generator<Raml> {
 
         }
 
-        streamBuilder.add(messageListenerCodeGenerator.generate(
-                resource,
-                baseUri,
-                commonGeneratorProperties,
-                classNameFactory));
-
-        return streamBuilder.build();
+        return streamBuilder
+                .add(jmsLoggerMetadataInterceptorCodeGenerator.generate(
+                        commonGeneratorProperties,
+                        classNameFactory))
+                .add(messageListenerCodeGenerator.generate(
+                        resource,
+                        baseUri,
+                        commonGeneratorProperties,
+                        classNameFactory))
+                .build();
     }
 }
