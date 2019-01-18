@@ -21,7 +21,7 @@ import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsProcessor;
 import uk.gov.justice.services.adapter.messaging.DefaultSubscriptionJmsProcessor;
-import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor;
+import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
 import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.cdi.QualifierAnnotationExtractor;
@@ -162,7 +162,6 @@ public class JmsAdapterToHandlerIT extends AbstractJmsAdapterGenerationIT {
             DefaultJmsEnvelopeSender.class,
             DefaultEnvelopeConverter.class,
             JsonSchemaValidationInterceptor.class,
-            JmsLoggerMetadataInterceptor.class,
             DefaultJmsParameterChecker.class,
             TestServiceContextNameProvider.class,
             JsonSchemaLoader.class,
@@ -220,7 +219,8 @@ public class JmsAdapterToHandlerIT extends AbstractJmsAdapterGenerationIT {
 
             EventBufferSelector.class,
 
-            DefaultEventSourceDefinitionFactory.class
+            DefaultEventSourceDefinitionFactory.class,
+            JmsLoggerMetadataAdder.class
     })
     public WebApp war() {
         return new WebApp()

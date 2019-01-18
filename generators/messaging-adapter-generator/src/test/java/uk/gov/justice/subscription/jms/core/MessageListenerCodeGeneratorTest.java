@@ -98,7 +98,7 @@ public class MessageListenerCodeGeneratorTest {
                 "    }\n" +
                 ")\n" +
                 "@javax.interceptor.Interceptors({\n" +
-                "    uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor.class,\n" +
+                "    uk.gov.moj.base.package.name.MyContextEventListenerMyContextHandlerCommandJmsLoggerMetadataInterceptor.class,\n" +
                 "    uk.gov.moj.base.package.name.MyContextEventListenerMyContextHandlerCommandEventValidationInterceptor.class\n" +
                 "})\n" +
                 "@org.jboss.ejb3.annotation.Pool(\"my-context-handler-command-event-listener-pool\")\n" +
@@ -183,7 +183,7 @@ public class MessageListenerCodeGeneratorTest {
                 "    }\n" +
                 ")\n" +
                 "@javax.interceptor.Interceptors({\n" +
-                "    uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor.class,\n" +
+                "    uk.gov.moj.base.package.name.MyContextCommandHandlerMyContextHandlerCommandJmsLoggerMetadataInterceptor.class,\n" +
                 "    uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor.class\n" +
                 "})\n" +
                 "public class MyContextCommandHandlerMyContextHandlerCommandJmsListener implements javax.jms.MessageListener {\n" +
@@ -267,7 +267,7 @@ public class MessageListenerCodeGeneratorTest {
                 "    }\n" +
                 ")\n" +
                 "@javax.interceptor.Interceptors({\n" +
-                "    uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor.class,\n" +
+                "    uk.gov.moj.base.package.name.MyContextCommandApiMyContextHandlerCommandJmsLoggerMetadataInterceptor.class,\n" +
                 "    uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor.class\n" +
                 "})\n" +
                 "public class MyContextCommandApiMyContextHandlerCommandJmsListener implements javax.jms.MessageListener {\n" +

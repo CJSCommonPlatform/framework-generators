@@ -13,6 +13,7 @@ import uk.gov.justice.services.generators.commons.validator.RequestContentTypeRa
 import uk.gov.justice.subscription.jms.interceptor.EventFilterInterceptorCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.EventListenerInterceptorChainProviderCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.EventValidationInterceptorCodeGenerator;
+import uk.gov.justice.subscription.jms.interceptor.JmsLoggerMetadataInterceptorCodeGenerator;
 
 public class JmsEndpointGenerationObjects {
 
@@ -52,7 +53,8 @@ public class JmsEndpointGenerationObjects {
                 subscriptionMediaTypeToSchemaIdGenerator(),
                 eventFilterInterceptorCodeGenerator(),
                 eventValidationInterceptorCodeGenerator(),
-                eventListenerInterceptorChainProviderCodeGenerator());
+                eventListenerInterceptorChainProviderCodeGenerator(),
+                jmsLoggerMetadataInterceptorCodeGenerator());
     }
 
     public MessageListenerCodeGenerator messageListenerCodeGenerator() {
@@ -77,6 +79,10 @@ public class JmsEndpointGenerationObjects {
 
     public EventListenerInterceptorChainProviderCodeGenerator eventListenerInterceptorChainProviderCodeGenerator() {
         return new EventListenerInterceptorChainProviderCodeGenerator();
+    }
+
+    public JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator() {
+        return new JmsLoggerMetadataInterceptorCodeGenerator();
     }
 
     public SchemaIdParser schemaIdParser() {

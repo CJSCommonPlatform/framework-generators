@@ -8,12 +8,13 @@ import static org.junit.Assert.assertTrue;
 import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventEventFilter;
 import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventEventValidationInterceptor;
 import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventJmsListener;
+import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.api.subscription.Service2EventProcessorStructureEventJmsListener;
 import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsProcessor;
 import uk.gov.justice.services.adapter.messaging.DefaultSubscriptionJmsProcessor;
-import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor;
+import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
 import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.configuration.GlobalValueProducer;
@@ -107,6 +108,7 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
             Service2EventListenerAnotherPeopleEventJmsListener.class,
             Service2EventListenerAnotherPeopleEventEventFilter.class,
             Service2EventListenerAnotherPeopleEventEventValidationInterceptor.class,
+            Service2EventListenerAnotherPeopleEventJmsLoggerMetadataInterceptor.class,
 
             RecordingJsonSchemaValidator.class,
 
@@ -118,7 +120,6 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
             DefaultJmsEnvelopeSender.class,
             DefaultEnvelopeConverter.class,
             JsonSchemaValidationInterceptor.class,
-            JmsLoggerMetadataInterceptor.class,
             DefaultJmsParameterChecker.class,
             JmsAdapterToHandlerIT.TestServiceContextNameProvider.class,
             JsonSchemaLoader.class,
@@ -172,7 +173,8 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
             InterceptorCache.class,
             DispatcherCache.class,
 
-            DefaultEventSourceDefinitionFactory.class
+            DefaultEventSourceDefinitionFactory.class,
+            JmsLoggerMetadataAdder.class
     })
     public WebApp war() {
         return new WebApp()

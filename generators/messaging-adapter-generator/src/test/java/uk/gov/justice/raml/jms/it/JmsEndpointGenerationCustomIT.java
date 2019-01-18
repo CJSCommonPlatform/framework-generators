@@ -9,17 +9,20 @@ import uk.gov.justice.api.CustomEventListenerExampleEventEventFilterInterceptor;
 import uk.gov.justice.api.CustomEventListenerExampleEventEventListenerInterceptorChainProvider;
 import uk.gov.justice.api.CustomEventListenerExampleEventEventValidationInterceptor;
 import uk.gov.justice.api.CustomEventListenerExampleEventJmsListener;
+import uk.gov.justice.api.CustomEventListenerExampleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.api.CustomEventListenerPeopleEventEventFilter;
 import uk.gov.justice.api.CustomEventListenerPeopleEventEventFilterInterceptor;
 import uk.gov.justice.api.CustomEventListenerPeopleEventEventListenerInterceptorChainProvider;
 import uk.gov.justice.api.CustomEventListenerPeopleEventEventValidationInterceptor;
 import uk.gov.justice.api.CustomEventListenerPeopleEventJmsListener;
+import uk.gov.justice.api.CustomEventListenerPeopleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.api.mapper.ListenerMediaTypeToSchemaIdMapper;
 import uk.gov.justice.schema.service.CatalogProducer;
 import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.schema.service.SchemaCatalogService;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsProcessor;
+import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
 import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.configuration.ServiceContextNameProvider;
 import uk.gov.justice.services.common.converter.StringToJsonObjectConverter;
@@ -79,12 +82,14 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             CustomEventListenerPeopleEventEventListenerInterceptorChainProvider.class,
             CustomEventListenerPeopleEventEventValidationInterceptor.class,
             CustomEventListenerPeopleEventJmsListener.class,
+            CustomEventListenerPeopleEventJmsLoggerMetadataInterceptor.class,
 
             CustomEventListenerExampleEventEventFilter.class,
             CustomEventListenerExampleEventEventFilterInterceptor.class,
             CustomEventListenerExampleEventEventListenerInterceptorChainProvider.class,
             CustomEventListenerExampleEventEventValidationInterceptor.class,
             CustomEventListenerExampleEventJmsListener.class,
+            CustomEventListenerExampleEventJmsLoggerMetadataInterceptor.class,
 
             ObjectMapperProducer.class,
             DefaultEnvelopeConverter.class,
@@ -124,7 +129,8 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             MediaTypesMappingCacheInitialiser.class,
             SchemaIdMappingCacheInitialiser.class,
 
-            DefaultEventSourceDefinitionFactory.class
+            DefaultEventSourceDefinitionFactory.class,
+            JmsLoggerMetadataAdder.class
     })
     public WebApp war() {
         return new WebApp()

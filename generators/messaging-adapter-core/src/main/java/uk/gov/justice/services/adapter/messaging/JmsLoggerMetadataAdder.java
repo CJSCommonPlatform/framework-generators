@@ -12,7 +12,6 @@ import uk.gov.justice.services.messaging.logging.TraceLogger;
 import java.util.Optional;
 
 import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.jms.TextMessage;
 import javax.json.JsonObjectBuilder;
@@ -21,11 +20,13 @@ import org.slf4j.Logger;
 import org.slf4j.MDC;
 
 /**
- * Interceptor gets the Metadata from the payload and adds metadata information to the Logger Mapped
- * Diagnostic Context.  This can be added to the log output by setting %X{frameworkRequestData} in
- * the logger pattern.
+ * Gets the Metadata from the payload and adds metadata information to the Logger Mapped Diagnostic
+ * Context.  This can be added to the log output by setting %X{frameworkRequestData} in the logger
+ * pattern.
  */
-public class JmsLoggerMetadataInterceptor {
+public class JmsLoggerMetadataAdder {
+
+    private static final String SERVICE_COMPONENT = "serviceComponent";
 
     @Inject
     Logger logger;
@@ -42,11 +43,10 @@ public class JmsLoggerMetadataInterceptor {
     @Inject
     TraceLogger traceLogger;
 
-    @AroundInvoke
-    protected Object addRequestDataToMappedDiagnosticContext(final InvocationContext context) throws Exception {
+    public Object addRequestDataToMdc(final InvocationContext invocationContext, final String componentName) throws Exception {
         traceLogger.trace(logger, () -> "Adding Request data to MDC");
 
-        final Object[] parameters = context.getParameters();
+        final Object[] parameters = invocationContext.getParameters();
         parameterChecker.check(parameters);
         final TextMessage message = (TextMessage) parameters[0];
 
@@ -54,13 +54,15 @@ public class JmsLoggerMetadataInterceptor {
 
         addServiceContextNameIfPresent(builder);
 
+        builder.add(SERVICE_COMPONENT, componentName);
+
         addMetaDataToBuilder(message, builder);
 
         MDC.put(REQUEST_DATA, builder.build().toString());
 
         traceLogger.trace(logger, () -> "Request data added to MDC");
 
-        final Object result = context.proceed();
+        final Object result = invocationContext.proceed();
 
         traceLogger.trace(logger, () -> "Clearing MDC");
 

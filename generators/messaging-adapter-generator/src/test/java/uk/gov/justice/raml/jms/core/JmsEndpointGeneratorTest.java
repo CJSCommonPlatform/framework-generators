@@ -44,9 +44,7 @@ import static uk.gov.justice.services.test.utils.core.reflection.ReflectionUtil.
 import uk.gov.justice.maven.generator.io.files.parser.core.Generator;
 import uk.gov.justice.maven.generator.io.files.parser.core.GeneratorProperties;
 import uk.gov.justice.raml.jms.config.GeneratorPropertiesFactory;
-import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataInterceptor;
 import uk.gov.justice.services.adapter.messaging.JmsProcessor;
-import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.core.annotation.Adapter;
 import uk.gov.justice.services.core.annotation.Component;
 import uk.gov.justice.services.core.interceptor.InterceptorChainProcessor;
@@ -449,9 +447,10 @@ public class JmsEndpointGeneratorTest {
                 "ContextEventProcessorPeopleHandlerCommandJmsListener");
 
         final Interceptors interceptorsAnnotation = clazz.getAnnotation(Interceptors.class);
-        assertThat(interceptorsAnnotation, not(nullValue()));
-        assertThat(interceptorsAnnotation.value(), hasItemInArray(JsonSchemaValidationInterceptor.class));
-        assertThat(interceptorsAnnotation.value(), hasItemInArray(JmsLoggerMetadataInterceptor.class));
+        final Class[] interceptorClasses = interceptorsAnnotation.value();
+
+        assertThat(interceptorClasses[0].getName(), is("uk.test.ContextEventProcessorPeopleHandlerCommandJmsLoggerMetadataInterceptor"));
+        assertThat(interceptorClasses[1].getName(), is("uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor"));
     }
 
     @Test

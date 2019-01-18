@@ -11,9 +11,9 @@ import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED_TYPE;
 import static org.apache.commons.io.IOUtils.toInputStream;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -40,7 +40,6 @@ import java.io.ByteArrayInputStream;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
 import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -49,14 +48,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.MDC;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LoggerRequestDataFilterTest {
+public class LoggerRequestDataAdderTest {
 
     private static final String MESSAGE_ID_VALUE = randomUUID().toString();
     private static final String CONTENT_TYPE_VALUE = "application/content";
@@ -66,6 +64,8 @@ public class LoggerRequestDataFilterTest {
     private static final String NAME_VALUE = "context.name";
     private static final String USER_ID_VALUE = randomUUID().toString();
     private static final String SERVICE_CONTEXT_NAME_VALUE = "service.name";
+    private static final String SERVICE_COMPONENT = "serviceComponent";
+    private static final String COMPONENT_NAME = "EVENT_LISTENER";
 
     @Mock
     private Logger logger;
@@ -83,11 +83,11 @@ public class LoggerRequestDataFilterTest {
     private StringToJsonObjectConverter stringToJsonObjectConverter = new StringToJsonObjectConverter();
 
     @InjectMocks
-    private LoggerRequestDataFilter loggerRequestDataFilter;
+    private LoggerRequestDataAdder loggerRequestDataAdder;
 
     @Test
     @SuppressWarnings("unchecked")
-    public void shouldAddMetadataFromHeadersToMappedDiagnosticContextOnRequest() throws Exception {
+    public void shouldAddMetadataFromHeadersAndComponentNameToMappedDiagnosticContextOnRequest() throws Exception {
         final MultivaluedMap<String, String> headers = new MultivaluedHashMap();
         headers.putSingle(ID, MESSAGE_ID_VALUE);
         headers.putSingle(CONTENT_TYPE, CONTENT_TYPE_VALUE);
@@ -101,7 +101,7 @@ public class LoggerRequestDataFilterTest {
         when(context.getHeaders()).thenReturn(headers);
         when(serviceContextNameProvider.getServiceContextName()).thenReturn(SERVICE_CONTEXT_NAME_VALUE);
 
-        loggerRequestDataFilter.filter(context);
+        loggerRequestDataAdder.addToMdc(context, COMPONENT_NAME);
 
         assertThat(MDC.get(REQUEST_DATA), isJson(
                 allOf(
@@ -112,7 +112,8 @@ public class LoggerRequestDataFilterTest {
                         withJsonPath("$." + METADATA + ".context.user", equalTo(USER_ID_VALUE)),
                         withJsonPath("$." + CONTENT_TYPE, equalTo(CONTENT_TYPE_VALUE)),
                         withJsonPath("$." + ACCEPT, equalTo(ACCEPT_VALUE)),
-                        withJsonPath("$." + SERVICE_CONTEXT, equalTo(SERVICE_CONTEXT_NAME_VALUE))))
+                        withJsonPath("$." + SERVICE_CONTEXT, equalTo(SERVICE_CONTEXT_NAME_VALUE)),
+                        withJsonPath("$." + SERVICE_COMPONENT, equalTo(COMPONENT_NAME))))
         );
     }
 
@@ -129,14 +130,14 @@ public class LoggerRequestDataFilterTest {
         when(context.getMediaType()).thenReturn(new MediaType("", ""));
         when(context.getHeaders()).thenReturn(headers);
 
-        loggerRequestDataFilter.filter(context);
+        loggerRequestDataAdder.addToMdc(context, COMPONENT_NAME);
         assertThat(MDC.get(REQUEST_DATA), isJson(
                 allOf(
                         withJsonPath("$." + METADATA + ".id", equalTo(messageId)),
                         withJsonPath("$." + METADATA + ".name", equalTo(name))
                 )));
 
-        loggerRequestDataFilter.filter(context, mock(ContainerResponseContext.class));
+        loggerRequestDataAdder.clearMdc();
         assertThat(MDC.get(REQUEST_DATA), nullValue());
     }
 
@@ -158,7 +159,7 @@ public class LoggerRequestDataFilterTest {
         when(context.getMediaType()).thenReturn(new MediaType("application/test", "+json", "UTF-8"));
         when(context.getEntityStream()).thenReturn(toInputStream(jsonEnvelope.toDebugStringPrettyPrint(), "UTF-8"));
 
-        loggerRequestDataFilter.filter(context);
+        loggerRequestDataAdder.addToMdc(context, COMPONENT_NAME);
 
         assertThat(MDC.get(REQUEST_DATA), isJson(
                 allOf(
@@ -167,10 +168,11 @@ public class LoggerRequestDataFilterTest {
                         withJsonPath("$." + METADATA + ".context.session", equalTo(SESSION_ID_VALUE)),
                         withJsonPath("$." + METADATA + ".name", equalTo(NAME_VALUE)),
                         withJsonPath("$." + METADATA + ".context.user", equalTo(USER_ID_VALUE)),
-                        withJsonPath("$." + SERVICE_CONTEXT, equalTo(SERVICE_CONTEXT_NAME_VALUE))))
+                        withJsonPath("$." + SERVICE_CONTEXT, equalTo(SERVICE_CONTEXT_NAME_VALUE)),
+                        withJsonPath("$." + SERVICE_COMPONENT, equalTo(COMPONENT_NAME))))
         );
 
-        verify(context).setEntityStream(Mockito.any(ByteArrayInputStream.class));
+        verify(context).setEntityStream(any(ByteArrayInputStream.class));
     }
 
     @Test
@@ -193,7 +195,7 @@ public class LoggerRequestDataFilterTest {
         when(context.getMediaType()).thenReturn(new MediaType("application/test", "+json", "UTF-8"));
         when(context.getEntityStream()).thenReturn(toInputStream(jsonEnvelope.toDebugStringPrettyPrint(), "UTF-8"));
 
-        loggerRequestDataFilter.filter(context);
+        loggerRequestDataAdder.addToMdc(context, COMPONENT_NAME);
 
         assertThat(MDC.get(REQUEST_DATA), isJson(
                 allOf(
@@ -204,7 +206,8 @@ public class LoggerRequestDataFilterTest {
                         withJsonPath("$." + METADATA + ".context.user", equalTo(USER_ID_VALUE)),
                         withJsonPath("$." + CONTENT_TYPE, equalTo(CONTENT_TYPE_VALUE)),
                         withJsonPath("$." + ACCEPT, equalTo(ACCEPT_VALUE)),
-                        withJsonPath("$." + SERVICE_CONTEXT, equalTo(SERVICE_CONTEXT_NAME_VALUE))))
+                        withJsonPath("$." + SERVICE_CONTEXT, equalTo(SERVICE_CONTEXT_NAME_VALUE)),
+                        withJsonPath("$." + SERVICE_COMPONENT, equalTo(COMPONENT_NAME))))
         );
     }
 
@@ -226,7 +229,7 @@ public class LoggerRequestDataFilterTest {
         when(context.getMediaType()).thenReturn(new MediaType("application/test", "+json", "UTF-8"));
         when(context.getEntityStream()).thenReturn(toInputStream(jsonEnvelope.toDebugStringPrettyPrint(), "UTF-8"));
 
-        loggerRequestDataFilter.filter(context);
+        loggerRequestDataAdder.addToMdc(context, COMPONENT_NAME);
 
         assertThat(MDC.get(REQUEST_DATA), isJson(
                 allOf(
@@ -236,6 +239,7 @@ public class LoggerRequestDataFilterTest {
                         withJsonPath("$." + CONTENT_TYPE, equalTo(CONTENT_TYPE_VALUE)),
                         withJsonPath("$." + ACCEPT, equalTo(ACCEPT_VALUE)),
                         withJsonPath("$." + SERVICE_CONTEXT, equalTo(SERVICE_CONTEXT_NAME_VALUE)),
+                        withJsonPath("$." + SERVICE_COMPONENT, equalTo(COMPONENT_NAME)),
                         hasNoJsonPath("$." + METADATA + ".context.session"),
                         hasNoJsonPath("$." + METADATA + ".context.user")
                 )));
@@ -249,27 +253,39 @@ public class LoggerRequestDataFilterTest {
         when(context.getMediaType()).thenReturn(new MediaType("", ""));
         when(context.getHeaders()).thenReturn(headers);
 
-        loggerRequestDataFilter.filter(context);
+        loggerRequestDataAdder.addToMdc(context, COMPONENT_NAME);
 
-        assertThat(MDC.get(REQUEST_DATA), is("{}"));
+        assertThat(MDC.get(REQUEST_DATA), isJson(allOf(
+                withJsonPath("$." + SERVICE_COMPONENT, equalTo(COMPONENT_NAME)),
+                hasNoJsonPath("$." + CONTENT_TYPE),
+                hasNoJsonPath("$." + ACCEPT),
+                hasNoJsonPath("$." + SERVICE_CONTEXT),
+                hasNoJsonPath("$." + METADATA)
+        )));
     }
 
     @Test
     @SuppressWarnings("unchecked")
-    public void shouldReturnEmptyJsonIfPayloadIsEmpty() throws Exception {
+    public void shouldAddOnlyIfPayloadIsEmpty() throws Exception {
         final MultivaluedMap<String, String> headers = mock(MultivaluedMap.class);
 
         when(context.getHeaders()).thenReturn(headers);
         when(context.getMediaType()).thenReturn(new MediaType("application/test", "+json", "UTF-8"));
         when(context.getEntityStream()).thenReturn(toInputStream("", "UTF-8"));
 
-        loggerRequestDataFilter.filter(context);
+        loggerRequestDataAdder.addToMdc(context, COMPONENT_NAME);
 
-        assertThat(MDC.get(REQUEST_DATA), is("{}"));
+        assertThat(MDC.get(REQUEST_DATA), isJson(allOf(
+                withJsonPath("$." + SERVICE_COMPONENT, equalTo(COMPONENT_NAME)),
+                hasNoJsonPath("$." + CONTENT_TYPE),
+                hasNoJsonPath("$." + ACCEPT),
+                hasNoJsonPath("$." + SERVICE_CONTEXT),
+                hasNoJsonPath("$." + METADATA)
+        )));
     }
 
     @Test
-    @SuppressWarnings({"unchecked", "deprecation"})
+    @SuppressWarnings("unchecked")
     public void shouldIgnoreSubFieldCalledMetadata() throws Exception {
         final JsonObject payload = createObjectBuilder()
                 .add("toplevel", createObjectBuilder()
@@ -282,11 +298,17 @@ public class LoggerRequestDataFilterTest {
         when(context.getMediaType()).thenReturn(new MediaType("application/test", "+json", "UTF-8"));
         when(context.getEntityStream()).thenReturn(toInputStream(payload.toString(), "UTF-8"));
 
-        loggerRequestDataFilter.filter(context);
+        loggerRequestDataAdder.addToMdc(context, COMPONENT_NAME);
 
-        assertThat(MDC.get(REQUEST_DATA), is("{}"));
+        assertThat(MDC.get(REQUEST_DATA), isJson(allOf(
+                withJsonPath("$." + SERVICE_COMPONENT, equalTo(COMPONENT_NAME)),
+                hasNoJsonPath("$." + CONTENT_TYPE),
+                hasNoJsonPath("$." + ACCEPT),
+                hasNoJsonPath("$." + SERVICE_CONTEXT),
+                hasNoJsonPath("$." + METADATA)
+        )));
 
-        verify(context).setEntityStream(Mockito.any(ByteArrayInputStream.class));
+        verify(context).setEntityStream(any(ByteArrayInputStream.class));
     }
 
     @SuppressWarnings("unchecked")
@@ -297,10 +319,16 @@ public class LoggerRequestDataFilterTest {
         when(context.getHeaders()).thenReturn(headers);
         when(context.getMediaType()).thenReturn(APPLICATION_FORM_URLENCODED_TYPE);
 
-        loggerRequestDataFilter.filter(context);
+        loggerRequestDataAdder.addToMdc(context, COMPONENT_NAME);
 
-        assertThat(MDC.get(REQUEST_DATA), is("{}"));
+        assertThat(MDC.get(REQUEST_DATA), isJson(allOf(
+                withJsonPath("$." + SERVICE_COMPONENT, equalTo(COMPONENT_NAME)),
+                hasNoJsonPath("$." + CONTENT_TYPE),
+                hasNoJsonPath("$." + ACCEPT),
+                hasNoJsonPath("$." + SERVICE_CONTEXT),
+                hasNoJsonPath("$." + METADATA)
+        )));
 
-        verify(context, never()).setEntityStream(Mockito.any(ByteArrayInputStream.class));
+        verify(context, never()).setEntityStream(any(ByteArrayInputStream.class));
     }
 }
