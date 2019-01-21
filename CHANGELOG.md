@@ -5,6 +5,7 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [1.0.7] - 2019-01-21
 ### Added
 - Service component name to MDC logging data
 
