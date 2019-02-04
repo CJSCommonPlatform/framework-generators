@@ -5,6 +5,18 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [1.1.3] - 2019-02-04
+### Changed
+- Updated common-bom to 1.29.0
+- Updated even-store to 1.1.3
+- Updated framework-api to 3.2.0
+- Updated framework to 5.1.1
+- Updated generatopr-maven-plugin to 2.6.2
+- Updated raml-maven-plugin to 1.6.5
+- Updated test-utils to 1.22.0
+- Updated utilities to 1.16.4
+- Updated file-service to 1.17.4
+
 ## [1.1.2] - 2019-01-22
 ### Added
 - Service component name to MDC logging data
