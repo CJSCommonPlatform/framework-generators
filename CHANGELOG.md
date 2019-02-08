@@ -5,6 +5,11 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [1.1.4] - 2019-02-08
+### Changed
+- Updated SubscriptionWrapperFileParserFactory to handle subscription prioritisation.
+
+
 ## [1.1.3] - 2019-02-04
 ### Changed
 - Updated common-bom to 1.29.0
