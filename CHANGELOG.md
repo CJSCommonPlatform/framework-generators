@@ -5,7 +5,7 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
-## [1.2.0] - 2019-02-13
+## [1.2.0-M1] - 2019-02-13
 ### Changed
 - Updated even-store to 1.2.0-M1
 - Updated SubscriptionWrapperFileParserFactory to handle subscription prioritisation.
