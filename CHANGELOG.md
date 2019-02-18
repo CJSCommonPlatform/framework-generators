@@ -5,7 +5,7 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
-## [1.1.4] - 2019-02-18
+## [1.1.5] - 2019-02-18
 ### Changed
 - Updated even-store to 1.1.4
 - Reverted common-bom to 1.28.0
