@@ -4,9 +4,11 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.1.4] - 2019-02-18
 ### Changed
+- Updated even-store to 1.1.4
 - Reverted common-bom to 1.28.0
-- Reverted even-store to 1.1.2
 - Reverted framework-api to 3.1.0
 - Reverted framework to 5.1.0
 - Reverted generatopr-maven-plugin to 2.6.1
