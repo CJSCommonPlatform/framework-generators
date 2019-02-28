@@ -48,6 +48,7 @@ import uk.gov.justice.services.core.sender.Sender;
 import uk.gov.justice.services.core.sender.SenderProducer;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
+import uk.gov.justice.services.test.utils.common.validator.DummyJsonSchemaValidator;
 import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
 import uk.gov.justice.test.util.RecordingJmsEnvelopeSender;
 
@@ -131,7 +132,7 @@ public class RemoteCommandControllerIT {
             DefaultMediaTypesMappingCache.class,
             ActionNameToMediaTypesMappingObserver.class,
             MediaTypeProvider.class,
-            BackwardsCompatibleJsonSchemaValidator.class,
+            DummyJsonSchemaValidator.class,
             EnvelopeInspector.class,
 
             MediaTypesMappingCacheInitialiser.class,
