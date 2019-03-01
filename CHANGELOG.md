@@ -5,6 +5,12 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [1.2.0-M2] - 2019-03-01
+### Changed
+- Updated framework-api to 3.4.0-M1
+- Updated framework to 5.3.0-M3
+- Updated even-store to 1.2.0-M3
+
 ## [1.2.0-M1] - 2019-02-13
 ### Changed
 - Updated even-store to 1.2.0-M1
