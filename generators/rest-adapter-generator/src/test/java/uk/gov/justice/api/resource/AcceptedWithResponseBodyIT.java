@@ -56,6 +56,7 @@ import uk.gov.justice.services.generators.test.utils.interceptor.RecordingInterc
 import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.logging.DefaultHttpTraceLoggerHelper;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
+import uk.gov.justice.services.test.utils.common.validator.DummyJsonSchemaValidator;
 import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
 
 import java.io.UnsupportedEncodingException;
@@ -175,7 +176,7 @@ public class AcceptedWithResponseBodyIT {
             DefaultMediaTypesMappingCache.class,
             ActionNameToMediaTypesMappingObserver.class,
             MediaTypeProvider.class,
-            BackwardsCompatibleJsonSchemaValidator.class,
+            DummyJsonSchemaValidator.class,
             EnvelopeInspector.class,
             DefaultJsonValidationLoggerHelper.class,
 

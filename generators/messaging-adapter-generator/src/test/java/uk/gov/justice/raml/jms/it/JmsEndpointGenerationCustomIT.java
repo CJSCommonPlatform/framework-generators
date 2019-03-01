@@ -49,6 +49,7 @@ import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.jms.DefaultEnvelopeConverter;
 import uk.gov.justice.services.messaging.logging.DefaultJmsMessageLoggerHelper;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
+import uk.gov.justice.services.test.utils.common.validator.DummyJsonSchemaValidator;
 import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
 
 import java.util.UUID;
@@ -124,7 +125,7 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             DefaultMediaTypesMappingCache.class,
             ActionNameToMediaTypesMappingObserver.class,
 
-            BackwardsCompatibleJsonSchemaValidator.class,
+            DummyJsonSchemaValidator.class,
 
             MediaTypesMappingCacheInitialiser.class,
             SchemaIdMappingCacheInitialiser.class,

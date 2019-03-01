@@ -60,6 +60,7 @@ import uk.gov.justice.services.messaging.jms.EnvelopeConverter;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
 import uk.gov.justice.services.test.utils.common.envelope.EnvelopeRecordingInterceptor;
 import uk.gov.justice.services.test.utils.common.envelope.TestEnvelopeRecorder;
+import uk.gov.justice.services.test.utils.common.validator.DummyJsonSchemaValidator;
 import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
 
 import java.util.LinkedList;
@@ -152,7 +153,7 @@ public class DirectAdapterIT {
             DefaultMediaTypesMappingCache.class,
             ActionNameToMediaTypesMappingObserver.class,
             MediaTypeProvider.class,
-            BackwardsCompatibleJsonSchemaValidator.class,
+            DummyJsonSchemaValidator.class,
             EnvelopeInspector.class,
 
             MediaTypesMappingCacheInitialiser.class,
