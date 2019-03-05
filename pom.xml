@@ -34,16 +34,21 @@
         <cpp.repo.name>framework-generators</cpp.repo.name>
 
         <common-bom.version>1.29.0</common-bom.version>
-        <event-store.version>1.2.0-M3</event-store.version>
         <framework-api.version>3.4.0-M1</framework-api.version>
-        <framework.version>5.3.0-M3</framework.version>
         <generator-maven-plugin.version>2.6.2</generator-maven-plugin.version>
         <raml-maven-plugin.version>1.6.5</raml-maven-plugin.version>
         <test-utils.version>1.22.0</test-utils.version>
         <utilities.version>1.16.4</utilities.version>
         <file.service.version>1.17.4</file.service.version>
+
+        <!-- new stuff -->
+        <embedded-artemis.version>1.2.0</embedded-artemis.version>
+        <jboss-ejb3-ext-api.version>2.2.0.Final</jboss-ejb3-ext-api.version>
+        <file-service-persistence.version>1.17.4</file-service-persistence.version>
+
+        <event-store.version>1.2.0-M3</event-store.version>
     </properties>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -76,25 +81,6 @@
                 <version>${framework-api.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>uk.gov.justice.services</groupId>
-                <artifactId>framework-bom</artifactId>
-                <version>${framework.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>uk.gov.justice.event-store</groupId>
-                <artifactId>event-store-bom</artifactId>
-                <version>${event-store.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>uk.gov.justice.services</groupId>
-                <artifactId>file-service-persistence</artifactId>
-                <version>${file.service.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -49,12 +49,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>uk.gov.justice.services</groupId>
-            <artifactId>test-utils-core</artifactId>
-            <version>${framework.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>uk.gov.justice.utils</groupId>
             <artifactId>test-utils-logging-simple</artifactId>
             <type>pom</type>
@@ -73,18 +67,6 @@
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.json</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>uk.gov.justice.services</groupId>
-            <artifactId>core</artifactId>
-            <version>${framework.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>uk.gov.justice.event-store</groupId>
-            <artifactId>event-subscription-registry</artifactId>
-            <version>${event-store.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

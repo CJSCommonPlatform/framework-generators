@@ -37,8 +37,8 @@ import uk.gov.justice.services.core.annotation.FrameworkComponent;
 import uk.gov.justice.services.core.annotation.Handles;
 import uk.gov.justice.services.core.annotation.Remote;
 import uk.gov.justice.services.generators.commons.config.CommonGeneratorProperties;
+import uk.gov.justice.services.generators.test.utils.logging.DefaultTraceLogger;
 import uk.gov.justice.services.messaging.JsonEnvelope;
-import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
 import uk.gov.justice.services.test.utils.core.compiler.JavaCompilerUtility;
 
 import java.io.File;

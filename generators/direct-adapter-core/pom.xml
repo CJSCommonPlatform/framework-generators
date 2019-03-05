@@ -22,10 +22,6 @@
             <artifactId>framework-api-direct-adapter</artifactId>
         </dependency>
         <dependency>
-            <groupId>uk.gov.justice.services</groupId>
-            <artifactId>core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
@@ -68,12 +64,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>uk.gov.justice.services</groupId>
-            <artifactId>test-utils-core</artifactId>
-            <version>${framework.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>uk.gov.justice.utils</groupId>
             <artifactId>test-utils-logging-simple</artifactId>
             <type>pom</type>
@@ -82,12 +72,6 @@
         <dependency>
             <groupId>net.trajano.commons</groupId>
             <artifactId>commons-testing</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>uk.gov.justice.event-store</groupId>
-            <artifactId>event-subscription-registry</artifactId>
-            <version>${event-store.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
