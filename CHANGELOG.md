@@ -5,6 +5,9 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+### Added
+- Allow passing of additional properties in mulipart posts
+
 ## [1.2.0-M2] - 2019-03-01
 ### Changed
 - Updated framework-api to 3.4.0-M1
