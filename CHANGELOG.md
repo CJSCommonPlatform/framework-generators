@@ -5,6 +5,9 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+### Added
+- Allow passing of additional properties in mulipart posts
+
 ## [1.1.5] - 2019-02-18
 ### Changed
 - Updated even-store to 1.1.4
