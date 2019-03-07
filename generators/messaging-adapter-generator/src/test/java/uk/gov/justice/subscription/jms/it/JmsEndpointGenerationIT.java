@@ -67,7 +67,7 @@ import uk.gov.justice.services.messaging.logging.DefaultJmsMessageLoggerHelper;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
 import uk.gov.justice.services.subscription.SubscriptionManager;
 import uk.gov.justice.services.subscription.annotation.SubscriptionName;
-import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
+import uk.gov.justice.subscription.domain.eventsource.DefaultEventSourceDefinitionFactory;
 
 import java.util.Optional;
 import java.util.UUID;
