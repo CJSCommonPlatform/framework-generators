@@ -5,6 +5,9 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+### Added
+- Each generator has a corresponding Maven Mojo which allows independent dependency setting
+
 ## [2.0.0-M1] - 2019-03-07
 
 ### Changed

@@ -179,9 +179,9 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>uk.gov.justice.maven.generator</groupId>
-                <artifactId>generator-plugin</artifactId>
-                <version>${generator-maven-plugin.version}</version>
+                <groupId>uk.gov.justice.framework-generators</groupId>
+                <artifactId>messaging-adapter-generator-plugin</artifactId>
+                <version>${project.version}</version>
                 <configuration>
                     <generatorName>uk.gov.justice.raml.jms.core.JmsEndpointGeneratorFactory
                     </generatorName>
@@ -196,7 +196,7 @@
                     <execution>
                         <id>generate-all-event-processor</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>generate-messaging-adapter</goal>
                         </goals>
                         <phase>generate-test-sources</phase>
                         <configuration>
@@ -212,7 +212,7 @@
                     <execution>
                         <id>generate-command-controller</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>generate-messaging-adapter</goal>
                         </goals>
                         <phase>generate-test-sources</phase>
                         <configuration>
@@ -228,7 +228,7 @@
                     <execution>
                         <id>generate-command-handler</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>generate-messaging-adapter</goal>
                         </goals>
                         <phase>generate-test-sources</phase>
                         <configuration>
@@ -244,7 +244,7 @@
                     <execution>
                         <id>generate-event-listener</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>generate-messaging-adapter</goal>
                         </goals>
                         <phase>generate-test-sources</phase>
                         <configuration>
@@ -260,7 +260,7 @@
                     <execution>
                         <id>generate-custom-event-listener</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>generate-messaging-adapter</goal>
                         </goals>
                         <phase>generate-test-sources</phase>
                         <configuration>
@@ -276,7 +276,7 @@
                     <execution>
                         <id>generate-event-processor</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>generate-messaging-adapter</goal>
                         </goals>
                         <phase>generate-test-sources</phase>
                         <configuration>
@@ -292,7 +292,7 @@
                     <execution>
                         <id>generate-event-listener-subscription</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>generate-messaging-adapter</goal>
                         </goals>
                         <phase>generate-test-sources</phase>
                         <configuration>
@@ -319,7 +319,7 @@
                     <execution>
                         <id>generate-custom-event-listener-subscription</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>generate-messaging-adapter</goal>
                         </goals>
                         <phase>generate-test-sources</phase>
                         <configuration>
@@ -347,7 +347,7 @@
                     <execution>
                         <id>generate-event-processor-subscription</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>generate-messaging-adapter</goal>
                         </goals>
                         <phase>generate-test-sources</phase>
                         <configuration>
@@ -410,6 +410,34 @@
                             <portNames>
                                 <portName>random-jms-port</portName>
                             </portNames>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${plugins.maven.enforcer.version}</version>
+                <executions>
+                    <execution>
+                        <id>enforce-rules</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>${enforcer.java.version.range}</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>${enforcer.maven.version.range}</version>
+                                </requireMavenVersion>
+                                <requirePluginVersions>
+                                    <message>Please define plugin versions</message>
+                                    <banSnapshots>false</banSnapshots>
+                                </requirePluginVersions>
+                                <dependencyConvergence/>
+                            </rules>
                         </configuration>
                     </execution>
                 </executions>
