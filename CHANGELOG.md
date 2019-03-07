@@ -5,8 +5,13 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.0-M1] - 2019-03-07
+
+### Changed
+- Removed dependency on event-store
 ### Added
 - Allow passing of additional properties in mulipart posts
+
 
 ## [1.2.0-M2] - 2019-03-01
 ### Changed

@@ -53,9 +53,9 @@
             <artifactId>utilities-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>uk.gov.justice.event-store</groupId>
+            <groupId>uk.gov.justice.services</groupId>
             <artifactId>event-subscription</artifactId>
-            <version>${event-store.version}</version>
+            <version>${framework.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->

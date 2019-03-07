@@ -76,7 +76,7 @@ import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
 import uk.gov.justice.services.test.utils.common.validator.DummyJsonSchemaValidator;
-import uk.gov.justice.subscription.registry.DefaultEventSourceDefinitionFactory;
+import uk.gov.justice.subscription.domain.eventsource.DefaultEventSourceDefinitionFactory;
 
 import java.util.Optional;
 import java.util.Properties;
