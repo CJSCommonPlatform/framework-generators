@@ -4,6 +4,7 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## [2.0.0-M2] - 2019-03-08
 
 ### Added
 - Each generator has a corresponding Maven Mojo which allows independent dependency setting
