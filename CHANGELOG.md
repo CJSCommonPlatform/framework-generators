@@ -4,6 +4,11 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.0-M3] - 2019-03-11
+### Changed
+- Updated framework to 6.0.0-M2
+
 ## [2.0.0-M2] - 2019-03-08
 
 ### Added
@@ -15,7 +20,6 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 - Removed dependency on event-store
 ### Added
 - Allow passing of additional properties in mulipart posts
-
 
 ## [1.2.0-M2] - 2019-03-01
 ### Changed
