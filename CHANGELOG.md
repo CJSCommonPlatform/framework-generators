@@ -5,6 +5,11 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [1.1.7] - 2019-03-20
+- Updated framework-api to 3.1.1
+- Updated framework to 5.1.2
+- Updated even-store to 1.1.7
+
 ## [1.1.6] - 2019-03-06
 ### Added
 - Allow passing of additional properties in mulipart posts
