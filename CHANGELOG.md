@@ -5,6 +5,11 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.0-M7] - 2019-04-01
+### Changed
+- Update framework-api to 4.0.0-M5
+- Update framework to 6.0.0-M8
+
 ## [2.0.0-M6] - 2019-03-25
 ### Changed
 - Update framework-api to 4.0.0-M2
