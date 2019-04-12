@@ -8,6 +8,7 @@ import static uk.gov.justice.services.core.annotation.Component.COMMAND_HANDLER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_API;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_LISTENER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_PROCESSOR;
+import static uk.gov.justice.services.core.annotation.Component.EVENT_INDEXER;
 import static uk.gov.justice.services.core.annotation.Component.QUERY_API;
 import static uk.gov.justice.services.core.annotation.Component.QUERY_CONTROLLER;
 import static uk.gov.justice.services.core.annotation.Component.QUERY_VIEW;
@@ -40,6 +41,7 @@ public class ComponentDestinationTypeTest {
         assertThat(componentDestinationType.inputTypeFor(COMMAND_HANDLER), equalTo(Queue.class));
         assertThat(componentDestinationType.inputTypeFor(EVENT_PROCESSOR), equalTo(Topic.class));
         assertThat(componentDestinationType.inputTypeFor(EVENT_LISTENER), equalTo(Topic.class));
+        assertThat(componentDestinationType.inputTypeFor(EVENT_INDEXER), equalTo(Topic.class));
     }
 
     @Test
@@ -49,6 +51,7 @@ public class ComponentDestinationTypeTest {
         assertThat(componentDestinationType.inputTypeFor("CUSTOM_COMMAND_HANDLER"), equalTo(Queue.class));
         assertThat(componentDestinationType.inputTypeFor("CUSTOM_EVENT_PROCESSOR"), equalTo(Topic.class));
         assertThat(componentDestinationType.inputTypeFor("CUSTOM_EVENT_LISTENER"), equalTo(Topic.class));
+        assertThat(componentDestinationType.inputTypeFor("CUSTOM_EVENT_INDEXER"), equalTo(Topic.class));
     }
 
     @Test
@@ -58,6 +61,7 @@ public class ComponentDestinationTypeTest {
         assertThat(componentDestinationType.isSupported(COMMAND_HANDLER), equalTo(true));
         assertThat(componentDestinationType.isSupported(EVENT_PROCESSOR), equalTo(true));
         assertThat(componentDestinationType.isSupported(EVENT_LISTENER), equalTo(true));
+        assertThat(componentDestinationType.isSupported(EVENT_INDEXER), equalTo(true));
     }
 
     @Test
@@ -67,6 +71,7 @@ public class ComponentDestinationTypeTest {
         assertThat(componentDestinationType.isSupported("CUSTOM_COMMAND_HANDLER"), equalTo(true));
         assertThat(componentDestinationType.isSupported("CUSTOM_EVENT_PROCESSOR"), equalTo(true));
         assertThat(componentDestinationType.isSupported("CUSTOM_EVENT_LISTENER"), equalTo(true));
+        assertThat(componentDestinationType.isSupported("CUSTOM_EVENT_INDEXER"), equalTo(true));
     }
 
     @Test
