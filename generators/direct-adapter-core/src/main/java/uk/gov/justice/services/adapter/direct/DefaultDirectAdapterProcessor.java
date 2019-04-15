@@ -14,7 +14,6 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class DefaultDirectAdapterProcessor implements DirectAdapterProcessor {
 
-
     @Override
     public JsonEnvelope process(final JsonEnvelope envelope,
                                 final Function<InterceptorContext, Optional<JsonEnvelope>> interceptorContextFunction) {
@@ -22,5 +21,4 @@ public class DefaultDirectAdapterProcessor implements DirectAdapterProcessor {
         return interceptorContextFunction.apply(interceptorContextWithInput(envelope))
                 .orElseThrow(() -> new IllegalStateException(format("Interceptor chain returned an empty envelope for: %s", envelope)));
     }
-
 }
