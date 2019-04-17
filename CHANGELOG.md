@@ -5,6 +5,15 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.0-M12] - 2019-04-17
+### Changed
+- Updated framework-api to 4.0.0-M9
+- Update framework to 6.0.0-M15
+- Updated generator-maven-plugin to 2.7.0-M1
+- Updated test-utils to 1.22.0-M1
+- Updated utilities to 1.17.0-M2
+- Updated file-service to 1.17.4-M1
+
 ## [2.0.0-M11] - 2019-04-17
 ### Changed
 - Updated framework-api to 4.0.0-M8
