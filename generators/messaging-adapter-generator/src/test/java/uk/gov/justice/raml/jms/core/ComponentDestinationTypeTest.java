@@ -90,4 +90,5 @@ public class ComponentDestinationTypeTest {
 
         componentDestinationType.inputTypeFor(EVENT_API);
     }
+
 }
