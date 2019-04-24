@@ -42,6 +42,11 @@ public class ComponentDestinationType {
      *                                  Component}
      */
     public Class<? extends Destination> inputTypeFor(final String component) {
+
+        if (components.containsKey(component)) {
+            return components.get(component);
+        }
+
         if (component.contains(COMMAND_API)) {
             return components.get(COMMAND_API);
         }
@@ -64,10 +69,6 @@ public class ComponentDestinationType {
 
         if (component.contains(EVENT_INDEXER)) {
             return components.get(EVENT_INDEXER);
-        }
-
-        if (components.containsKey(component)) {
-            return components.get(component);
         }
 
         throw new IllegalArgumentException("No input destination type defined for service component of type " + component);
