@@ -3,9 +3,9 @@ package uk.gov.justice.raml.jms.core;
 import static uk.gov.justice.services.core.annotation.Component.COMMAND_API;
 import static uk.gov.justice.services.core.annotation.Component.COMMAND_CONTROLLER;
 import static uk.gov.justice.services.core.annotation.Component.COMMAND_HANDLER;
+import static uk.gov.justice.services.core.annotation.Component.EVENT_INDEXER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_LISTENER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_PROCESSOR;
-import static uk.gov.justice.services.core.annotation.Component.EVENT_INDEXER;
 
 import uk.gov.justice.services.core.annotation.Component;
 
@@ -75,12 +75,13 @@ public class ComponentDestinationType {
     }
 
     public boolean isSupported(final String component) {
-        return component.contains(COMMAND_API)
+        return components.containsKey(component)
+                || component.contains(COMMAND_API)
                 || component.contains(COMMAND_CONTROLLER)
                 || component.contains(COMMAND_HANDLER)
                 || component.contains(EVENT_PROCESSOR)
                 || component.contains(EVENT_LISTENER)
-                || component.contains(EVENT_INDEXER)
-                || components.containsKey(component);
+                || component.contains(EVENT_INDEXER);
     }
+
 }
