@@ -26,11 +26,6 @@ public class RecordingInterceptorChainProcessor extends EnvelopeRecorder impleme
         return Optional.ofNullable(responseTo(envelope));
     }
 
-    @Override
-    public Optional<JsonEnvelope> process(final JsonEnvelope jsonEnvelope) {
-        throw new NotImplementedException();
-    }
-
     public void setupResponse(final String payloadElementNameCriteria, final String payloadElementValueCriteria,
                               final JsonEnvelope envelopeToReturn) {
         mockResponses.add(new MockResponse(payloadElementNameCriteria, payloadElementValueCriteria, envelopeToReturn));
