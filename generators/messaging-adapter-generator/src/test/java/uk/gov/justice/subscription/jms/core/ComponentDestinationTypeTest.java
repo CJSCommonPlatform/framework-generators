@@ -1,4 +1,4 @@
-package uk.gov.justice.raml.jms.core;
+package uk.gov.justice.subscription.jms.core;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -23,11 +23,12 @@ import org.junit.rules.ExpectedException;
 
 public class ComponentDestinationTypeTest {
 
+
     private static final String UNKNOWN = "unknown";
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-
     private ComponentDestinationType componentDestinationType;
+
 
     @Before
     public void setup() {
@@ -90,4 +91,5 @@ public class ComponentDestinationTypeTest {
 
         componentDestinationType.inputTypeFor(EVENT_API);
     }
+
 }
