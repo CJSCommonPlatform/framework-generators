@@ -31,7 +31,7 @@ import static uk.gov.justice.services.core.annotation.Component.COMMAND_CONTROLL
 import static uk.gov.justice.services.core.annotation.Component.COMMAND_HANDLER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_LISTENER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_PROCESSOR;
-import static uk.gov.justice.services.core.interceptor.DefaultInterceptorContext.interceptorContextWithInput;
+import static uk.gov.justice.services.core.interceptor.InterceptorContext.interceptorContextWithInput;
 import static uk.gov.justice.services.generators.test.utils.builder.HttpActionBuilder.httpAction;
 import static uk.gov.justice.services.generators.test.utils.builder.RamlBuilder.messagingRamlWithDefaults;
 import static uk.gov.justice.services.generators.test.utils.builder.RamlBuilder.raml;
@@ -892,6 +892,7 @@ public class JmsEndpointGeneratorTest {
         verify(jmsProcessor).process(consumerCaptor.capture(), eq(message));
 
         final JsonEnvelope envelope = mock(JsonEnvelope.class);
+
         final InterceptorContext interceptorContext = interceptorContextWithInput(envelope);
         consumerCaptor.getValue().accept(interceptorContext);
 
