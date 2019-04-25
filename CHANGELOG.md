@@ -4,6 +4,10 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## [2.0.0-M14] - 2019-04-25
+### Changed
+- Adding support for EVENT_INDEXER component
+
 ## [2.0.0-M13] - 2019-04-25
 ### Changed
 - Updated framework-api to 4.0.0-M13
