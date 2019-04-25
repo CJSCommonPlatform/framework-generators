@@ -3,6 +3,7 @@ package uk.gov.justice.raml.jms.core;
 import static uk.gov.justice.services.core.annotation.Component.COMMAND_API;
 import static uk.gov.justice.services.core.annotation.Component.COMMAND_CONTROLLER;
 import static uk.gov.justice.services.core.annotation.Component.COMMAND_HANDLER;
+import static uk.gov.justice.services.core.annotation.Component.EVENT_INDEXER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_LISTENER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_PROCESSOR;
 
@@ -28,6 +29,7 @@ public class ComponentDestinationType {
         components.put(COMMAND_HANDLER, Queue.class);
         components.put(EVENT_PROCESSOR, Topic.class);
         components.put(EVENT_LISTENER, Topic.class);
+        components.put(EVENT_INDEXER, Topic.class);
     }
 
     /**
@@ -40,6 +42,11 @@ public class ComponentDestinationType {
      *                                  Component}
      */
     public Class<? extends Destination> inputTypeFor(final String component) {
+
+        if (components.containsKey(component)) {
+            return components.get(component);
+        }
+
         if (component.contains(COMMAND_API)) {
             return components.get(COMMAND_API);
         }
@@ -60,19 +67,20 @@ public class ComponentDestinationType {
             return components.get(EVENT_LISTENER);
         }
 
-        if (components.containsKey(component)) {
-            return components.get(component);
+        if (component.contains(EVENT_INDEXER)) {
+            return components.get(EVENT_INDEXER);
         }
 
         throw new IllegalArgumentException("No input destination type defined for service component of type " + component);
     }
 
     public boolean isSupported(final String component) {
-        return component.contains(COMMAND_API)
+        return components.containsKey(component)
+                || component.contains(COMMAND_API)
                 || component.contains(COMMAND_CONTROLLER)
                 || component.contains(COMMAND_HANDLER)
                 || component.contains(EVENT_PROCESSOR)
                 || component.contains(EVENT_LISTENER)
-                || components.containsKey(component);
+                || component.contains(EVENT_INDEXER);
     }
 }
