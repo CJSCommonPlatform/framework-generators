@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static uk.gov.justice.raml.jms.core.ClassNameFactory.EVENT_FILTER_INTERCEPTOR;
-import static uk.gov.justice.raml.jms.core.ClassNameFactory.EVENT_LISTENER_INTERCEPTOR_CHAIN_PROVIDER;
+import static uk.gov.justice.raml.jms.core.ClassNameFactory.EVENT_INTERCEPTOR_CHAIN_PROVIDER;
 import static uk.gov.justice.services.test.utils.core.compiler.JavaCompilerUtility.javaCompilerUtil;
 
 import uk.gov.justice.raml.jms.core.ClassNameFactory;
@@ -26,13 +26,13 @@ import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EventListenerInterceptorChainProviderCodeGeneratorTest {
+public class EventInterceptorChainProviderCodeGeneratorTest {
 
     private static final File CODE_GENERATION_OUTPUT_DIRECTORY = new File("./target/test-generation");
     private static final File COMPILATION_OUTPUT_DIRECTORY = new File(System.getProperty("java.io.tmpdir"), "interceptorChainProvider-generation");
 
     @InjectMocks
-    private EventListenerInterceptorChainProviderCodeGenerator eventListenerInterceptorChainProviderCodeGenerator;
+    private EventInterceptorChainProviderCodeGenerator eventInterceptorChainProviderCodeGenerator;
 
     @Test
     public void shouldGenerateAWorkingEventListenerInterceptorChainProviderWithTheCorrectInterceptorChainEntiresAndComponentName() throws Exception {
@@ -46,10 +46,10 @@ public class EventListenerInterceptorChainProviderCodeGeneratorTest {
         final ClassName eventFilterInterceptorClassName = ClassName.get(StubEventFilterInterceptor.class);
         final ClassNameFactory classNameFactory = mock(ClassNameFactory.class);
 
-        when(classNameFactory.classNameFor(EVENT_LISTENER_INTERCEPTOR_CHAIN_PROVIDER)).thenReturn(eventListenerInterceptorChainProviderClassName);
+        when(classNameFactory.classNameFor(EVENT_INTERCEPTOR_CHAIN_PROVIDER)).thenReturn(eventListenerInterceptorChainProviderClassName);
         when(classNameFactory.classNameFor(EVENT_FILTER_INTERCEPTOR)).thenReturn(eventFilterInterceptorClassName);
 
-        final TypeSpec typeSpec = eventListenerInterceptorChainProviderCodeGenerator.generate(
+        final TypeSpec typeSpec = eventInterceptorChainProviderCodeGenerator.generate(
                 componentName,
                 classNameFactory);
 

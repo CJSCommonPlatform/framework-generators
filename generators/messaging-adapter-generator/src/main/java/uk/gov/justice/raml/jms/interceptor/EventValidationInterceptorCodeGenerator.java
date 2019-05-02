@@ -18,14 +18,14 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 /**
- * Should generate a custom EventListenerValidationInterceptor that uses a custom Event Filter. Something like this:
+ * Should generate a custom EventValidationInterceptor that uses a custom Event Filter. Something like this:
  *
  * <pre>
  *  {@code
  *
  *     import static uk.gov.justice.services.messaging.jms.HeaderConstants.JMS_HEADER_CPPNAME;
  *
- *     public class MyCustomEventListenerValidationInterceptor extends JsonSchemaValidationInterceptor {
+ *     public class MyCustomEventValidationInterceptor extends JsonSchemaValidationInterceptor {
  *
  *         @literal @Inject
  *         private MyCustomEventFilter eventFilter;

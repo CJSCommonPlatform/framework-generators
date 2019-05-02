@@ -29,6 +29,7 @@ import static org.raml.model.ActionType.POST;
 import static org.raml.model.ActionType.TRACE;
 import static uk.gov.justice.services.core.annotation.Component.COMMAND_CONTROLLER;
 import static uk.gov.justice.services.core.annotation.Component.COMMAND_HANDLER;
+import static uk.gov.justice.services.core.annotation.Component.EVENT_INDEXER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_LISTENER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_PROCESSOR;
 import static uk.gov.justice.services.core.interceptor.InterceptorContext.interceptorContextWithInput;
@@ -405,6 +406,29 @@ public class JmsEndpointGeneratorTest {
         final Class<?> customEventFilterClass = eventFilter.getType();
 
         assertThat(customEventFilterClass.getName(), is("uk.test.CustomEventListenerPeopleEventEventFilter"));
+    }
+
+    @Test
+    public void shouldCreateJmsEndpointAnnotatedWithEventIndexerAdapter() throws Exception {
+        generator.run(
+                raml()
+                        .withBaseUri("message://event/listener/message/people")
+                        .with(resource()
+                                .withRelativeUri("/people.event")
+                                .with(httpAction(POST, "application/vnd.people.abc+json")))
+                        .build(),
+                configurationWithBasePackage(BASE_PACKAGE, outputFolder, new GeneratorPropertiesFactory().withServiceComponentOf(EVENT_INDEXER)));
+
+        final Class<?> clazz = COMPILER.compiledClassOf(
+                outputFolder.getRoot(),
+                outputFolder.getRoot(),
+                BASE_PACKAGE,
+                "PeopleEventListenerPeopleEventJmsListener");
+
+        final Adapter adapterAnnotation = clazz.getAnnotation(Adapter.class);
+        assertThat(adapterAnnotation, not(nullValue()));
+        assertThat(adapterAnnotation.value(), is(EVENT_INDEXER));
+
     }
 
     @Test

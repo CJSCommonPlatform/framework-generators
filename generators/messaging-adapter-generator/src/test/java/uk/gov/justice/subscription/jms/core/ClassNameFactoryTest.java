@@ -9,7 +9,7 @@ import org.junit.Test;
 public class ClassNameFactoryTest {
 
     @Test
-    public void shouldCreateClassNameFromBaseUriResourceUriAndClassNameSuffix() {
+    public void shouldCreateClassNameFromBaseUriResourceUriAndClassNameSuffixForEventListener() {
         final String basePackageName = "base.package";
         final String contextName = "my-context";
         final String componentName = "EVENT_LISTENER";
@@ -25,5 +25,25 @@ public class ClassNameFactoryTest {
 
         assertThat(className.packageName(), is(basePackageName));
         assertThat(className.simpleName(), is("MyContextEventListenerMyContextHandlerCommandClassNameSuffix"));
+    }
+
+
+    @Test
+    public void shouldCreateClassNameFromBaseUriResourceUriAndClassNameSuffixForEventIndexer() {
+        final String basePackageName = "base.package";
+        final String contextName = "my-context";
+        final String componentName = "EVENT_INDEXER";
+        final String jmsUri = "jms:topic:my-context.handler.command";
+
+        final ClassNameFactory classNameFactory = new ClassNameFactory(
+                basePackageName,
+                contextName,
+                componentName,
+                jmsUri);
+
+        final ClassName className = classNameFactory.classNameFor("ClassNameSuffix");
+
+        assertThat(className.packageName(), is(basePackageName));
+        assertThat(className.simpleName(), is("MyContextEventIndexerMyContextHandlerCommandClassNameSuffix"));
     }
 }

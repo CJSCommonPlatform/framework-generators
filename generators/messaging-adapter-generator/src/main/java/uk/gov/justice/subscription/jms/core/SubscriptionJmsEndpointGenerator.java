@@ -13,7 +13,7 @@ import uk.gov.justice.subscription.domain.subscriptiondescriptor.Event;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Subscription;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.SubscriptionsDescriptor;
 import uk.gov.justice.subscription.jms.interceptor.EventFilterInterceptorCodeGenerator;
-import uk.gov.justice.subscription.jms.interceptor.EventListenerInterceptorChainProviderCodeGenerator;
+import uk.gov.justice.subscription.jms.interceptor.EventInterceptorChainProviderCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.EventValidationInterceptorCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.JmsLoggerMetadataInterceptorCodeGenerator;
 import uk.gov.justice.subscription.jms.parser.SubscriptionWrapper;
@@ -39,7 +39,7 @@ public class SubscriptionJmsEndpointGenerator implements Generator<SubscriptionW
     private final SubscriptionMediaTypeToSchemaIdGenerator subscriptionMediaTypeToSchemaIdGenerator;
     private final EventFilterInterceptorCodeGenerator eventFilterInterceptorCodeGenerator;
     private final EventValidationInterceptorCodeGenerator eventValidationInterceptorCodeGenerator;
-    private final EventListenerInterceptorChainProviderCodeGenerator eventListenerInterceptorChainProviderCodeGenerator;
+    private final EventInterceptorChainProviderCodeGenerator eventInterceptorChainProviderCodeGenerator;
     private final JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator;
 
     public SubscriptionJmsEndpointGenerator(
@@ -48,7 +48,7 @@ public class SubscriptionJmsEndpointGenerator implements Generator<SubscriptionW
             final SubscriptionMediaTypeToSchemaIdGenerator subscriptionMediaTypeToSchemaIdGenerator,
             final EventFilterInterceptorCodeGenerator eventFilterInterceptorCodeGenerator,
             final EventValidationInterceptorCodeGenerator eventValidationInterceptorCodeGenerator,
-            final EventListenerInterceptorChainProviderCodeGenerator eventListenerInterceptorChainProviderCodeGenerator,
+            final EventInterceptorChainProviderCodeGenerator eventInterceptorChainProviderCodeGenerator,
             final JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator) {
 
         this.messageListenerCodeGenerator = messageListenerCodeGenerator;
@@ -56,7 +56,7 @@ public class SubscriptionJmsEndpointGenerator implements Generator<SubscriptionW
         this.subscriptionMediaTypeToSchemaIdGenerator = subscriptionMediaTypeToSchemaIdGenerator;
         this.eventFilterInterceptorCodeGenerator = eventFilterInterceptorCodeGenerator;
         this.eventValidationInterceptorCodeGenerator = eventValidationInterceptorCodeGenerator;
-        this.eventListenerInterceptorChainProviderCodeGenerator = eventListenerInterceptorChainProviderCodeGenerator;
+        this.eventInterceptorChainProviderCodeGenerator = eventInterceptorChainProviderCodeGenerator;
         this.jmsLoggerMetadataInterceptorCodeGenerator = jmsLoggerMetadataInterceptorCodeGenerator;
     }
 
@@ -121,7 +121,7 @@ public class SubscriptionJmsEndpointGenerator implements Generator<SubscriptionW
                     .add(eventFilterCodeGenerator.generate(subscription, classNameFactory))
                     .add(eventFilterInterceptorCodeGenerator.generate(classNameFactory))
                     .add(eventValidationInterceptorCodeGenerator.generate(classNameFactory))
-                    .add(eventListenerInterceptorChainProviderCodeGenerator.generate(
+                    .add(eventInterceptorChainProviderCodeGenerator.generate(
                             commonGeneratorProperties.getServiceComponent(),
                             classNameFactory));
 

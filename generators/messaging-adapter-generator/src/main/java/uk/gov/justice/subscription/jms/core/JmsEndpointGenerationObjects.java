@@ -11,7 +11,7 @@ import uk.gov.justice.services.generators.commons.validator.ContainsActionsRamlV
 import uk.gov.justice.services.generators.commons.validator.ContainsResourcesRamlValidator;
 import uk.gov.justice.services.generators.commons.validator.RequestContentTypeRamlValidator;
 import uk.gov.justice.subscription.jms.interceptor.EventFilterInterceptorCodeGenerator;
-import uk.gov.justice.subscription.jms.interceptor.EventListenerInterceptorChainProviderCodeGenerator;
+import uk.gov.justice.subscription.jms.interceptor.EventInterceptorChainProviderCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.EventValidationInterceptorCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.JmsLoggerMetadataInterceptorCodeGenerator;
 
@@ -77,8 +77,8 @@ public class JmsEndpointGenerationObjects {
         return new EventValidationInterceptorCodeGenerator();
     }
 
-    public EventListenerInterceptorChainProviderCodeGenerator eventListenerInterceptorChainProviderCodeGenerator() {
-        return new EventListenerInterceptorChainProviderCodeGenerator();
+    public EventInterceptorChainProviderCodeGenerator eventListenerInterceptorChainProviderCodeGenerator() {
+        return new EventInterceptorChainProviderCodeGenerator();
     }
 
     public JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator() {

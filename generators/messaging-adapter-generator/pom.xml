@@ -344,6 +344,34 @@
                             </generatorProperties>
                         </configuration>
                     </execution>
+
+                    <execution>
+                        <id>generate-event-indexer-subscription</id>
+                        <goals>
+                            <goal>generate-messaging-adapter</goal>
+                        </goals>
+                        <phase>generate-test-sources</phase>
+                        <configuration>
+                            <generatorName>
+                                uk.gov.justice.subscription.jms.core.SubscriptionJmsEndpointGeneratorFactory
+                            </generatorName>
+                            <parserName>
+                                uk.gov.justice.subscription.jms.parser.SubscriptionWrapperFileParserFactory
+                            </parserName>
+                            <sourceDirectory>${basedir}/src/test/resources/yaml</sourceDirectory>
+                            <outputDirectory>${project.build.directory}/generated-test-sources
+                            </outputDirectory>
+                            <basePackageName>uk.gov.justice.api.subscription</basePackageName>
+                            <includes>
+                                <include>**/event-indexer/subscriptions-descriptor.yaml</include>
+                                <include>**/event-sources.yaml</include>
+                            </includes>
+                            <generatorProperties
+                                    implementation="uk.gov.justice.services.generators.commons.config.CommonGeneratorProperties">
+                                <serviceComponent>EVENT_INDEXER</serviceComponent>
+                            </generatorProperties>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>generate-event-processor-subscription</id>
                         <goals>

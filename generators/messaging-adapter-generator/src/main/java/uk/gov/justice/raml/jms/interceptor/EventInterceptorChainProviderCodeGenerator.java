@@ -1,4 +1,4 @@
-package uk.gov.justice.subscription.jms.interceptor;
+package uk.gov.justice.raml.jms.interceptor;
 
 import static com.squareup.javapoet.ClassName.get;
 import static com.squareup.javapoet.MethodSpec.constructorBuilder;
@@ -7,12 +7,13 @@ import static com.squareup.javapoet.TypeSpec.classBuilder;
 import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.PUBLIC;
-import static uk.gov.justice.subscription.jms.core.ClassNameFactory.EVENT_FILTER_INTERCEPTOR;
-import static uk.gov.justice.subscription.jms.core.ClassNameFactory.EVENT_LISTENER_INTERCEPTOR_CHAIN_PROVIDER;
+import static uk.gov.justice.raml.jms.core.ClassNameFactory.EVENT_FILTER_INTERCEPTOR;
+import static uk.gov.justice.raml.jms.core.ClassNameFactory.EVENT_INTERCEPTOR_CHAIN_PROVIDER;
 
+import uk.gov.justice.raml.jms.core.ClassNameFactory;
+import uk.gov.justice.services.components.event.listener.interceptors.EventBufferInterceptor;
 import uk.gov.justice.services.core.interceptor.InterceptorChainEntry;
 import uk.gov.justice.services.core.interceptor.InterceptorChainEntryProvider;
-import uk.gov.justice.subscription.jms.core.ClassNameFactory;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 /**
- * Should generate a custom EventListenerInterceptorChainProvider that uses a custom generated
+ * Should generate a custom EventInterceptorChainProvider that uses a custom generated
  * EventFilterInterceptor.
  *
  * Something like this:
@@ -32,11 +33,12 @@ import com.squareup.javapoet.TypeSpec;
  * <pre>
  *  {@code
  *
- *     public class MyCustomEventListenerInterceptorChainProvider implements InterceptorChainEntryProvider {
+ *     public class MyCustomEventInterceptorChainProvider implements InterceptorChainEntryProvider {
  *
  *          private final List<InterceptorChainEntry> interceptorChainEntries = new ArrayList<>();
  *
- *          public ExampleEventListenerInterceptorChainProvider() {
+ *          public ExampleEventInterceptorChainProvider() {
+ *              interceptorChainEntries.add(new InterceptorChainEntry(1000, EventBufferInterceptor.class));
  *              interceptorChainEntries.add(new InterceptorChainEntry(2000, MyCustomEventFilterInterceptor.class));
  *          }
  *
@@ -54,12 +56,12 @@ import com.squareup.javapoet.TypeSpec;
  * }
  * </pre>
  */
-public class EventListenerInterceptorChainProviderCodeGenerator {
+public class EventInterceptorChainProviderCodeGenerator {
 
     public TypeSpec generate(final String componentName,
                              final ClassNameFactory classNameFactory) {
 
-        final ClassName className = classNameFactory.classNameFor(EVENT_LISTENER_INTERCEPTOR_CHAIN_PROVIDER);
+        final ClassName className = classNameFactory.classNameFor(EVENT_INTERCEPTOR_CHAIN_PROVIDER);
         final ClassName eventFilterInterceptorClassName = classNameFactory.classNameFor(EVENT_FILTER_INTERCEPTOR);
 
         return classBuilder(className)
@@ -89,9 +91,11 @@ public class EventListenerInterceptorChainProviderCodeGenerator {
     private MethodSpec createConstructor(final ClassName eventFilterInterceptorClassName) {
 
         final ClassName interceptorChainEntryClassName = get(InterceptorChainEntry.class);
+        final ClassName eventBufferInterceptorClassName = get(EventBufferInterceptor.class);
 
         return constructorBuilder()
                 .addModifiers(PUBLIC)
+                .addStatement("interceptorChainEntries.add(new $T(1000, $T.class))", interceptorChainEntryClassName, eventBufferInterceptorClassName)
                 .addStatement("interceptorChainEntries.add(new $T(2000, $T.class))", interceptorChainEntryClassName, eventFilterInterceptorClassName)
                 .build();
     }
