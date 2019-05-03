@@ -6,13 +6,13 @@ import static org.junit.Assert.assertThat;
 
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventFilter;
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventFilterInterceptor;
-import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventListenerInterceptorChainProvider;
+import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventInterceptorChainProvider;
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventValidationInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventJmsListener;
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventFilter;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventFilterInterceptor;
-import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventListenerInterceptorChainProvider;
+import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventInterceptorChainProvider;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventValidationInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventJmsListener;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventJmsLoggerMetadataInterceptor;
@@ -102,14 +102,14 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
 
             CustomEventListenerPeopleEventEventFilter.class,
             CustomEventListenerPeopleEventEventFilterInterceptor.class,
-            CustomEventListenerPeopleEventEventListenerInterceptorChainProvider.class,
+            CustomEventListenerPeopleEventEventInterceptorChainProvider.class,
             CustomEventListenerPeopleEventEventValidationInterceptor.class,
             CustomEventListenerPeopleEventJmsListener.class,
             CustomEventListenerPeopleEventJmsLoggerMetadataInterceptor.class,
 
             CustomEventListenerExampleEventEventFilter.class,
             CustomEventListenerExampleEventEventFilterInterceptor.class,
-            CustomEventListenerExampleEventEventListenerInterceptorChainProvider.class,
+            CustomEventListenerExampleEventEventInterceptorChainProvider.class,
             CustomEventListenerExampleEventEventValidationInterceptor.class,
             CustomEventListenerExampleEventJmsListener.class,
             CustomEventListenerExampleEventJmsLoggerMetadataInterceptor.class,

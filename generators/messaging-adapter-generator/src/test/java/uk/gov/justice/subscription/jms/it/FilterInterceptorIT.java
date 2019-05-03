@@ -11,7 +11,7 @@ import static uk.gov.justice.services.messaging.JsonEnvelope.metadataBuilder;
 
 import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventEventFilter;
 import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventEventFilterInterceptor;
-import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventEventListenerInterceptorChainProvider;
+import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventEventInterceptorChainProvider;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.converter.jackson.ObjectMapperProducer;
@@ -43,6 +43,8 @@ import org.apache.openejb.testing.Module;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+
+//TODO: Might need to add indexer test
 @RunWith(ApplicationComposer.class)
 @Adapter("EVENT_LISTENER")
 public class FilterInterceptorIT {
@@ -59,7 +61,7 @@ public class FilterInterceptorIT {
     @Classes(cdi = true, value = {
             Service2EventListenerAnotherPeopleEventEventFilter.class,
             Service2EventListenerAnotherPeopleEventEventFilterInterceptor.class,
-            Service2EventListenerAnotherPeopleEventEventListenerInterceptorChainProvider.class,
+            Service2EventListenerAnotherPeopleEventEventInterceptorChainProvider.class,
 
             RecordingEventAAHandler.class,
 

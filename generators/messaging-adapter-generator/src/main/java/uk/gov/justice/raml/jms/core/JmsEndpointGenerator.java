@@ -7,7 +7,7 @@ import static uk.gov.justice.services.generators.commons.helper.GeneratedClassWr
 import uk.gov.justice.maven.generator.io.files.parser.core.Generator;
 import uk.gov.justice.maven.generator.io.files.parser.core.GeneratorConfig;
 import uk.gov.justice.raml.jms.interceptor.EventFilterInterceptorCodeGenerator;
-import uk.gov.justice.raml.jms.interceptor.EventListenerInterceptorChainProviderCodeGenerator;
+import uk.gov.justice.raml.jms.interceptor.EventInterceptorChainProviderCodeGenerator;
 import uk.gov.justice.raml.jms.interceptor.EventValidationInterceptorCodeGenerator;
 import uk.gov.justice.raml.jms.interceptor.JmsLoggerMetadataInterceptorCodeGenerator;
 import uk.gov.justice.raml.jms.validator.BaseUriRamlValidator;
@@ -40,7 +40,7 @@ public class JmsEndpointGenerator implements Generator<Raml> {
     private final MediaTypeToSchemaIdGenerator mediaTypeToSchemaIdGenerator = new MediaTypeToSchemaIdGenerator();
     private final EventFilterInterceptorCodeGenerator eventFilterInterceptorCodeGenerator = new EventFilterInterceptorCodeGenerator();
     private final EventValidationInterceptorCodeGenerator eventValidationInterceptorCodeGenerator = new EventValidationInterceptorCodeGenerator();
-    private final EventListenerInterceptorChainProviderCodeGenerator eventListenerInterceptorChainProviderCodeGenerator = new EventListenerInterceptorChainProviderCodeGenerator();
+    private final EventInterceptorChainProviderCodeGenerator eventInterceptorChainProviderCodeGenerator = new EventInterceptorChainProviderCodeGenerator();
     private final JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator = new JmsLoggerMetadataInterceptorCodeGenerator();
 
     private final RamlValidator validator = new CompositeRamlValidator(
@@ -92,7 +92,7 @@ public class JmsEndpointGenerator implements Generator<Raml> {
                     .add(eventFilterCodeGenerator.generate(resource, classNameFactory))
                     .add(eventFilterInterceptorCodeGenerator.generate(classNameFactory))
                     .add(eventValidationInterceptorCodeGenerator.generate(classNameFactory))
-                    .add(eventListenerInterceptorChainProviderCodeGenerator.generate(
+                    .add(eventInterceptorChainProviderCodeGenerator.generate(
                             commonGeneratorProperties.getServiceComponent(),
                             classNameFactory));
 

@@ -1,5 +1,6 @@
 package uk.gov.justice.subscription.jms.core;
 
+import static uk.gov.justice.services.core.annotation.Component.EVENT_INDEXER;
 import static uk.gov.justice.services.core.annotation.Component.EVENT_LISTENER;
 
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Event;
@@ -22,7 +23,7 @@ public class JmsEndPointGeneratorUtil {
     }
 
     static boolean shouldGenerateEventFilter(final List<Event> events, final String component) {
-        return component.contains(EVENT_LISTENER) && !events.isEmpty();
+        return (component.contains(EVENT_LISTENER) || component.contains(EVENT_INDEXER))&& !events.isEmpty();
     }
 
     static boolean shouldListenToAllMessages(final List<Event> events, final String component) {

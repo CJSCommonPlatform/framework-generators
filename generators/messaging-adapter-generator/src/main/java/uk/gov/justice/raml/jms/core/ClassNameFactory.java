@@ -10,7 +10,7 @@ public class ClassNameFactory {
     public static final String JMS_LISTENER = "JmsListener";
     public static final String EVENT_FILTER = "EventFilter";
     public static final String EVENT_FILTER_INTERCEPTOR = "EventFilterInterceptor";
-    public static final String EVENT_LISTENER_INTERCEPTOR_CHAIN_PROVIDER = "EventListenerInterceptorChainProvider";
+    public static final String EVENT_INTERCEPTOR_CHAIN_PROVIDER = "EventInterceptorChainProvider";
     public static final String EVENT_VALIDATION_INTERCEPTOR = "EventValidationInterceptor";
     public static final String JMS_LOGGER_METADATA_INTERCEPTOR = "JmsLoggerMetadataInterceptor";
 

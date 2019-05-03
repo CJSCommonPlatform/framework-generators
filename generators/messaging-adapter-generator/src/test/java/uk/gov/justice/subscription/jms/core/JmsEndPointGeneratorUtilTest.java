@@ -14,7 +14,7 @@ import org.junit.Test;
 public class JmsEndPointGeneratorUtilTest {
 
     @Test
-    public void shouldGenerateEventFilterCheck() {
+    public void shouldGenerateEventFilterForEventListenerCheck() {
 
         final Event event = event()
                 .withName("my-context.events.something-happened")
@@ -22,6 +22,19 @@ public class JmsEndPointGeneratorUtilTest {
                 .build();
 
         boolean shouldGenerateEventFilter = shouldGenerateEventFilter(asList(event), "EVENT_LISTENER");
+
+        assertThat(shouldGenerateEventFilter, is(true));
+    }
+
+    @Test
+    public void shouldGenerateEventFilterForEventIndexerCheck() {
+
+        final Event event = event()
+                .withName("my-context.events.something-happened")
+                .withSchemaUri("http://justice.gov.uk/json/schemas/domains/example/my-context.events.something-happened.json")
+                .build();
+
+        boolean shouldGenerateEventFilter = shouldGenerateEventFilter(asList(event), "EVENT_INDEXER");
 
         assertThat(shouldGenerateEventFilter, is(true));
     }
