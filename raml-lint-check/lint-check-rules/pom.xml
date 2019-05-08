@@ -63,8 +63,8 @@
         </dependency>
         <dependency>
             <groupId>uk.gov.justice.maven</groupId>
-            <artifactId>raml-maven-test-utils</artifactId>
-            <version>${raml-maven-plugin.version}</version>
+            <artifactId>maven-test-utils</artifactId>
+            <version>${maven-test-utils.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

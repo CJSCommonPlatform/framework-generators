@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
+
     <modules>
         <module>generators-commons</module>
         <module>generators-test-utils</module>
@@ -27,7 +28,8 @@
         <module>direct-client-generator-plugin</module>
         <module>rest-client-generator-plugin</module>
         <module>rest-adapter-generator-plugin</module>
-
+        <module>unifiedsearch-client-generator</module>
+        <module>unifiedsearch-client-generator-plugin</module>
     </modules>
 
     <artifactId>generators</artifactId>

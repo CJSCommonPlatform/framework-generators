@@ -10,6 +10,8 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import uk.gov.justice.services.generators.commons.helper.FileParserException;
+import uk.gov.justice.services.generators.commons.helper.PathToUrlResolver;
 import uk.gov.justice.subscription.EventSourcesParser;
 import uk.gov.justice.subscription.domain.eventsource.EventSourceDefinition;
 

@@ -1,4 +1,4 @@
-package uk.gov.justice.subscription.jms.parser;
+package uk.gov.justice.services.generators.commons.helper;
 
 import static java.lang.String.format;
 
@@ -12,7 +12,7 @@ public class PathToUrlResolver {
         try {
             return baseDir.resolve(path).toUri().toURL();
         } catch (final MalformedURLException e) {
-            throw new FileParserException(format("Cannot resolve path as URL %s", path), e);
+            throw new FileParserException(format("Cannot resolve path as URL %s", path.toFile()), e);
         }
     }
 }

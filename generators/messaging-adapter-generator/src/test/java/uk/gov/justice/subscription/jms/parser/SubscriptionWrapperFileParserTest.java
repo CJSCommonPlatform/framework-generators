@@ -55,6 +55,7 @@ public class SubscriptionWrapperFileParserTest {
     @SuppressWarnings("ConstantConditions")
     private Path getFromClasspath(final String name) {
         final String fullPath = getClass().getClassLoader().getResource(name).getPath();
+
         return get(formatPathIfWindowsFileSystem(fullPath));
     }
 
