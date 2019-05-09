@@ -4,6 +4,11 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.0-M15] - 2019-05-09
+### Changed
+- Added Handler Generator for EVENT_INDEXER component
+
 ## [2.0.0-M14] - 2019-04-25
 ### Changed
 - Adding support for EVENT_INDEXER component
