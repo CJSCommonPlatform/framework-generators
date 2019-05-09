@@ -2,6 +2,8 @@ package uk.gov.justice.subscription.jms.parser;
 
 import static java.util.stream.Collectors.toList;
 
+import uk.gov.justice.services.generators.commons.helper.FileParserException;
+import uk.gov.justice.services.generators.commons.helper.PathToUrlResolver;
 import uk.gov.justice.subscription.EventSourcesParser;
 import uk.gov.justice.subscription.domain.eventsource.EventSourceDefinition;
 

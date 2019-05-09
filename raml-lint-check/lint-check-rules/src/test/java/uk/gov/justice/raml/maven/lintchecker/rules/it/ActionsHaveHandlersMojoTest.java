@@ -3,8 +3,8 @@ package uk.gov.justice.raml.maven.lintchecker.rules.it;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import uk.gov.justice.maven.test.utils.BetterAbstractMojoTestCase;
 import uk.gov.justice.raml.maven.lintchecker.rules.LintCheckMojo;
-import uk.gov.justice.raml.maven.test.utils.BetterAbstractMojoTestCase;
 
 import java.io.File;
 

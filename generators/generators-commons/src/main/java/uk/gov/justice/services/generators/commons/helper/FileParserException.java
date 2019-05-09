@@ -1,4 +1,4 @@
-package uk.gov.justice.subscription.jms.parser;
+package uk.gov.justice.services.generators.commons.helper;
 
 public class FileParserException extends RuntimeException {
 

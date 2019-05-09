@@ -2,13 +2,14 @@ package uk.gov.justice.subscription.jms.parser;
 
 import uk.gov.justice.maven.generator.io.files.parser.FileParserFactory;
 import uk.gov.justice.services.common.converter.jackson.ObjectMapperProducer;
+import uk.gov.justice.services.generators.commons.helper.PathToUrlResolver;
+import uk.gov.justice.services.yaml.YamlFileValidator;
+import uk.gov.justice.services.yaml.YamlParser;
+import uk.gov.justice.services.yaml.YamlSchemaLoader;
+import uk.gov.justice.services.yaml.YamlToJsonObjectConverter;
 import uk.gov.justice.subscription.EventSourcesParser;
 import uk.gov.justice.subscription.SubscriptionHelper;
 import uk.gov.justice.subscription.SubscriptionsDescriptorParser;
-import uk.gov.justice.subscription.yaml.parser.YamlFileValidator;
-import uk.gov.justice.subscription.yaml.parser.YamlParser;
-import uk.gov.justice.subscription.yaml.parser.YamlSchemaLoader;
-import uk.gov.justice.subscription.yaml.parser.YamlToJsonObjectConverter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
