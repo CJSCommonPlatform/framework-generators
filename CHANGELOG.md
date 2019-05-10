@@ -5,6 +5,10 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.0-M16] - 2019-05-10
+### Changed
+- Refactor: Moved TransformerApi from json-transformer project in framework-api
+
 ## [2.0.0-M15] - 2019-05-09
 ### Changed
 - Added Handler Generator for EVENT_INDEXER component
