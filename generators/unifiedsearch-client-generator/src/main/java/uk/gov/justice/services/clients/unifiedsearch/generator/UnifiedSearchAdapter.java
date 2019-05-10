@@ -1,6 +1,6 @@
 package uk.gov.justice.services.clients.unifiedsearch.generator;
 
-import uk.gov.justice.json.api.TransformerApi;
+import uk.gov.justice.services.unifiedsearch.TransformerApi;
 import uk.gov.justice.services.unifiedsearch.UnifiedSearchIndexer;
 
 import javax.inject.Inject;
