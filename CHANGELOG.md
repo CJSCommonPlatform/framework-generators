@@ -5,6 +5,9 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+### Fix
+- Unifiedsearch client generator multiple event fix
+
 ## [2.0.0-M16] - 2019-05-10
 ### Changed
 - Refactor: Moved TransformerApi from json-transformer project in framework-api
