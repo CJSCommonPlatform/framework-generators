@@ -6,7 +6,6 @@ import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.PUBLIC;
 import static uk.gov.justice.services.generators.commons.config.GeneratorPropertiesHelper.serviceComponentOf;
 import static uk.gov.justice.services.generators.commons.helper.GeneratedClassWriter.writeClass;
-import static uk.gov.justice.services.generators.commons.helper.Names.buildJavaFriendlyName;
 
 import uk.gov.justice.maven.generator.io.files.parser.core.Generator;
 import uk.gov.justice.maven.generator.io.files.parser.core.GeneratorConfig;
@@ -18,6 +17,9 @@ import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.logging.TraceLogger;
 import uk.gov.justice.services.unifiedsearch.UnifiedSearchIndexer;
 import uk.gov.justice.services.unifiedsearch.UnifiedSearchName;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
@@ -39,29 +41,43 @@ public class UnifiedSearchClientGenerator implements Generator<UnifiedSearchDesc
 
     private static final String ENVELOPE = "jsonEnvelope";
 
-    private final String UNIFIED_SEARCH_EVENT_INDEXER = "UnifiedSearchEventIndexer";
 
     @Override
     public void run(final UnifiedSearchDescriptor unifiedSearchDescriptor, final GeneratorConfig generatorConfig) {
-        final TypeSpec.Builder classSpec = generateHandler(unifiedSearchDescriptor, generatorConfig);
-        writeClass(generatorConfig, generatorConfig.getBasePackageName(), classSpec.build(), logger);
-        generateHandler(unifiedSearchDescriptor, generatorConfig);
+
+        final List<Event> eventList = unifiedSearchDescriptor.getEvents();
+        final String serviceName = unifiedSearchDescriptor.getService();
+        final ClassNameFactory classNameFactory = new ClassNameFactory(generatorConfig.getBasePackageName(), serviceName);
+
+        final Stream<TypeSpec> generatedClasses = eventList.stream().map(event -> generatedClassesFrom(event, classNameFactory, generatorConfig));
+        generatedClasses.forEach(generatedClass -> writeClass(generatorConfig, generatorConfig.getBasePackageName(), generatedClass, logger));
+    }
+
+    private TypeSpec generatedClassesFrom(final Event event,
+                                      final ClassNameFactory classNameFactory,
+                                      final GeneratorConfig generatorConfig) {
+
+
+        final String className = classNameFactory.classNameFor().simpleName();
+        final TypeSpec.Builder serviceComponentTypeSpec = serviceComponentTypeSpec(generatorConfig, className);
+        final TypeSpec.Builder builder = generateServiceComponentClassSpec(event, serviceComponentTypeSpec, className);
+
+        return builder.build();
     }
 
 
-    private TypeSpec.Builder generateHandler(final UnifiedSearchDescriptor unifiedSearchDescriptor, final GeneratorConfig generatorConfig) {
-        final TypeSpec.Builder classSpec = classSpecOf(generatorConfig);
-        for (final Event event : unifiedSearchDescriptor.getEvents()) {
-            fieldSpec(classSpec, event);
-            methodSpec(classSpec, event);
-        }
+    private TypeSpec.Builder generateServiceComponentClassSpec(final Event event,
+                                                               final TypeSpec.Builder classSpec,
+                                                               final String className) {
+        fieldSpec(classSpec, event, className);
+        methodSpec(classSpec, event);
+
         return classSpec;
     }
 
-    private TypeSpec.Builder classSpecOf(final GeneratorConfig generatorConfig) {
+    private TypeSpec.Builder serviceComponentTypeSpec(final GeneratorConfig generatorConfig, final String className) {
         final String serviceComponent = serviceComponentOf(generatorConfig);
-        final String className = classNameOf(UNIFIED_SEARCH_EVENT_INDEXER);
-        loggerConstantField(className);
+
         return TypeSpec.classBuilder(className)
                 .addModifiers(PUBLIC, FINAL)
                 .addAnnotation(AnnotationSpec.builder(ServiceComponent.class)
@@ -69,9 +85,6 @@ public class UnifiedSearchClientGenerator implements Generator<UnifiedSearchDesc
                         .build());
     }
 
-    protected String classNameOf(final String serviceComponent) {
-        return buildJavaFriendlyName(format(serviceComponent));
-    }
 
     private FieldSpec loggerConstantField(final String className) {
         final ClassName classLoggerFactory = ClassName.get(LoggerFactory.class);
@@ -84,8 +97,10 @@ public class UnifiedSearchClientGenerator implements Generator<UnifiedSearchDesc
                 .build();
     }
 
-    private void fieldSpec(TypeSpec.Builder classSpec, Event event) {
-        classSpec.addField(loggerConstantField(UNIFIED_SEARCH_EVENT_INDEXER));
+    private void fieldSpec(final TypeSpec.Builder classSpec,
+                           final Event event,
+                           final String className) {
+        classSpec.addField(loggerConstantField(className));
         classSpec.addField(FieldSpec.builder(TraceLogger.class,
                 TRACE_LOGGER_FIELD)
                 .addModifiers(PRIVATE)

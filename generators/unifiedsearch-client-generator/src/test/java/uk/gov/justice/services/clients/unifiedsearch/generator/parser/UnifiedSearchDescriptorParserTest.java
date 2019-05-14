@@ -58,10 +58,15 @@ public class UnifiedSearchDescriptorParserTest {
 
     private void assertExampleEvent(final UnifiedSearchDescriptor unifiedSearchDescriptor) {
         final List<Event> events = unifiedSearchDescriptor.getEvents();
-        assertThat(events.size(), is(1));
+        assertThat(events.size(), is(2));
+
         assertThat(events.get(0).getName(), is("example.recipe-added"));
-        assertThat(events.get(0).getIndexName(), is("case_details"));
-        assertThat(events.get(0).getTransformerConfig(), is("/json/sample/prosecutioncase-to-case-spec.json"));
+        assertThat(events.get(0).getIndexName(), is("recipe_added_index"));
+        assertThat(events.get(0).getTransformerConfig(), is("/json/sample/example.recipe-added-spec.json"));
+
+        assertThat(events.get(1).getName(), is("example.recipe-removed"));
+        assertThat(events.get(1).getIndexName(), is("recipe_removed_index"));
+        assertThat(events.get(1).getTransformerConfig(), is("/json/sample/example.recipe-removed-spec.json"));
     }
 
 }
