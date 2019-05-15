@@ -48,8 +48,8 @@ import uk.gov.justice.services.core.sender.SenderProducer;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
 import uk.gov.justice.services.test.utils.common.validator.DummyJsonSchemaValidator;
+import uk.gov.justice.services.test.utils.messaging.jms.RecordingJmsEnvelopeSender;
 import uk.gov.justice.subscription.domain.eventsource.DefaultEventSourceDefinitionFactory;
-import uk.gov.justice.test.util.RecordingJmsEnvelopeSender;
 
 import java.util.List;
 import java.util.Optional;
@@ -154,7 +154,7 @@ public class RemoteCommandControllerIT {
 
     @Before
     public void setUp() {
-        envelopeSender.init();
+        envelopeSender.clear();
     }
 
     @Test

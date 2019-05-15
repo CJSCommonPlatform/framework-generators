@@ -68,11 +68,11 @@ import uk.gov.justice.services.generators.test.utils.interceptor.EnvelopeRecorde
 import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.jms.DefaultEnvelopeConverter;
-import uk.gov.justice.services.messaging.jms.DefaultJmsEnvelopeSender;
 import uk.gov.justice.services.messaging.logging.DefaultJmsMessageLoggerHelper;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
 import uk.gov.justice.services.subscription.SubscriptionManager;
 import uk.gov.justice.services.subscription.annotation.SubscriptionName;
+import uk.gov.justice.services.test.utils.messaging.jms.DummyJmsEnvelopeSender;
 import uk.gov.justice.subscription.domain.eventsource.DefaultEventSourceDefinitionFactory;
 
 import java.util.Optional;
@@ -121,7 +121,7 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             ServiceComponentObserver.class,
             DefaultJmsProcessor.class,
             SenderProducer.class,
-            DefaultJmsEnvelopeSender.class,
+            DummyJmsEnvelopeSender.class,
             DefaultEnvelopeConverter.class,
             JsonSchemaValidationInterceptor.class,
             DefaultJmsParameterChecker.class,
