@@ -67,6 +67,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>uk.gov.justice.services</groupId>
+            <artifactId>test-utils-messaging</artifactId>
+            <version>${framework.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -179,8 +185,6 @@
             <version>${framework.version}</version>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
 
     <build>

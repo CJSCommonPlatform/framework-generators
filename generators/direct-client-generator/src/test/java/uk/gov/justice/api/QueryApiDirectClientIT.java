@@ -51,12 +51,12 @@ import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.JsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.jms.DefaultEnvelopeConverter;
-import uk.gov.justice.services.messaging.jms.DefaultJmsEnvelopeSender;
 import uk.gov.justice.services.messaging.jms.EnvelopeConverter;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
 import uk.gov.justice.services.test.utils.common.envelope.EnvelopeRecordingInterceptor;
 import uk.gov.justice.services.test.utils.common.envelope.TestEnvelopeRecorder;
 import uk.gov.justice.services.test.utils.common.validator.DummyJsonSchemaValidator;
+import uk.gov.justice.services.test.utils.messaging.jms.DummyJmsEnvelopeSender;
 import uk.gov.justice.subscription.domain.eventsource.DefaultEventSourceDefinitionFactory;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -95,7 +95,7 @@ public class QueryApiDirectClientIT {
             EnvelopeRecordingInterceptor.class,
 
             SenderProducer.class,
-            DefaultJmsEnvelopeSender.class,
+            DummyJmsEnvelopeSender.class,
             EnvelopeConverter.class,
 
             StringToJsonObjectConverter.class,
