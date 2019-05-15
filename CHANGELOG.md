@@ -5,6 +5,10 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.0-M17] - 2019-05-15
+### Changed
+- framework -> 6.0.0-M23
+
 ### Fix
 - Unifiedsearch client generator multiple event fix
 
