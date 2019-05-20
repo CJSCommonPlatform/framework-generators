@@ -44,7 +44,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
-//TODO: Might need to add indexer test
 @RunWith(ApplicationComposer.class)
 @Adapter("EVENT_LISTENER")
 public class FilterInterceptorIT {

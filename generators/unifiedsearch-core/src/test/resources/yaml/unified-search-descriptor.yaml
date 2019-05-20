@@ -5,10 +5,10 @@ unified_search_descriptor:
   service_component: EVENT_INDEXER
   events:
      - name: example.recipe-added
-       transformer_config: example.recipe-added-spec.json
+       transformer_config: test-spec1.json
        index_name: recipe_added_index
 
      - name: example.recipe-removed
-       transformer_config: example.recipe-removed-spec.json
+       transformer_config: test-spec2.json
        index_name: recipe_removed_index
 ...

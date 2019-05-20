@@ -1,21 +1,26 @@
 package uk.gov.justice.services.clients.unifiedsearch.generator;
 
+import uk.gov.justice.services.clients.unifiedsearch.core.UnifiedSearchTransformerCache;
+import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.unifiedsearch.TransformerApi;
 import uk.gov.justice.services.unifiedsearch.UnifiedSearchIndexer;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.JsonObject;
 
+@ApplicationScoped
 public class UnifiedSearchAdapter {
 
     @Inject
     private TransformerApi transformerApi;
 
-    public void index(final JsonObject event,
-                      final UnifiedSearchIndexer indexer,
-                      final String transformerConfig) {
+    @Inject
+    private UnifiedSearchTransformerCache unifiedSearchTransformerCache;
 
-        final JsonObject transformedJson = transformerApi.transformWithJolt(transformerConfig, event);
+    public void index(final JsonEnvelope jsonEnvelope, final UnifiedSearchIndexer indexer) {
+        final String transformerConfig = unifiedSearchTransformerCache.getTransformerConfigBy(jsonEnvelope.metadata().name());
+        final JsonObject transformedJson = transformerApi.transformWithJolt(transformerConfig, jsonEnvelope.payloadAsJsonObject());
 
         indexer.indexData(transformedJson);
     }

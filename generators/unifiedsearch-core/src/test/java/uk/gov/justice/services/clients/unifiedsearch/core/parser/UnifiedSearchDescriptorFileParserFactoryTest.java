@@ -1,11 +1,11 @@
-package uk.gov.justice.services.clients.unifiedsearch.generator.parser;
+package uk.gov.justice.services.clients.unifiedsearch.core.parser;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import uk.gov.justice.maven.generator.io.files.parser.FileParser;
-import uk.gov.justice.services.clients.unifiedsearch.generator.domain.UnifiedSearchDescriptor;
+import uk.gov.justice.services.clients.unifiedsearch.core.domain.UnifiedSearchDescriptor;
 
 import org.junit.Test;
 
