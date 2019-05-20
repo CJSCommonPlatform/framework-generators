@@ -5,6 +5,10 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.0-M19] - 2019-05-20
+### Changed
+- Add unified search transformer cache
+
 ## [2.0.0-M18] - 2019-05-15
 ### Changed
 - Update framework to 6.0.0-M24
