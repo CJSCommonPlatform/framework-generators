@@ -30,6 +30,7 @@
         <module>rest-adapter-generator-plugin</module>
         <module>unifiedsearch-client-generator</module>
         <module>unifiedsearch-client-generator-plugin</module>
+        <module>unifiedsearch-core</module>
     </modules>
 
     <artifactId>generators</artifactId>

@@ -9,8 +9,8 @@ import static uk.gov.justice.services.generators.commons.helper.GeneratedClassWr
 
 import uk.gov.justice.maven.generator.io.files.parser.core.Generator;
 import uk.gov.justice.maven.generator.io.files.parser.core.GeneratorConfig;
-import uk.gov.justice.services.clients.unifiedsearch.generator.domain.Event;
-import uk.gov.justice.services.clients.unifiedsearch.generator.domain.UnifiedSearchDescriptor;
+import uk.gov.justice.services.clients.unifiedsearch.core.domain.Event;
+import uk.gov.justice.services.clients.unifiedsearch.core.domain.UnifiedSearchDescriptor;
 import uk.gov.justice.services.core.annotation.Handles;
 import uk.gov.justice.services.core.annotation.ServiceComponent;
 import uk.gov.justice.services.messaging.JsonEnvelope;
@@ -129,8 +129,7 @@ public class UnifiedSearchClientGenerator implements Generator<UnifiedSearchDesc
                 .addParameter(ParameterSpec.builder(JsonEnvelope.class, ENVELOPE)
                         .addModifiers(FINAL)
                         .build())
-                .addStatement("final String transformerConfig = \"" + event.getTransformerConfig() + "\";")
-                .addStatement("unifiedSearchAdapter.index(jsonEnvelope.payloadAsJsonObject(),unifiedSearchIndexer, transformerConfig);")
+                .addStatement("unifiedSearchAdapter.index(jsonEnvelope, unifiedSearchIndexer);")
                 .addStatement("$L.trace(LOGGER, () -> String.format(\"Handling remote request: %s\", jsonEnvelope))",
                         TRACE_LOGGER_FIELD)
                 .build());

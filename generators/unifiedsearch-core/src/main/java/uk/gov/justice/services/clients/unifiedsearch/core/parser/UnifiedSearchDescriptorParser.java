@@ -1,9 +1,9 @@
-package uk.gov.justice.services.clients.unifiedsearch.generator.parser;
+package uk.gov.justice.services.clients.unifiedsearch.core.parser;
 
 import static java.util.stream.Collectors.toList;
 
 import uk.gov.justice.maven.generator.io.files.parser.FileParser;
-import uk.gov.justice.services.clients.unifiedsearch.generator.domain.UnifiedSearchDescriptor;
+import uk.gov.justice.services.clients.unifiedsearch.core.domain.UnifiedSearchDescriptor;
 import uk.gov.justice.services.generators.commons.helper.PathToUrlResolver;
 import uk.gov.justice.services.yaml.YamlFileValidator;
 import uk.gov.justice.services.yaml.YamlParser;
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
  */
 public class UnifiedSearchDescriptorParser implements FileParser<UnifiedSearchDescriptor> {
 
-    private static final String UNIFIED_SEARCH_SCHEMA_PATH = "/json/schema/unified-search-schema.json";
+    private static final String UNIFIED_SEARCH_SCHEMA_PATH = "/schema/unified-search-schema.json";
 
     private static final TypeReference<Map<String, UnifiedSearchDescriptor>> UNIFIED_SEARCH_DESCRIPTOR_TYPE_REF
             = new TypeReference<Map<String, UnifiedSearchDescriptor>>() {
@@ -43,7 +43,7 @@ public class UnifiedSearchDescriptorParser implements FileParser<UnifiedSearchDe
     }
 
     @Override
-    public Collection<UnifiedSearchDescriptor> parse(Path baseDir, Collection<Path> paths) {
+    public Collection<UnifiedSearchDescriptor> parse(final Path baseDir, final Collection<Path> paths) {
 
         final List<URL> unifiedSearchYamlPaths = paths.stream()
                 .map(path -> pathToUrlResolver.resolveToUrl(baseDir, path))
@@ -51,7 +51,7 @@ public class UnifiedSearchDescriptorParser implements FileParser<UnifiedSearchDe
 
         unifiedSearchYamlPaths.forEach(url -> yamlFileValidator.validate(UNIFIED_SEARCH_SCHEMA_PATH, url));
 
-        return unifiedSearchYamlPaths.stream().map(singleYamlPath -> parse(singleYamlPath)).collect(toList());
+        return unifiedSearchYamlPaths.stream().map(this::parse).collect(toList());
     }
 
     private UnifiedSearchDescriptor parse(final URL url) {

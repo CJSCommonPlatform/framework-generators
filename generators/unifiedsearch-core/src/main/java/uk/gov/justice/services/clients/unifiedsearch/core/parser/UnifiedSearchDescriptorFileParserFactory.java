@@ -1,7 +1,7 @@
-package uk.gov.justice.services.clients.unifiedsearch.generator.parser;
+package uk.gov.justice.services.clients.unifiedsearch.core.parser;
 
 import uk.gov.justice.maven.generator.io.files.parser.FileParserFactory;
-import uk.gov.justice.services.clients.unifiedsearch.generator.domain.UnifiedSearchDescriptor;
+import uk.gov.justice.services.clients.unifiedsearch.core.domain.UnifiedSearchDescriptor;
 import uk.gov.justice.services.common.converter.jackson.ObjectMapperProducer;
 import uk.gov.justice.services.generators.commons.helper.PathToUrlResolver;
 import uk.gov.justice.services.yaml.YamlFileValidator;

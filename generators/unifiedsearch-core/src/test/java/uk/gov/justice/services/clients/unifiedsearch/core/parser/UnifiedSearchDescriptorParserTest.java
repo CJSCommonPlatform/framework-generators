@@ -1,4 +1,4 @@
-package uk.gov.justice.services.clients.unifiedsearch.generator.parser;
+package uk.gov.justice.services.clients.unifiedsearch.core.parser;
 
 import static java.nio.file.Paths.get;
 import static java.util.Arrays.asList;
@@ -7,8 +7,8 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.fail;
 
-import uk.gov.justice.services.clients.unifiedsearch.generator.domain.Event;
-import uk.gov.justice.services.clients.unifiedsearch.generator.domain.UnifiedSearchDescriptor;
+import uk.gov.justice.services.clients.unifiedsearch.core.domain.Event;
+import uk.gov.justice.services.clients.unifiedsearch.core.domain.UnifiedSearchDescriptor;
 
 import java.nio.file.Path;
 import java.util.Collection;
@@ -62,11 +62,11 @@ public class UnifiedSearchDescriptorParserTest {
 
         assertThat(events.get(0).getName(), is("example.recipe-added"));
         assertThat(events.get(0).getIndexName(), is("recipe_added_index"));
-        assertThat(events.get(0).getTransformerConfig(), is("/json/sample/example.recipe-added-spec.json"));
+        assertThat(events.get(0).getTransformerConfig(), is("test-spec1.json"));
 
         assertThat(events.get(1).getName(), is("example.recipe-removed"));
         assertThat(events.get(1).getIndexName(), is("recipe_removed_index"));
-        assertThat(events.get(1).getTransformerConfig(), is("/json/sample/example.recipe-removed-spec.json"));
+        assertThat(events.get(1).getTransformerConfig(), is("test-spec2.json"));
     }
 
 }
