@@ -1,4 +1,4 @@
-package uk.gov.justice.services.clients.unifiedsearch.core.parser;
+package uk.gov.justice.services.clients.unifiedsearch.generator.parser;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
