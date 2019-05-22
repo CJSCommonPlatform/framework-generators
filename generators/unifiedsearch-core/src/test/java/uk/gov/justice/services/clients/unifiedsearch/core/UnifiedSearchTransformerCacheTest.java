@@ -22,9 +22,6 @@ public class UnifiedSearchTransformerCacheTest {
     @Spy
     private FileContentsAsStringLoader fileContentsAsStringLoader;
 
-    @Spy
-    private UnifiedSearchTransformerCacheUtils unifiedSearchTransformerCacheUtils;
-
     @InjectMocks
     private UnifiedSearchTransformerCache unifiedSearchTransformerCache;
 

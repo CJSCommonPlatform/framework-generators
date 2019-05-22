@@ -17,28 +17,14 @@ public class UnifiedSearchFileFinderTest {
     @Rule
     public final ExpectedException exception = ExpectedException.none();
 
-    @Test
-    public void shouldFindAllSubscriptionDescriptorsOnTheClasspathWhichHaveTheCorrectName() throws Exception {
-
-        final UnifiedSearchFileFinder unifiedSearchFileFinder = new UnifiedSearchFileFinder();
-
-        final List<Path> urls = unifiedSearchFileFinder.getUnifiedSearchDescriptor();
-
-        assertThat(urls.size(), is(1));
-
-        assertThat(urls.get(0).toString(), endsWith("/yaml/unified-search-descriptor.yaml"));
-    }
 
     @Test
     public void shouldFindTransformerPaths() throws Exception {
 
         final UnifiedSearchFileFinder unifiedSearchFileFinder = new UnifiedSearchFileFinder();
-        final List<URL> urls = unifiedSearchFileFinder.getTransformerPaths("test-spec1.json");
+        final URL url = unifiedSearchFileFinder.getTransformerPaths("test-spec1.json");
 
-        assertThat(urls.size(), is(1));
-
-        assertThat(urls.get(0).toString(), endsWith("/transformer/test-spec1.json"));
-
+        assertThat(url.toString(), endsWith("/transformer/test-spec1.json"));
     }
 
     @Test

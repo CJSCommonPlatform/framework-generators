@@ -81,7 +81,7 @@
                         uk.gov.justice.services.clients.unifiedsearch.generator.UnifiedSearchClientGenerator
                     </generatorName>
                     <parserName>
-                        uk.gov.justice.services.clients.unifiedsearch.core.parser.UnifiedSearchDescriptorFileParserFactory
+                        uk.gov.justice.services.clients.unifiedsearch.generator.parser.UnifiedSearchDescriptorFileParserFactory
                     </parserName>
                     <sourceDirectory>${basedir}/src/test/resources/yaml</sourceDirectory>
                     <outputDirectory>${project.build.directory}/generated-test-sources
