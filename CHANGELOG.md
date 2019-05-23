@@ -4,7 +4,13 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.1.10] - 2019-05-23
+### Changed
+- Update event-store to 1.1.10
+
 ## [1.1.9] - 2019-03-20
+### Changed
 - Updated event-store to 1.1.9
 
 ## [1.1.8] 2019-03-21
