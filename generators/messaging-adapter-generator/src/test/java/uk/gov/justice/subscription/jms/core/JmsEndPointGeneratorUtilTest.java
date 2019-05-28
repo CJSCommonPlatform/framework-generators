@@ -40,7 +40,7 @@ public class JmsEndPointGeneratorUtilTest {
     }
 
     @Test
-    public void shouldListenToAllMessagesCheck() {
+    public void shouldListenToAllMessagesCheckForEventListener() {
 
         final Event event = event()
                 .withName("my-context.events.something-happened")
@@ -48,6 +48,20 @@ public class JmsEndPointGeneratorUtilTest {
                 .build();
 
         boolean shouldGenerateEventFilter = shouldListenToAllMessages(asList(event), "EVENT_LISTENER");
+
+        assertThat(shouldGenerateEventFilter, is(true));
+    }
+
+
+    @Test
+    public void shouldListenToAllMessagesCheckForEventIndexer() {
+
+        final Event event = event()
+                .withName("my-context.events.something-happened")
+                .withSchemaUri("http://justice.gov.uk/json/schemas/domains/example/my-context.events.something-happened.json")
+                .build();
+
+        boolean shouldGenerateEventFilter = shouldListenToAllMessages(asList(event), "EVENT_INDEXER");
 
         assertThat(shouldGenerateEventFilter, is(true));
     }
