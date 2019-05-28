@@ -27,6 +27,6 @@ public class JmsEndPointGeneratorUtil {
     }
 
     static boolean shouldListenToAllMessages(final List<Event> events, final String component) {
-        return component.contains(EVENT_LISTENER) || events.isEmpty();
+        return (component.contains(EVENT_LISTENER) || component.contains(EVENT_INDEXER)) || events.isEmpty();
     }
 }
