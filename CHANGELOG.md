@@ -5,11 +5,15 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.0-M22] - 2019-06-05
+### Changed
+- Update framework to 6.0.0-M28
+- Update framework-api to 6.0.0-M22
+
 ## [2.0.0-M21] - 2019-05-28
 ### Changed
 - messageSelector removed from indexer jms generator
   
-
 ## [2.0.0-M20] - 2019-05-22
 ### Changed
 - Update framework to 6.0.0-M26
