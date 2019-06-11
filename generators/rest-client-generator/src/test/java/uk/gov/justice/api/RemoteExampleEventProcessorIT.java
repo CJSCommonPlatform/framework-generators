@@ -41,6 +41,7 @@ import uk.gov.justice.services.clients.core.webclient.BaseUriFactory;
 import uk.gov.justice.services.clients.core.webclient.ContextMatcher;
 import uk.gov.justice.services.clients.core.webclient.MockServerPortProvider;
 import uk.gov.justice.services.clients.core.webclient.WebTargetFactory;
+import uk.gov.justice.services.common.annotation.ComponentNameExtractor;
 import uk.gov.justice.services.common.configuration.GlobalValueProducer;
 import uk.gov.justice.services.common.configuration.JndiBasedServiceContextNameProvider;
 import uk.gov.justice.services.common.converter.ObjectToJsonValueConverter;
@@ -213,7 +214,8 @@ public class RemoteExampleEventProcessorIT {
             MediaTypesMappingCacheInitialiser.class,
             SchemaIdMappingCacheInitialiser.class,
 
-            DefaultEventSourceDefinitionFactory.class
+            DefaultEventSourceDefinitionFactory.class,
+            ComponentNameExtractor.class
     })
     public WebApp war() {
         return new WebApp()
