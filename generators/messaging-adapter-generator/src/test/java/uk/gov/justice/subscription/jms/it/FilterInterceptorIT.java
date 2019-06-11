@@ -14,6 +14,7 @@ import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventEv
 import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventEventInterceptorChainProvider;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.cdi.LoggerProducer;
+import uk.gov.justice.services.common.annotation.ComponentNameExtractor;
 import uk.gov.justice.services.common.converter.jackson.ObjectMapperProducer;
 import uk.gov.justice.services.core.annotation.Adapter;
 import uk.gov.justice.services.core.annotation.Handles;
@@ -77,7 +78,8 @@ public class FilterInterceptorIT {
             BeanInstantiater.class,
             ObjectMapperProducer.class,
             DefaultJmsParameterChecker.class,
-            ServiceComponentObserver.class
+            ServiceComponentObserver.class,
+            ComponentNameExtractor.class
     })
     public WebApp war() {
         return new WebApp()
