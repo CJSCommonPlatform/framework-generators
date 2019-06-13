@@ -38,6 +38,11 @@
                 <artifactId>rest-client-core</artifactId>
                 <version>${framework-generators.version}</version>
             </dependency>
+            <dependency>
+                <groupId>uk.gov.justice.framework-generators</groupId>
+                <artifactId>unifiedsearch-client-generator</artifactId>
+                <version>${framework-generators.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
