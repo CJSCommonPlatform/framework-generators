@@ -60,6 +60,7 @@ import uk.gov.justice.services.core.requester.RequesterProducer;
 import uk.gov.justice.services.core.sender.SenderProducer;
 import uk.gov.justice.services.event.buffer.api.AllowAllEventFilter;
 import uk.gov.justice.services.generators.test.utils.interceptor.EnvelopeRecorder;
+import uk.gov.justice.services.jdbc.persistence.JndiAppNameProvider;
 import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.jms.DefaultEnvelopeConverter;
@@ -177,7 +178,9 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
 
             DefaultEventSourceDefinitionFactory.class,
             JmsLoggerMetadataAdder.class,
-            ComponentNameExtractor.class
+            ComponentNameExtractor.class,
+
+            JndiAppNameProvider.class
     })
     public WebApp war() {
         return new WebApp()

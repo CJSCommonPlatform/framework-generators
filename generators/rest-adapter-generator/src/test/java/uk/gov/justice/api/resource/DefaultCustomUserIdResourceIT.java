@@ -51,6 +51,7 @@ import uk.gov.justice.services.core.mapping.MediaTypesMappingCacheInitialiser;
 import uk.gov.justice.services.core.mapping.SchemaIdMappingCacheInitialiser;
 import uk.gov.justice.services.core.mapping.SchemaIdMappingObserver;
 import uk.gov.justice.services.generators.test.utils.interceptor.RecordingInterceptorChainProcessor;
+import uk.gov.justice.services.jdbc.persistence.JndiAppNameProvider;
 import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.logging.DefaultHttpTraceLoggerHelper;
@@ -181,8 +182,8 @@ public class DefaultCustomUserIdResourceIT {
             MediaTypesMappingCacheInitialiser.class,
             SchemaIdMappingCacheInitialiser.class,
 
-            DefaultEventSourceDefinitionFactory.class
-
+            DefaultEventSourceDefinitionFactory.class,
+            JndiAppNameProvider.class
     })
     public WebApp war() {
         return new WebApp()

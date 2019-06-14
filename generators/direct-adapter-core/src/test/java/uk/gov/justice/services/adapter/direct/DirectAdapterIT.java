@@ -51,6 +51,7 @@ import uk.gov.justice.services.core.mapping.SchemaIdMappingCacheInitialiser;
 import uk.gov.justice.services.core.mapping.SchemaIdMappingObserver;
 import uk.gov.justice.services.core.requester.RequesterProducer;
 import uk.gov.justice.services.core.sender.SenderProducer;
+import uk.gov.justice.services.jdbc.persistence.JndiAppNameProvider;
 import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.JsonObjectEnvelopeConverter;
@@ -160,7 +161,8 @@ public class DirectAdapterIT {
             SchemaIdMappingCacheInitialiser.class,
 
             DefaultEventSourceDefinitionFactory.class,
-            ComponentNameExtractor.class
+            ComponentNameExtractor.class,
+            JndiAppNameProvider.class
     })
     public WebApp war() {
         return new WebApp()

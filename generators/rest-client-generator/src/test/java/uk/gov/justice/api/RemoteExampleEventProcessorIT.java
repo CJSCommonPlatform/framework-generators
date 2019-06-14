@@ -84,6 +84,7 @@ import uk.gov.justice.services.core.requester.Requester;
 import uk.gov.justice.services.core.requester.RequesterProducer;
 import uk.gov.justice.services.core.sender.Sender;
 import uk.gov.justice.services.core.sender.SenderProducer;
+import uk.gov.justice.services.jdbc.persistence.JndiAppNameProvider;
 import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.messaging.logging.DefaultTraceLogger;
@@ -215,7 +216,8 @@ public class RemoteExampleEventProcessorIT {
             SchemaIdMappingCacheInitialiser.class,
 
             DefaultEventSourceDefinitionFactory.class,
-            ComponentNameExtractor.class
+            ComponentNameExtractor.class,
+            JndiAppNameProvider.class
     })
     public WebApp war() {
         return new WebApp()
