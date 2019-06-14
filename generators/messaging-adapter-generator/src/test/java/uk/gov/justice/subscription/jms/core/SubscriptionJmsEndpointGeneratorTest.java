@@ -928,6 +928,33 @@ public class SubscriptionJmsEndpointGeneratorTest {
         assertThat(poolAnnotation, nullValue());
     }
 
+    @Test
+    public void shouldCreateJmsCommandHandlerDestinationNameProviderForCommandHandler() throws Exception {
+
+        final SubscriptionWrapper subscriptionWrapper = setUpMessageSubscription("jms:topic:structure.handler.command", "my-context.events.something-happened", serviceName, COMMAND_HANDLER);
+        generator.run(subscriptionWrapper,
+                configurationWithBasePackage(BASE_PACKAGE, outputFolder, generatorProperties));
+
+        final File packageDir = new File(outputFolder.getRoot().getAbsolutePath() + BASE_PACKAGE_FOLDER);
+        final File[] files = packageDir.listFiles();
+        assertThat(files.length, is(4));
+        assertThat(asList(files), hasItem(hasProperty("name", containsString("ContextCommandHandlerStructureHandlerCommandJmsHandlerDestinationNameProvider"))));
+    }
+
+    @Test
+    public void shouldNotCreateJmsCommandHandlerDestinationNameProviderForCommandApi() throws Exception {
+
+        final SubscriptionWrapper subscriptionWrapper = setUpMessageSubscription("jms:topic:structure.controller.command", "my-context.events.something-happened", serviceName, COMMAND_CONTROLLER);
+        generator.run(subscriptionWrapper,
+                configurationWithBasePackage(BASE_PACKAGE, outputFolder, generatorProperties));
+
+        final File packageDir = new File(outputFolder.getRoot().getAbsolutePath() + BASE_PACKAGE_FOLDER);
+        final File[] files = packageDir.listFiles();
+
+        assertThat(files.length, is(3));
+        assertThat(asList(files), not(hasItem(hasProperty("name", containsString("AbcCommandControllerPeopleSomeQueueJmsHandlerDestinationNameProvider")))));
+    }
+
     private Object instantiate(final Class<?> resourceClass) throws InstantiationException, IllegalAccessException {
         final Object resourceObject = resourceClass.newInstance();
         setField(resourceObject, "subscriptionJmsProcessor", subscriptionJmsProcessor);

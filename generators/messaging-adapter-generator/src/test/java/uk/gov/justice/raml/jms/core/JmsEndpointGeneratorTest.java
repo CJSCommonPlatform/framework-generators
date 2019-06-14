@@ -1042,6 +1042,41 @@ public class JmsEndpointGeneratorTest {
 
     }
 
+    @Test
+    public void shouldCreateJmsCommandHandlerDestinationNameProviderForCommandHandler() throws Exception {
+        generator.run(
+                messagingRamlWithDefaults()
+                        .withBaseUri("message://command/handler/message/abc")
+                        .with(resource()
+                                .withRelativeUri("/people.some.queue")
+                                .with(httpAction(POST, "application/vnd.people.abc+json")))
+                        .build(),
+                configurationWithBasePackage(BASE_PACKAGE, outputFolder, new GeneratorPropertiesFactory().withServiceComponentOf(COMMAND_HANDLER)));
+
+        final File packageDir = new File(outputFolder.getRoot().getAbsolutePath() + BASE_PACKAGE_FOLDER);
+        final File[] files = packageDir.listFiles();
+        assertThat(files.length, is(4));
+        assertThat(asList(files), hasItem(hasProperty("name", containsString("AbcCommandHandlerPeopleSomeQueueJmsHandlerDestinationNameProvider"))));
+    }
+
+    @Test
+    public void shouldNotCreateJmsCommandHandlerDestinationNameProviderForCommandApi() throws Exception {
+        generator.run(
+                messagingRamlWithDefaults()
+                        .withBaseUri("message://command/controller/message/abc")
+                        .with(resource()
+                                .withRelativeUri("/people.some.queue")
+                                .with(httpAction(POST, "application/vnd.people.abc+json")))
+                        .build(),
+                configurationWithBasePackage(BASE_PACKAGE, outputFolder, new GeneratorPropertiesFactory().withServiceComponentOf(COMMAND_CONTROLLER)));
+
+        final File packageDir = new File(outputFolder.getRoot().getAbsolutePath() + BASE_PACKAGE_FOLDER);
+        final File[] files = packageDir.listFiles();
+
+        assertThat(files.length, is(3));
+        assertThat(asList(files), not(hasItem(hasProperty("name", containsString("AbcCommandControllerPeopleSomeQueueJmsHandlerDestinationNameProvider")))));
+    }
+
     private Object instantiate(Class<?> resourceClass) throws InstantiationException, IllegalAccessException {
         final Object resourceObject = resourceClass.newInstance();
         setField(resourceObject, "jmsProcessor", jmsProcessor);
