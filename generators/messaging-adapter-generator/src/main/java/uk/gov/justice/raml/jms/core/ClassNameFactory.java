@@ -13,6 +13,7 @@ public class ClassNameFactory {
     public static final String EVENT_INTERCEPTOR_CHAIN_PROVIDER = "EventInterceptorChainProvider";
     public static final String EVENT_VALIDATION_INTERCEPTOR = "EventValidationInterceptor";
     public static final String JMS_LOGGER_METADATA_INTERCEPTOR = "JmsLoggerMetadataInterceptor";
+    public static final String JMS_HANDLER_DESTINATION_NAME_PROVIDER = "JmsHandlerDestinationNameProvider";
 
     private final MessagingAdapterBaseUri baseUri;
     private final MessagingResourceUri resourceUri;

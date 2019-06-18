@@ -2,6 +2,7 @@ package uk.gov.justice.raml.jms.core;
 
 import static org.raml.model.ActionType.POST;
 import static uk.gov.justice.raml.jms.core.JmsEndPointGeneratorUtil.shouldGenerateEventFilter;
+import static uk.gov.justice.services.core.annotation.Component.COMMAND_HANDLER;
 import static uk.gov.justice.services.generators.commons.helper.GeneratedClassWriter.writeClass;
 
 import uk.gov.justice.maven.generator.io.files.parser.core.Generator;
@@ -10,6 +11,7 @@ import uk.gov.justice.raml.jms.interceptor.EventFilterInterceptorCodeGenerator;
 import uk.gov.justice.raml.jms.interceptor.EventInterceptorChainProviderCodeGenerator;
 import uk.gov.justice.raml.jms.interceptor.EventValidationInterceptorCodeGenerator;
 import uk.gov.justice.raml.jms.interceptor.JmsLoggerMetadataInterceptorCodeGenerator;
+import uk.gov.justice.raml.jms.provider.JmsCommandHandlerDestinationNameProviderCodeGenerator;
 import uk.gov.justice.raml.jms.validator.BaseUriRamlValidator;
 import uk.gov.justice.services.generators.commons.config.CommonGeneratorProperties;
 import uk.gov.justice.services.generators.commons.helper.MessagingAdapterBaseUri;
@@ -42,6 +44,7 @@ public class JmsEndpointGenerator implements Generator<Raml> {
     private final EventValidationInterceptorCodeGenerator eventValidationInterceptorCodeGenerator = new EventValidationInterceptorCodeGenerator();
     private final EventInterceptorChainProviderCodeGenerator eventInterceptorChainProviderCodeGenerator = new EventInterceptorChainProviderCodeGenerator();
     private final JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator = new JmsLoggerMetadataInterceptorCodeGenerator();
+    private final JmsCommandHandlerDestinationNameProviderCodeGenerator jmsCommandHandlerDestinationNameProviderCodeGenerator = new JmsCommandHandlerDestinationNameProviderCodeGenerator();
 
     private final RamlValidator validator = new CompositeRamlValidator(
             new ContainsResourcesRamlValidator(),
@@ -96,6 +99,10 @@ public class JmsEndpointGenerator implements Generator<Raml> {
                             commonGeneratorProperties.getServiceComponent(),
                             classNameFactory));
 
+        }
+
+        if (COMMAND_HANDLER.equals(baseUri.component())) {
+            streamBuilder.add(jmsCommandHandlerDestinationNameProviderCodeGenerator.generate(resource, classNameFactory));
         }
 
         return streamBuilder

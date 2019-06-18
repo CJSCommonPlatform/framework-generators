@@ -14,6 +14,7 @@ import uk.gov.justice.subscription.jms.interceptor.EventFilterInterceptorCodeGen
 import uk.gov.justice.subscription.jms.interceptor.EventInterceptorChainProviderCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.EventValidationInterceptorCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.JmsLoggerMetadataInterceptorCodeGenerator;
+import uk.gov.justice.subscription.jms.provider.JmsCommandHandlerDestinationNameProviderCodeGenerator;
 
 public class JmsEndpointGenerationObjects {
 
@@ -54,7 +55,8 @@ public class JmsEndpointGenerationObjects {
                 eventFilterInterceptorCodeGenerator(),
                 eventValidationInterceptorCodeGenerator(),
                 eventListenerInterceptorChainProviderCodeGenerator(),
-                jmsLoggerMetadataInterceptorCodeGenerator());
+                jmsLoggerMetadataInterceptorCodeGenerator(),
+                jmsCommandHandlerDestinationNameProviderCodeGenerator());
     }
 
     public MessageListenerCodeGenerator messageListenerCodeGenerator() {
@@ -87,5 +89,9 @@ public class JmsEndpointGenerationObjects {
 
     public SchemaIdParser schemaIdParser() {
         return new SchemaIdParser();
+    }
+
+    public JmsCommandHandlerDestinationNameProviderCodeGenerator jmsCommandHandlerDestinationNameProviderCodeGenerator() {
+        return new JmsCommandHandlerDestinationNameProviderCodeGenerator();
     }
 }
