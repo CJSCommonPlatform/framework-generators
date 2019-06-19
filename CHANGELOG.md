@@ -5,6 +5,10 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.0-M27] - 2019-06-18
+### Added
+- Update framework to 6.0.0-M35
+
 ## [2.0.0-M26] - 2019-06-18
 ### Added
 - Generation of JmsCommandHandlerDestinationNameProvider for Command Handler component in messaging adapter generator
