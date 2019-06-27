@@ -5,145 +5,28 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
-## [2.0.0-M28] - 2019-06-25
-### Added
-- Update framework to 6.0.0-M37
+## [2.0.0-RC1] - 2019-06-27
 
-## [2.0.0-M27] - 2019-06-18
-### Added
-- Update framework to 6.0.0-M35
-
-## [2.0.0-M26] - 2019-06-18
-### Added
-- Generation of JmsCommandHandlerDestinationNameProvider for Command Handler component in messaging adapter generator
-
-## [2.0.0-M25] - 2019-06-14
 ### Added
 - New System database
-### Changed
-- Update framework to 6.0.0-M30
-
-## [2.0.0-M24] - 2019-06-12
-### Changed
-- Update framework to 6.0.0-M31
-
-## [2.0.0-M23] - 2019-06-11
-### Changed
-- Update framework to 6.0.0-M30
-- Update framework-api to 6.0.0-M24
-
-## [2.0.0-M22] - 2019-06-05
-### Changed
-- Update framework to 6.0.0-M28
-- Update framework-api to 6.0.0-M22
-
-## [2.0.0-M21] - 2019-05-28
-### Changed
-- messageSelector removed from indexer jms generator
-  
-## [2.0.0-M20] - 2019-05-22
-### Changed
-- Update framework to 6.0.0-M26
-- Update framework-api to 6.0.0-M21
-
-
-## [2.0.0-M19] - 2019-05-20
-### Changed
-- Add unified search transformer cache
-
-## [2.0.0-M18] - 2019-05-15
-### Changed
-- Update framework to 6.0.0-M24
-
-## [2.0.0-M17] - 2019-05-15
-### Changed
-- framework -> 6.0.0-M23
-
-### Fix
-- Unifiedsearch client generator multiple event fix
-
-## [2.0.0-M16] - 2019-05-10
-### Changed
-- Refactor: Moved TransformerApi from json-transformer project in framework-api
-
-## [2.0.0-M15] - 2019-05-09
-### Changed
-- Added Handler Generator for EVENT_INDEXER component
-
-## [2.0.0-M14] - 2019-04-25
-### Changed
-- Adding support for EVENT_INDEXER component
-
-## [2.0.0-M13] - 2019-04-25
-### Changed
-- Updated framework-api to 4.0.0-M13
-- Update framework to 6.0.0-M20
-
-## [2.0.0-M12] - 2019-04-18
-### Changed
-- Updated framework-api to 4.0.0-M9
-- Update framework to 6.0.0-M15
-- Updated generator-maven-plugin to 2.7.0-M1
-- Updated test-utils to 1.22.0-M1
-- Updated utilities to 1.17.0-M2
-- Updated file-service to 1.17.4-M1
-
-## [2.0.0-M11] - 2019-04-17
-### Changed
-- Updated framework-api to 4.0.0-M8
-- Update framework to 6.0.0-M14
-
-## [2.0.0-M10] - 2019-04-15
-### Changed
-- Remove deprecated github_token entry from travis.yml 
-- Update framework to 6.0.0-M12
-
-## [2.0.0-M8] - 2019-04-05
-### Changed
-- Update framework to 6.0.0-M10
-
-## [2.0.0-M7] - 2019-04-01
-### Changed
-- Update framework-api to 4.0.0-M5
-- Update framework to 6.0.0-M8
-
-## [2.0.0-M6] - 2019-03-25
-### Changed
-- Update framework-api to 4.0.0-M2
-
-## [2.0.0-M5] - 2019-03-22
-### Changed
-- Update framework to 6.0.0-M5
-
-## [2.0.0-M4] - 2019-03-12
-### Changed
-- Update framework to 6.0.0-M3
-
-## [2.0.0-M3] - 2019-03-11
-### Changed
-- Updated framework to 6.0.0-M2
-
-## [2.0.0-M2] - 2019-03-08
-
-### Added
-- Each generator has a corresponding Maven Mojo which allows independent dependency setting
-
-## [2.0.0-M1] - 2019-03-07
-
-### Changed
-- Removed dependency on event-store
-### Added
+- Generation of JmsCommandHandlerDestinationNameProvider for Command Handler component in messaging adapter generator
 - Allow passing of additional properties in mulipart posts
 
-## [1.2.0-M2] - 2019-03-01
 ### Changed
-- Updated framework-api to 3.4.0-M1
-- Updated framework to 5.3.0-M3
-- Updated even-store to 1.2.0-M3
-
-## [1.2.0-M1] - 2019-02-13
-### Changed
-- Updated even-store to 1.2.0-M1
+- Update common-bom to 2.3.0
+- Update framework-api to 4.0.0
+- Update framework to 6.0.0-RC1
+- Updated utilities to 1.20.0
+- Updated test-utils to 1.24.2
+- Updated file-service to 1.17.9
+- Updated generator-maven-plugin to 2.7.1
+- Removed dependency on event-store
+- Each generator has a corresponding Maven Mojo which allows independent dependency setting
+- messageSelector removed from indexer jms generator
+- Add unified search transformer cache
+- Refactor: Moved TransformerApi from json-transformer project in framework-api
+- Added Handler Generator for EVENT_INDEXER component
+- Adding support for EVENT_INDEXER component
 - Updated SubscriptionWrapperFileParserFactory to handle subscription prioritisation.
 
 ## [1.1.3] - 2019-02-04
