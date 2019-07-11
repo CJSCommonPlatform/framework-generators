@@ -17,6 +17,7 @@ public class SubscriptionWrapperFileParserFactory implements FileParserFactory<S
 
     @Override
     public SubscriptionWrapperFileParser create() {
+
         final YamlParser yamlParser = new YamlParser();
         final YamlSchemaLoader yamlSchemaLoader = new YamlSchemaLoader();
         final ObjectMapper objectMapper = new ObjectMapperProducer().objectMapper();
@@ -25,8 +26,9 @@ public class SubscriptionWrapperFileParserFactory implements FileParserFactory<S
 
         final EventSourcesParser eventSourcesParser = new EventSourcesParser(yamlParser, yamlFileValidator);
         final PathToUrlResolver pathToUrlResolver = new PathToUrlResolver();
+        final EventSourceYamlClasspathFinder eventSourceYamlClasspathFinder = new EventSourceYamlClasspathFinder();
 
-        final EventSourcesFileParser eventSourcesFileParser = new EventSourcesFileParser(eventSourcesParser, pathToUrlResolver);
+        final EventSourcesFileParser eventSourcesFileParser = new EventSourcesFileParser(eventSourcesParser, pathToUrlResolver, eventSourceYamlClasspathFinder);
 
         final SubscriptionsDescriptorParser subscriptionsDescriptorParser = new SubscriptionsDescriptorParser(yamlParser, yamlFileValidator, subscriptionSorter);
         final SubscriptionDescriptorFileParser subscriptionDescriptorFileParser = new SubscriptionDescriptorFileParser(subscriptionsDescriptorParser, pathToUrlResolver);

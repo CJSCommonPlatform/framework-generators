@@ -17,18 +17,24 @@ public class EventSourcesFileParser {
 
     private final EventSourcesParser eventSourcesParser;
     private final PathToUrlResolver pathToUrlResolver;
+    private final EventSourceYamlClasspathFinder eventSourceYamlClasspathFinder;
 
     public EventSourcesFileParser(final EventSourcesParser eventSourcesParser,
-                                  final PathToUrlResolver pathToUrlResolver) {
+                                  final PathToUrlResolver pathToUrlResolver,
+                                  final EventSourceYamlClasspathFinder eventSourceYamlClasspathFinder) {
         this.eventSourcesParser = eventSourcesParser;
         this.pathToUrlResolver = pathToUrlResolver;
+        this.eventSourceYamlClasspathFinder = eventSourceYamlClasspathFinder;
     }
 
     public List<EventSourceDefinition> getEventSourceDefinitions(final Path baseDir, final Collection<Path> paths) {
+
         final List<URL> eventSourcesPaths = paths.stream()
                 .filter(isEventSource)
                 .map(path -> pathToUrlResolver.resolveToUrl(baseDir, path))
                 .collect(toList());
+
+        eventSourcesPaths.addAll(eventSourceYamlClasspathFinder.getEventSourcesPaths());
 
         if (eventSourcesPaths.isEmpty()) {
             throw new FileParserException("No event-sources.yaml files found!");

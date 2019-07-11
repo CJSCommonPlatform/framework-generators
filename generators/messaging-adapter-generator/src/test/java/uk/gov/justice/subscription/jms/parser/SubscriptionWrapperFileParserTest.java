@@ -2,6 +2,7 @@ package uk.gov.justice.subscription.jms.parser;
 
 import static java.nio.file.Paths.get;
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
@@ -19,13 +20,11 @@ public class SubscriptionWrapperFileParserTest {
     private SubscriptionWrapperFileParser subscriptionWrapperFileParser = new SubscriptionWrapperFileParserFactory().create();
 
     @Test
-    public void shouldParseEventSourceAndSubscriptionYaml() {
+    public void shouldParseEventSourceFromClasspathAndSubscriptionYamlFromPaths() {
 
         final Path path = getFromClasspath("");
 
-        final List<Path> yamlPaths = asList(
-                getFromClasspath("yaml/event-sources.yaml"),
-                getFromClasspath("yaml/event-processor/subscriptions-descriptor.yaml"));
+        final List<Path> yamlPaths = singletonList(getFromClasspath("yaml/event-processor/subscriptions-descriptor.yaml"));
         final Collection<SubscriptionWrapper> subscriptionWrapperCollection = subscriptionWrapperFileParser.parse(path, yamlPaths);
 
         assertThat(subscriptionWrapperCollection.size(), is(1));
