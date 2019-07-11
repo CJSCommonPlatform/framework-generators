@@ -36,6 +36,9 @@ public class EventSourcesFileParserTest {
     @Mock
     private PathToUrlResolver pathToUrlResolver;
 
+    @Mock
+    private EventSourceYamlClasspathFinder eventSourceYamlClasspathFinder;
+
     @InjectMocks
     private EventSourcesFileParser eventSourcesFileParser;
 
@@ -52,6 +55,7 @@ public class EventSourcesFileParserTest {
         final List<URL> urlList = singletonList(eventSourceUrl);
 
         when(pathToUrlResolver.resolveToUrl(baseDir, eventSourcePath)).thenReturn(eventSourceUrl);
+        when(eventSourceYamlClasspathFinder.getEventSourcesPaths()).thenReturn(emptyList());
         when(eventSourcesParser.eventSourcesFrom(urlList)).thenReturn(Stream.of(eventSourceDefinition));
 
         final List<EventSourceDefinition> expectedEventSourceDefinition = eventSourcesFileParser.getEventSourceDefinitions(baseDir, pathList);
@@ -63,6 +67,8 @@ public class EventSourcesFileParserTest {
     @Test
     public void shouldThrowExceptionIfNoEventSourceDefinitionsPresent() {
         final Path baseDir = mock(Path.class);
+
+        when(eventSourceYamlClasspathFinder.getEventSourcesPaths()).thenReturn(emptyList());
 
         try {
             eventSourcesFileParser.getEventSourceDefinitions(baseDir, emptyList());

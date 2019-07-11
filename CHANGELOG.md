@@ -5,6 +5,11 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.0-RC4] - 2019-07-11
+
+### Changed
+- Messaging adapter generator finds the event-sources.yaml from the the classpath rather than the paths, allowing a single event-sources.yaml file in a classified jar to be added as a dependency
+
 ## [2.0.0-RC3] - 2019-07-11
 
 ### Changed
