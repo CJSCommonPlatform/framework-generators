@@ -33,15 +33,15 @@
     <properties>
         <cpp.repo.name>framework-generators</cpp.repo.name>
 
-        <common-bom.version>2.3.0</common-bom.version>
-        <framework-api.version>4.0.0</framework-api.version>
-        <framework.version>6.0.0-RC3</framework.version>
-        <test-utils.version>1.24.2</test-utils.version>
-        <utilities.version>1.20.0</utilities.version>
-        <file.service.version>1.17.9</file.service.version>
-        <generator-maven-plugin.version>2.7.1</generator-maven-plugin.version>
-        <raml-maven-plugin.version>1.6.8</raml-maven-plugin.version>
-        <maven-test-utils.version>1.0.0</maven-test-utils.version>
+        <common-bom.version>2.4.0</common-bom.version>
+        <test-utils.version>1.24.3</test-utils.version>
+        <framework-api.version>4.0.1</framework-api.version>
+        <utilities.version>1.20.1</utilities.version>
+        <generator-maven-plugin.version>2.7.2</generator-maven-plugin.version>
+        <file.service.version>1.17.10</file.service.version>
+        <raml-maven-plugin.version>1.6.9</raml-maven-plugin.version>
+        <maven-test-utils.version>1.0.1</maven-test-utils.version>
+        <framework.version>6.0.0-RC4</framework.version>
 
     </properties>
     
