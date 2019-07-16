@@ -3,11 +3,11 @@ All notable changes to this project will be documented in this file, which follo
 on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [Unreleased] 
 
 ## [2.0.0-RC5] - 2019-07-16
 ### Changed
-- Update framework to 6.0.0-RC6
+- Update framework to 6.0.0-RC7
 
 ## [2.0.0-RC4] - 2019-07-12
 
