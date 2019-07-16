@@ -41,7 +41,7 @@
         <file.service.version>1.17.10</file.service.version>
         <raml-maven-plugin.version>1.6.9</raml-maven-plugin.version>
         <maven-test-utils.version>1.0.1</maven-test-utils.version>
-        <framework.version>6.0.0-RC4</framework.version>
+        <framework.version>6.0.0-RC6</framework.version>
 
     </properties>
     
