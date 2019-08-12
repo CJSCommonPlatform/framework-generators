@@ -3,7 +3,13 @@ All notable changes to this project will be documented in this file, which follo
 on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] 
+## [Unreleased]
+### Added
+- Generation of messaging clients from subscriptions-descriptor.yaml files 
+
+### Changed
+- Update framework to 6.0.0
+- Update utilities to 1.20.2
 
 ## [2.0.0-RC7] - 2019-07-18
 ### Changed

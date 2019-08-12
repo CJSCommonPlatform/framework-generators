@@ -12,11 +12,11 @@ import static uk.gov.justice.subscription.domain.builders.SubscriptionsDescripto
 import uk.gov.justice.maven.generator.io.files.parser.core.GeneratorProperties;
 import uk.gov.justice.raml.jms.config.GeneratorPropertiesFactory;
 import uk.gov.justice.services.generators.commons.config.CommonGeneratorProperties;
+import uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapper;
 import uk.gov.justice.subscription.domain.eventsource.EventSourceDefinition;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Event;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Subscription;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.SubscriptionsDescriptor;
-import uk.gov.justice.subscription.jms.parser.SubscriptionWrapper;
 
 import java.util.List;
 

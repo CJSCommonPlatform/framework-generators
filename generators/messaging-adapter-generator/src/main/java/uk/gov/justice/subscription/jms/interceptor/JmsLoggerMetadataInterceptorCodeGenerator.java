@@ -6,9 +6,9 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 import static uk.gov.justice.raml.jms.core.ClassNameFactory.JMS_LOGGER_METADATA_INTERCEPTOR;
 
 import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
+import uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapper;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.SubscriptionsDescriptor;
 import uk.gov.justice.subscription.jms.core.ClassNameFactory;
-import uk.gov.justice.subscription.jms.parser.SubscriptionWrapper;
 
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;

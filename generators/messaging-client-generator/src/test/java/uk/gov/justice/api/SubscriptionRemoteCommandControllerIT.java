@@ -8,7 +8,7 @@ import static uk.gov.justice.services.core.annotation.Component.COMMAND_API;
 import static uk.gov.justice.services.test.utils.core.messaging.JsonEnvelopeBuilder.envelope;
 import static uk.gov.justice.services.test.utils.core.messaging.MetadataBuilderFactory.metadataOf;
 
-import uk.gov.justice.api.raml.RemoteCommandApi2CommandControllerMessageService1ContextaControllerCommand;
+import uk.gov.justice.api.subscription.RemoteCommandApi2ContextaControllerCommandService2MessagingClient;
 import uk.gov.justice.schema.service.CatalogProducer;
 import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.schema.service.SchemaCatalogService;
@@ -77,7 +77,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(ApplicationComposer.class)
 @ServiceComponent(COMMAND_API)
-public class RemoteCommandControllerIT {
+public class SubscriptionRemoteCommandControllerIT {
 
     private static final UUID TEST_SYS_USER_ID = randomUUID();
     private static int port = -1;
@@ -107,7 +107,7 @@ public class RemoteCommandControllerIT {
             JsonEnvelopeRepacker.class,
             PolicyEvaluator.class,
             RecordingJmsEnvelopeSender.class,
-            RemoteCommandApi2CommandControllerMessageService1ContextaControllerCommand.class,
+            RemoteCommandApi2ContextaControllerCommandService2MessagingClient.class,
             RequesterProducer.class,
             SenderProducer.class,
             ServiceComponentObserver.class,

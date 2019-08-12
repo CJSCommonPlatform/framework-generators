@@ -1,4 +1,4 @@
-package uk.gov.justice.subscription.jms.parser;
+package uk.gov.justice.services.generators.subscription.parser;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;

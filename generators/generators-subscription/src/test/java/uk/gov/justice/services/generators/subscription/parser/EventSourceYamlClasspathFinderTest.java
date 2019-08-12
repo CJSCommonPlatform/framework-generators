@@ -1,4 +1,4 @@
-package uk.gov.justice.subscription.jms.parser;
+package uk.gov.justice.services.generators.subscription.parser;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;

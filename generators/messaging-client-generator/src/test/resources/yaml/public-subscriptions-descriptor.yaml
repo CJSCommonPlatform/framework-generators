@@ -1,0 +1,11 @@
+subscriptions_descriptor:
+  spec_version: 1.0.0
+  service: service2
+  service_component: COMMAND_API
+  subscriptions:
+    - name: command api 1
+      events:
+        - name: contexta.commanda
+          schema_uri: http://justice.gov.uk/json/schema/contexta.commanda.json
+
+      event_source_name: command-controller-event-source
