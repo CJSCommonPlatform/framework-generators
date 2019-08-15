@@ -21,7 +21,7 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 - Updated SubscriptionWrapperFileParserFactory to handle subscription prioritisation.
 - Messaging adapter generator finds the event-sources.yaml from the the classpath rather than the paths, allowing a single event-sources.yaml file in a classified jar to be added as a dependency
 - Update framework-api to 4.0.1
-- Update framework to 6.0.1
+- Update framework to 6.0.2
 - Update common-bom to 2.4.0
 - Update utilities to 1.20.2
 - Updated test-utils to 1.24.3
