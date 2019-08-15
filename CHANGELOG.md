@@ -4,64 +4,33 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.0] - 2019-08-15
 ### Added
-- Generation of messaging clients from subscriptions-descriptor.yaml files 
-
-### Changed
-- Update framework to 6.0.0
-- Update utilities to 1.20.2
-
-## [2.0.0-RC7] - 2019-07-18
-### Changed
-- Update framework to 6.0.0-RC9
-
-## [2.0.0-RC6] - 2019-07-18
-### Changed
-- Update framework to 6.0.0-RC8
-
-## [2.0.0-RC5] - 2019-07-16
-### Changed
-- Update framework to 6.0.0-RC7
-
-## [2.0.0-RC4] - 2019-07-12
-
-### Changed
-- Messaging adapter generator finds the event-sources.yaml from the the classpath rather than the paths, allowing a single event-sources.yaml file in a classified jar to be added as a dependency
-- Update common-bom to 2.4.0
-
-## [2.0.0-RC3] - 2019-07-11
-
-### Changed
-- Update framework to 6.0.0-RC3
-
-## [2.0.0-RC2] - 2019-07-04
-
-### Changed
-- Update framework to 6.0.0-RC2
-
-## [2.0.0-RC1] - 2019-06-27
-
-### Added
+- Added Handler Generator for EVENT_INDEXER component
+- Adding support for EVENT_INDEXER component
+- Add unified search transformer cache
 - New System database
 - Generation of JmsCommandHandlerDestinationNameProvider for Command Handler component in messaging adapter generator
 - Allow passing of additional properties in mulipart posts
+- Generation of messaging clients from subscriptions-descriptor.yaml files 
 
 ### Changed
-- Update common-bom to 2.3.0
-- Update framework-api to 4.0.0
-- Update framework to 6.0.0-RC1
-- Updated utilities to 1.20.0
-- Updated test-utils to 1.24.2
-- Updated file-service to 1.17.9
-- Updated generator-maven-plugin to 2.7.1
-- Removed dependency on event-store
 - Each generator has a corresponding Maven Mojo which allows independent dependency setting
-- messageSelector removed from indexer jms generator
-- Add unified search transformer cache
 - Refactor: Moved TransformerApi from json-transformer project in framework-api
-- Added Handler Generator for EVENT_INDEXER component
-- Adding support for EVENT_INDEXER component
 - Updated SubscriptionWrapperFileParserFactory to handle subscription prioritisation.
+- Messaging adapter generator finds the event-sources.yaml from the the classpath rather than the paths, allowing a single event-sources.yaml file in a classified jar to be added as a dependency
+- Update framework-api to 4.0.1
+- Update framework to 6.0.0
+- Update common-bom to 2.4.0
+- Update utilities to 1.20.2
+- Updated test-utils to 1.24.3
+- Updated file-service to 1.17.11
+- Updated generator-maven-plugin to 2.7.2
+
+### Removed
+- messageSelector removed from indexer jms generator
+- Removed dependency on event-store
 
 ## [1.1.3] - 2019-02-04
 ### Changed
