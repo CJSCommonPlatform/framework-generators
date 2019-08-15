@@ -1,4 +1,4 @@
-package uk.gov.justice.subscription.jms.parser;
+package uk.gov.justice.services.generators.subscription.parser;
 
 import static java.nio.file.Paths.get;
 import static java.util.Arrays.asList;
@@ -24,7 +24,7 @@ public class SubscriptionWrapperFileParserTest {
 
         final Path path = getFromClasspath("");
 
-        final List<Path> yamlPaths = singletonList(getFromClasspath("yaml/event-processor/subscriptions-descriptor.yaml"));
+        final List<Path> yamlPaths = singletonList(getFromClasspath("yaml/subscriptions-descriptor.yaml"));
         final Collection<SubscriptionWrapper> subscriptionWrapperCollection = subscriptionWrapperFileParser.parse(path, yamlPaths);
 
         assertThat(subscriptionWrapperCollection.size(), is(1));

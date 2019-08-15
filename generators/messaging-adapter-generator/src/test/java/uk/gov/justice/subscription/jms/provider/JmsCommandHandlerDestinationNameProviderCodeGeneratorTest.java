@@ -9,12 +9,12 @@ import static org.mockito.Mockito.when;
 import static uk.gov.justice.services.test.utils.core.compiler.JavaCompilerUtility.javaCompilerUtil;
 import static uk.gov.justice.subscription.jms.core.ClassNameFactory.JMS_HANDLER_DESTINATION_NAME_PROVIDER;
 
+import uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapper;
 import uk.gov.justice.services.messaging.jms.JmsCommandHandlerDestinationNameProvider;
 import uk.gov.justice.subscription.domain.eventsource.EventSourceDefinition;
 import uk.gov.justice.subscription.domain.eventsource.Location;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Subscription;
 import uk.gov.justice.subscription.jms.core.ClassNameFactory;
-import uk.gov.justice.subscription.jms.parser.SubscriptionWrapper;
 
 import java.io.File;
 

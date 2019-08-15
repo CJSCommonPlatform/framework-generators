@@ -1,4 +1,4 @@
-package uk.gov.justice.subscription.jms.parser;
+package uk.gov.justice.services.generators.subscription.parser;
 
 import uk.gov.justice.maven.generator.io.files.parser.FileParser;
 import uk.gov.justice.subscription.domain.eventsource.EventSourceDefinition;

@@ -31,6 +31,7 @@
         <module>unifiedsearch-client-generator</module>
         <module>unifiedsearch-client-generator-plugin</module>
         <module>unifiedsearch-core</module>
+        <module>generators-subscription</module>
     </modules>
 
     <artifactId>generators</artifactId>

@@ -3,18 +3,19 @@ package uk.gov.justice.services.clients.unifiedsearch.generator.parser;
 import static java.nio.file.Paths.get;
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.fail;
 
 import uk.gov.justice.services.clients.unifiedsearch.core.domain.Event;
 import uk.gov.justice.services.clients.unifiedsearch.core.domain.UnifiedSearchDescriptor;
+import uk.gov.justice.services.yaml.YamlValidationException;
 
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 
-import org.everit.json.schema.ValidationException;
 import org.junit.Test;
 
 public class UnifiedSearchDescriptorParserTest {
@@ -29,8 +30,8 @@ public class UnifiedSearchDescriptorParserTest {
         try {
             unifiedSearchDescriptorParser.parse(baseDir, paths);
             fail();
-        } catch (final ValidationException re) {
-            assertThat(re.getMessage(), is("#/unified_search_descriptor: required key [service_component] not found"));
+        } catch (final YamlValidationException re) {
+            assertThat(re.getMessage(), containsString("#/unified_search_descriptor: required key [service_component] not found"));
         }
     }
 

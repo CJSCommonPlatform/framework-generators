@@ -1,0 +1,4 @@
+event_sources:
+  - name: command-controller-event-source
+    location:
+      jms_uri:  jms:topic:contexta.controller.command

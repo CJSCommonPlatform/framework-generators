@@ -11,9 +11,9 @@ import static uk.gov.justice.services.test.utils.core.compiler.JavaCompilerUtili
 import static uk.gov.justice.subscription.jms.core.ClassNameFactory.JMS_LOGGER_METADATA_INTERCEPTOR;
 
 import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
+import uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapper;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.SubscriptionsDescriptor;
 import uk.gov.justice.subscription.jms.core.ClassNameFactory;
-import uk.gov.justice.subscription.jms.parser.SubscriptionWrapper;
 
 import java.io.File;
 import java.lang.reflect.Field;

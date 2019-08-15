@@ -17,6 +17,8 @@ import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor
 import uk.gov.justice.services.adapter.messaging.SubscriptionJmsProcessor;
 import uk.gov.justice.services.core.annotation.Adapter;
 import uk.gov.justice.services.generators.commons.config.CommonGeneratorProperties;
+import uk.gov.justice.services.generators.subscription.parser.JmsUriToDestinationConverter;
+import uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapper;
 import uk.gov.justice.services.messaging.logging.LoggerUtils;
 import uk.gov.justice.services.subscription.SubscriptionManager;
 import uk.gov.justice.services.subscription.annotation.SubscriptionName;
@@ -24,7 +26,6 @@ import uk.gov.justice.subscription.domain.eventsource.EventSourceDefinition;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Event;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Subscription;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.SubscriptionsDescriptor;
-import uk.gov.justice.subscription.jms.parser.SubscriptionWrapper;
 
 import java.util.List;
 
@@ -71,6 +72,7 @@ public class MessageListenerCodeGenerator {
     private static final String SHARE_SUBSCRIPTIONS = "shareSubscriptions";
 
     private final ComponentDestinationType componentDestinationType = new ComponentDestinationType();
+    private final JmsUriToDestinationConverter jmsUriToDestinationConverter = new JmsUriToDestinationConverter();
 
     /**
      * Create an implementation of the {@link MessageListener}.
@@ -110,7 +112,7 @@ public class MessageListenerCodeGenerator {
 
             final ClassName className = classNameFactory.classNameFor(JMS_LISTENER);
             final EventSourceDefinition eventSourceDefinition = subscriptionWrapper.getEventSourceByName(subscription.getEventSourceName());
-            final String destination = destinationFromJmsUri(eventSourceDefinition.getLocation().getJmsUri());
+            final String destination = jmsUriToDestinationConverter.convert(eventSourceDefinition.getLocation().getJmsUri());
 
             final TypeSpec.Builder typeSpecBuilder = classBuilder(className)
                     .addModifiers(PUBLIC)
@@ -154,7 +156,7 @@ public class MessageListenerCodeGenerator {
     }
 
     private boolean shouldAddCustomPoolConfiguration(final CommonGeneratorProperties commonGeneratorProperties) {
-        return Boolean.valueOf(commonGeneratorProperties.getCustomMDBPool());
+        return Boolean.parseBoolean(commonGeneratorProperties.getCustomMDBPool());
     }
 
     private ClassName getValidationInterceptorClassName(final ClassNameFactory classNameFactory,
@@ -277,15 +279,6 @@ public class MessageListenerCodeGenerator {
      */
     private String adapterClientId(final String service, final String component) {
         return format("%s.%s", service, component.replaceAll("_", "\\.").toLowerCase());
-    }
-
-    /**
-     * Retrieves the destination from jmsUri
-     *
-     * @return messaging adapter clientId
-     */
-    private String destinationFromJmsUri(final String jmsUri) {
-        return jmsUri.split(":")[2];
     }
 
     /**

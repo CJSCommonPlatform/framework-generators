@@ -42,6 +42,7 @@ import uk.gov.justice.services.adapter.messaging.SubscriptionJmsProcessor;
 import uk.gov.justice.services.core.annotation.Adapter;
 import uk.gov.justice.services.core.annotation.Component;
 import uk.gov.justice.services.core.interceptor.InterceptorChainProcessor;
+import uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapper;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.subscription.SubscriptionManager;
 import uk.gov.justice.services.test.utils.core.compiler.JavaCompilerUtility;
@@ -49,7 +50,6 @@ import uk.gov.justice.subscription.domain.eventsource.EventSourceDefinition;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Event;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Subscription;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.SubscriptionsDescriptor;
-import uk.gov.justice.subscription.jms.parser.SubscriptionWrapper;
 
 import java.io.File;
 import java.lang.reflect.Field;

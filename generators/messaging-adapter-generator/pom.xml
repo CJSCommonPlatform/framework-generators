@@ -47,14 +47,14 @@
             <version>${framework.version}</version>
         </dependency>
         <dependency>
-            <groupId>uk.gov.justice.maven.generator</groupId>
-            <artifactId>parser-common</artifactId>
-            <version>${generator-maven-plugin.version}</version>
-        </dependency>
-        <dependency>
             <groupId>uk.gov.justice.utils</groupId>
             <artifactId>utilities-core</artifactId>
             <version>${utilities.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>uk.gov.justice.framework-generators</groupId>
+            <artifactId>generators-subscription</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -315,7 +315,7 @@
                                 uk.gov.justice.subscription.jms.core.SubscriptionJmsEndpointGeneratorFactory
                             </generatorName>
                             <parserName>
-                                uk.gov.justice.subscription.jms.parser.SubscriptionWrapperFileParserFactory
+                                uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapperFileParserFactory
                             </parserName>
                             <sourceDirectory>${basedir}/src/test/resources/yaml</sourceDirectory>
                             <outputDirectory>${project.build.directory}/generated-test-sources
@@ -342,7 +342,7 @@
                                 uk.gov.justice.subscription.jms.core.SubscriptionJmsEndpointGeneratorFactory
                             </generatorName>
                             <parserName>
-                                uk.gov.justice.subscription.jms.parser.SubscriptionWrapperFileParserFactory
+                                uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapperFileParserFactory
                             </parserName>
                             <sourceDirectory>${basedir}/src/test/resources/yaml</sourceDirectory>
                             <outputDirectory>${project.build.directory}/generated-test-sources
@@ -371,7 +371,7 @@
                                 uk.gov.justice.subscription.jms.core.SubscriptionJmsEndpointGeneratorFactory
                             </generatorName>
                             <parserName>
-                                uk.gov.justice.subscription.jms.parser.SubscriptionWrapperFileParserFactory
+                                uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapperFileParserFactory
                             </parserName>
                             <sourceDirectory>${basedir}/src/test/resources/yaml</sourceDirectory>
                             <outputDirectory>${project.build.directory}/generated-test-sources
@@ -398,7 +398,7 @@
                                 uk.gov.justice.subscription.jms.core.SubscriptionJmsEndpointGeneratorFactory
                             </generatorName>
                             <parserName>
-                                uk.gov.justice.subscription.jms.parser.SubscriptionWrapperFileParserFactory
+                                uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapperFileParserFactory
                             </parserName>
                             <sourceDirectory>${basedir}/src/test/resources/yaml</sourceDirectory>
                             <outputDirectory>${project.build.directory}/generated-test-sources
