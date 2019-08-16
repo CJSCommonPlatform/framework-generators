@@ -12,7 +12,7 @@
 
     <groupId>uk.gov.justice.framework-generators</groupId>
     <artifactId>framework-generators</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Framework Generators</name>
