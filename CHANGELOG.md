@@ -5,6 +5,10 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.3] - 2019-08-19
+### Changed
+- Update framework to 6.0.5
+
 ## [2.0.2] - 2019-08-16
 ### Changed
 - Update framework to 6.0.4
