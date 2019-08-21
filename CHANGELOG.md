@@ -5,6 +5,11 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.0.5] - 2019-08-21
+### Changed
+- Update framework to 6.0.8
+- Update framework-generators to 2.7.3
+
 ## [2.0.4] - 2019-08-19
 ### Changed
 - Update framework to 6.0.6
