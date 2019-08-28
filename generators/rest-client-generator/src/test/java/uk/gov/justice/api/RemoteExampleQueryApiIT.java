@@ -64,6 +64,7 @@ import uk.gov.justice.services.core.json.FileBasedJsonSchemaValidator;
 import uk.gov.justice.services.core.json.JsonSchemaLoader;
 import uk.gov.justice.services.core.json.PayloadExtractor;
 import uk.gov.justice.services.core.json.SchemaCatalogAwareJsonSchemaValidator;
+import uk.gov.justice.services.core.json.SchemaValidationErrorMessageGenerator;
 import uk.gov.justice.services.core.mapping.ActionNameToMediaTypesMappingObserver;
 import uk.gov.justice.services.core.mapping.DefaultMediaTypesMappingCache;
 import uk.gov.justice.services.core.mapping.DefaultNameToMediaTypeConverter;
@@ -207,7 +208,9 @@ public class RemoteExampleQueryApiIT {
 
             DefaultEventSourceDefinitionFactory.class,
             ComponentNameExtractor.class,
-            JndiAppNameProvider.class
+            JndiAppNameProvider.class,
+
+            SchemaValidationErrorMessageGenerator.class
     })
     public WebApp war() {
         return new WebApp()
