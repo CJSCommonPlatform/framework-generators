@@ -35,7 +35,7 @@ public class MethodsCodeGeneratorTest {
         final Event event_1 = new Event("test.event-1", "http://justice.gov.uk/json/schema/test-1");
         final Event event_2 = new Event("test.event-2", "http://justice.gov.uk/json/schema/test-2");
 
-        final Subscription subscription = new Subscription("subscription", asList(event_1, event_2), "event-source", "1");
+        final Subscription subscription = new Subscription("subscription", asList(event_1, event_2), "event-source", 1);
 
         final EventSourceDefinition eventSourceDefinition = mock(EventSourceDefinition.class);
         final ClassNameAndMethodNameFactory classNameAndMethodNameFactory = mock(ClassNameAndMethodNameFactory.class);
