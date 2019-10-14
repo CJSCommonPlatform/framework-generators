@@ -5,6 +5,9 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.2.0-M4] - 2019-10-14
+- Update framework to 6.2.0-M5
+
 ## [2.2.0-M3] - 2019-10-10
 - Update framework to 6.2.0-M4
 
