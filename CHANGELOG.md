@@ -5,6 +5,12 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.2.2] - 2019-10-24
+### Changed
+- Update framework to 6.2.2
+- Update file-service to 1.17.12
+- Update utilities to 1.20.3
+
 ## [2.2.1] - 2019-10-18
 - Update framework to 6.2.1
 
