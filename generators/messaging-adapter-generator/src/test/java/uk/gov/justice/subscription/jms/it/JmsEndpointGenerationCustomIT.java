@@ -8,19 +8,23 @@ import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventFilte
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventFilterInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventInterceptorChainProvider;
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventEventValidationInterceptor;
+import uk.gov.justice.api.subscription.CustomEventListenerExampleEventJmsEventErrorReporterInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventJmsListener;
 import uk.gov.justice.api.subscription.CustomEventListenerExampleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventFilter;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventFilterInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventInterceptorChainProvider;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventEventValidationInterceptor;
+import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventJmsEventErrorReporterInterceptor;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventJmsListener;
 import uk.gov.justice.api.subscription.CustomEventListenerPeopleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsProcessor;
 import uk.gov.justice.services.adapter.messaging.DefaultSubscriptionJmsProcessor;
+import uk.gov.justice.services.adapter.messaging.ErrorReportExtractor;
 import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
+import uk.gov.justice.services.adapter.messaging.JmsMessageProcessErrorReporter;
 import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.annotation.ComponentNameExtractor;
@@ -65,6 +69,7 @@ import uk.gov.justice.services.core.mapping.SchemaIdMappingObserver;
 import uk.gov.justice.services.core.requester.RequesterProducer;
 import uk.gov.justice.services.core.sender.SenderProducer;
 import uk.gov.justice.services.event.buffer.api.AllowAllEventFilter;
+import uk.gov.justice.services.framework.system.errors.SystemErrorService;
 import uk.gov.justice.services.generators.test.utils.interceptor.EnvelopeRecorder;
 import uk.gov.justice.services.jdbc.persistence.JndiAppNameProvider;
 import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
@@ -108,6 +113,7 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             CustomEventListenerPeopleEventEventValidationInterceptor.class,
             CustomEventListenerPeopleEventJmsListener.class,
             CustomEventListenerPeopleEventJmsLoggerMetadataInterceptor.class,
+            CustomEventListenerPeopleEventJmsEventErrorReporterInterceptor.class,
 
             CustomEventListenerExampleEventEventFilter.class,
             CustomEventListenerExampleEventEventFilterInterceptor.class,
@@ -115,6 +121,7 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             CustomEventListenerExampleEventEventValidationInterceptor.class,
             CustomEventListenerExampleEventJmsListener.class,
             CustomEventListenerExampleEventJmsLoggerMetadataInterceptor.class,
+            CustomEventListenerExampleEventJmsEventErrorReporterInterceptor.class,
 
             RecordingJsonSchemaValidator.class,
 
@@ -185,7 +192,11 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
             JmsLoggerMetadataAdder.class,
             ComponentNameExtractor.class,
 
-            JndiAppNameProvider.class
+            JndiAppNameProvider.class,
+
+            JmsMessageProcessErrorReporter.class,
+            ErrorReportExtractor.class,
+            TestSystemErrorService.class
     })
     public WebApp war() {
         return new WebApp()
@@ -281,6 +292,15 @@ public class JmsEndpointGenerationCustomIT extends AbstractJmsAdapterGenerationI
         @Override
         public String getServiceContextName() {
             return "test-component";
+        }
+    }
+
+    @ApplicationScoped
+    public static class TestSystemErrorService implements SystemErrorService {
+
+        @Override
+        public void reportError(final String messageId, final String componentName, final JsonEnvelope jsonEnvelope, final Throwable exception) {
+            //Do Nothing
         }
     }
 }

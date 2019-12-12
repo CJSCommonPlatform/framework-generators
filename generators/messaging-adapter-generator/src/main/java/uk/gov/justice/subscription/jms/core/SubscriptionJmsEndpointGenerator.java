@@ -17,6 +17,7 @@ import uk.gov.justice.subscription.domain.subscriptiondescriptor.SubscriptionsDe
 import uk.gov.justice.subscription.jms.interceptor.EventFilterInterceptorCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.EventInterceptorChainProviderCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.EventValidationInterceptorCodeGenerator;
+import uk.gov.justice.subscription.jms.interceptor.JmsEventErrorReporterInterceptorCodeGenerator;
 import uk.gov.justice.subscription.jms.interceptor.JmsLoggerMetadataInterceptorCodeGenerator;
 import uk.gov.justice.subscription.jms.provider.JmsCommandHandlerDestinationNameProviderCodeGenerator;
 
@@ -44,6 +45,7 @@ public class SubscriptionJmsEndpointGenerator implements Generator<SubscriptionW
     private final EventInterceptorChainProviderCodeGenerator eventInterceptorChainProviderCodeGenerator;
     private final JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator;
     private final JmsCommandHandlerDestinationNameProviderCodeGenerator jmsCommandHandlerDestinationNameProviderCodeGenerator;
+    private final JmsEventErrorReporterInterceptorCodeGenerator jmsEventErrorReporterInterceptorCodeGenerator;
 
     public SubscriptionJmsEndpointGenerator(
             final MessageListenerCodeGenerator messageListenerCodeGenerator,
@@ -53,7 +55,8 @@ public class SubscriptionJmsEndpointGenerator implements Generator<SubscriptionW
             final EventValidationInterceptorCodeGenerator eventValidationInterceptorCodeGenerator,
             final EventInterceptorChainProviderCodeGenerator eventInterceptorChainProviderCodeGenerator,
             final JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator,
-            final JmsCommandHandlerDestinationNameProviderCodeGenerator jmsCommandHandlerDestinationNameProviderCodeGenerator) {
+            final JmsCommandHandlerDestinationNameProviderCodeGenerator jmsCommandHandlerDestinationNameProviderCodeGenerator,
+            final JmsEventErrorReporterInterceptorCodeGenerator jmsEventErrorReporterInterceptorCodeGenerator) {
 
         this.messageListenerCodeGenerator = messageListenerCodeGenerator;
         this.eventFilterCodeGenerator = eventFilterCodeGenerator;
@@ -63,6 +66,7 @@ public class SubscriptionJmsEndpointGenerator implements Generator<SubscriptionW
         this.eventInterceptorChainProviderCodeGenerator = eventInterceptorChainProviderCodeGenerator;
         this.jmsLoggerMetadataInterceptorCodeGenerator = jmsLoggerMetadataInterceptorCodeGenerator;
         this.jmsCommandHandlerDestinationNameProviderCodeGenerator = jmsCommandHandlerDestinationNameProviderCodeGenerator;
+        this.jmsEventErrorReporterInterceptorCodeGenerator = jmsEventErrorReporterInterceptorCodeGenerator;
     }
 
     /**
@@ -128,8 +132,10 @@ public class SubscriptionJmsEndpointGenerator implements Generator<SubscriptionW
                     .add(eventValidationInterceptorCodeGenerator.generate(classNameFactory))
                     .add(eventInterceptorChainProviderCodeGenerator.generate(
                             commonGeneratorProperties.getServiceComponent(),
+                            classNameFactory))
+                    .add(jmsEventErrorReporterInterceptorCodeGenerator.generate(
+                            subscriptionWrapper,
                             classNameFactory));
-
         }
 
         if (COMMAND_HANDLER.equals(componentName)) {

@@ -17,6 +17,7 @@ public class ClassNameFactory {
     public static final String EVENT_VALIDATION_INTERCEPTOR = "EventValidationInterceptor";
     public static final String JMS_LOGGER_METADATA_INTERCEPTOR = "JmsLoggerMetadataInterceptor";
     public static final String JMS_HANDLER_DESTINATION_NAME_PROVIDER = "JmsHandlerDestinationNameProvider";
+    public static final String JMS_EVENT_ERROR_REPORTER_INTERCEPTOR = "JmsEventErrorReporterInterceptor";
 
     private final String basePackageName;
     private final String contextName;
