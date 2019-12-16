@@ -98,6 +98,7 @@ public class MessageListenerCodeGeneratorTest {
                 "    }\n" +
                 ")\n" +
                 "@javax.interceptor.Interceptors({\n" +
+                "    uk.gov.moj.base.package.name.MyContextEventListenerMyContextHandlerCommandJmsEventErrorReporterInterceptor.class,\n" +
                 "    uk.gov.moj.base.package.name.MyContextEventListenerMyContextHandlerCommandJmsLoggerMetadataInterceptor.class,\n" +
                 "    uk.gov.moj.base.package.name.MyContextEventListenerMyContextHandlerCommandEventValidationInterceptor.class\n" +
                 "})\n" +

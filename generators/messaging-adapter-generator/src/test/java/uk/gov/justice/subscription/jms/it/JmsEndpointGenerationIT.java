@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventEventFilter;
 import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventEventValidationInterceptor;
+import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventJmsEventErrorReporterInterceptor;
 import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventJmsListener;
 import uk.gov.justice.api.subscription.Service2EventListenerAnotherPeopleEventJmsLoggerMetadataInterceptor;
 import uk.gov.justice.api.subscription.Service2EventProcessorStructureEventJmsListener;
@@ -14,7 +15,9 @@ import uk.gov.justice.schema.service.SchemaCatalogResolverProducer;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsParameterChecker;
 import uk.gov.justice.services.adapter.messaging.DefaultJmsProcessor;
 import uk.gov.justice.services.adapter.messaging.DefaultSubscriptionJmsProcessor;
+import uk.gov.justice.services.adapter.messaging.ErrorReportExtractor;
 import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
+import uk.gov.justice.services.adapter.messaging.JmsMessageProcessErrorReporter;
 import uk.gov.justice.services.adapter.messaging.JsonSchemaValidationInterceptor;
 import uk.gov.justice.services.cdi.LoggerProducer;
 import uk.gov.justice.services.common.annotation.ComponentNameExtractor;
@@ -59,6 +62,7 @@ import uk.gov.justice.services.core.mapping.SchemaIdMappingObserver;
 import uk.gov.justice.services.core.requester.RequesterProducer;
 import uk.gov.justice.services.core.sender.SenderProducer;
 import uk.gov.justice.services.event.buffer.api.AllowAllEventFilter;
+import uk.gov.justice.services.framework.system.errors.SystemErrorService;
 import uk.gov.justice.services.generators.test.utils.interceptor.EnvelopeRecorder;
 import uk.gov.justice.services.jdbc.persistence.JndiAppNameProvider;
 import uk.gov.justice.services.messaging.DefaultJsonObjectEnvelopeConverter;
@@ -96,13 +100,7 @@ import org.junit.runner.RunWith;
 public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
 
     @Inject
-    RecordingSubscriptionManager recordingSubscriptionManager;
-
-    @Resource(name = "structure.event")
-    private Topic structureEventsDestination;
-
-    @Resource(name = "another.people.event")
-    private Topic peopleEventsDestination;
+    private RecordingSubscriptionManager recordingSubscriptionManager;
 
     @Module
     @Classes(cdi = true, value = {
@@ -112,6 +110,7 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
             Service2EventListenerAnotherPeopleEventEventFilter.class,
             Service2EventListenerAnotherPeopleEventEventValidationInterceptor.class,
             Service2EventListenerAnotherPeopleEventJmsLoggerMetadataInterceptor.class,
+            Service2EventListenerAnotherPeopleEventJmsEventErrorReporterInterceptor.class,
 
             RecordingJsonSchemaValidator.class,
 
@@ -180,12 +179,22 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
             JmsLoggerMetadataAdder.class,
             ComponentNameExtractor.class,
 
-            JndiAppNameProvider.class
+            JndiAppNameProvider.class,
+
+            JmsMessageProcessErrorReporter.class,
+            ErrorReportExtractor.class,
+            TestSystemErrorService.class
     })
     public WebApp war() {
         return new WebApp()
                 .contextRoot("subscription.JmsEndpointGenerationIT");
     }
+
+    @Resource(name = "structure.event")
+    private Topic structureEventsDestination;
+
+    @Resource(name = "another.people.event")
+    private Topic peopleEventsDestination;
 
     @Before
     public void setup() throws Exception {
@@ -283,6 +292,15 @@ public class JmsEndpointGenerationIT extends AbstractJmsAdapterGenerationIT {
         @Override
         public String getServiceContextName() {
             return "test-component";
+        }
+    }
+
+    @ApplicationScoped
+    public static class TestSystemErrorService implements SystemErrorService {
+
+        @Override
+        public void reportError(final String messageId, final String componentName, final JsonEnvelope jsonEnvelope, final Throwable exception) {
+            //Do Nothing
         }
     }
 }

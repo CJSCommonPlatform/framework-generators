@@ -8,6 +8,7 @@ import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.PUBLIC;
 import static javax.lang.model.element.Modifier.STATIC;
 import static uk.gov.justice.subscription.jms.core.ClassNameFactory.EVENT_VALIDATION_INTERCEPTOR;
+import static uk.gov.justice.subscription.jms.core.ClassNameFactory.JMS_EVENT_ERROR_REPORTER_INTERCEPTOR;
 import static uk.gov.justice.subscription.jms.core.ClassNameFactory.JMS_LISTENER;
 import static uk.gov.justice.subscription.jms.core.ClassNameFactory.JMS_LOGGER_METADATA_INTERCEPTOR;
 import static uk.gov.justice.subscription.jms.core.JmsEndPointGeneratorUtil.shouldGenerateEventFilter;
@@ -135,10 +136,18 @@ public class MessageListenerCodeGenerator {
                             .build())
                     .addAnnotation(messageDrivenAnnotation(serviceComponent, subscriptionsDescriptor.getService(), subscription, destination));
 
-            if (!subscription.getEvents().isEmpty()) {
-                AnnotationSpec.Builder builder = AnnotationSpec.builder(Interceptors.class)
+            final List<Event> events = subscription.getEvents();
+
+            if (!events.isEmpty()) {
+                AnnotationSpec.Builder builder = AnnotationSpec.builder(Interceptors.class);
+
+                if (shouldGenerateEventFilter(events, serviceComponent)) {
+                    builder.addMember(DEFAULT_ANNOTATION_PARAMETER, CLASS_NAME, classNameFactory.classNameFor(JMS_EVENT_ERROR_REPORTER_INTERCEPTOR));
+                }
+
+                builder
                         .addMember(DEFAULT_ANNOTATION_PARAMETER, CLASS_NAME, classNameFactory.classNameFor(JMS_LOGGER_METADATA_INTERCEPTOR))
-                        .addMember(DEFAULT_ANNOTATION_PARAMETER, CLASS_NAME, getValidationInterceptorClassName(classNameFactory, serviceComponent, subscription.getEvents()));
+                        .addMember(DEFAULT_ANNOTATION_PARAMETER, CLASS_NAME, getValidationInterceptorClassName(classNameFactory, serviceComponent, events));
 
                 typeSpecBuilder.addAnnotation(builder.build());
             }

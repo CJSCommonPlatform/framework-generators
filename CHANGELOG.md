@@ -4,6 +4,8 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- JMS error reporting interceptor generator for event listeners
 
 ## [2.4.0] - 2019-11-13
 - Update framework to 6.4.0
