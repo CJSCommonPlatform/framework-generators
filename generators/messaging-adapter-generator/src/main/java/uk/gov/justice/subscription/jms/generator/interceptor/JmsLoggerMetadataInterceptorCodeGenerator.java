@@ -1,13 +1,14 @@
-package uk.gov.justice.raml.jms.interceptor;
+package uk.gov.justice.subscription.jms.generator.interceptor;
 
 import static com.squareup.javapoet.TypeSpec.classBuilder;
 import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PUBLIC;
-import static uk.gov.justice.subscription.jms.generator.ClassNameFactory.JMS_LOGGER_METADATA_INTERCEPTOR;
+import static uk.gov.justice.raml.jms.core.ClassNameFactory.JMS_LOGGER_METADATA_INTERCEPTOR;
 
-import uk.gov.justice.raml.jms.core.ClassNameFactory;
 import uk.gov.justice.services.adapter.messaging.JmsLoggerMetadataAdder;
-import uk.gov.justice.services.generators.commons.config.CommonGeneratorProperties;
+import uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapper;
+import uk.gov.justice.subscription.domain.subscriptiondescriptor.SubscriptionsDescriptor;
+import uk.gov.justice.subscription.jms.generator.ClassNameFactory;
 
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
@@ -27,14 +28,16 @@ public class JmsLoggerMetadataInterceptorCodeGenerator {
     /**
      * Generate the a JmsLoggerMetadataInterceptor class implementation.
      *
-     * @param commonGeneratorProperties used to query the generator properties
-     * @param classNameFactory          creates the class name for this generated class
+     * @param subscriptionWrapper the subscription descriptor Wrapper
+     * @param classNameFactory    creates the class name for this generated class
      * @return the {@link TypeSpec} that defines the class
      */
-    public TypeSpec generate(final CommonGeneratorProperties commonGeneratorProperties,
+    public TypeSpec generate(final SubscriptionWrapper subscriptionWrapper,
                              final ClassNameFactory classNameFactory) {
 
-        final String serviceComponent = commonGeneratorProperties.getServiceComponent();
+        final SubscriptionsDescriptor subscriptionsDescriptor = subscriptionWrapper.getSubscriptionsDescriptor();
+        final String serviceComponent = subscriptionsDescriptor.getServiceComponent().toUpperCase();
+
         final ClassName className = classNameFactory.classNameFor(JMS_LOGGER_METADATA_INTERCEPTOR);
 
         return classBuilder(className)

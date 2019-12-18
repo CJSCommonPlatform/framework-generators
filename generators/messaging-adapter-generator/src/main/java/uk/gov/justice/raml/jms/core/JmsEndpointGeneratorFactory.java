@@ -1,7 +1,7 @@
 package uk.gov.justice.raml.jms.core;
 
 import uk.gov.justice.maven.generator.io.files.parser.core.GeneratorFactory;
-import uk.gov.justice.subscription.jms.core.JmsEndpointGenerationObjects;
+import uk.gov.justice.subscription.jms.generator.JmsEndpointGenerationObjects;
 
 import com.google.common.annotations.VisibleForTesting;
 import org.raml.model.Raml;
