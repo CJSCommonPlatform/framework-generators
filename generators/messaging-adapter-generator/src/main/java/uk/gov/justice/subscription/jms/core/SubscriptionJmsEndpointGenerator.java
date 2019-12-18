@@ -1,25 +1,17 @@
 package uk.gov.justice.subscription.jms.core;
 
 import static java.util.stream.Collectors.toList;
-import static uk.gov.justice.services.core.annotation.Component.COMMAND_HANDLER;
 import static uk.gov.justice.services.generators.commons.helper.GeneratedClassWriter.writeClass;
-import static uk.gov.justice.subscription.jms.core.JmsEndPointGeneratorUtil.shouldGenerateEventFilter;
 
 import uk.gov.justice.maven.generator.io.files.parser.core.Generator;
 import uk.gov.justice.maven.generator.io.files.parser.core.GeneratorConfig;
 import uk.gov.justice.services.generators.commons.config.CommonGeneratorProperties;
 import uk.gov.justice.services.generators.commons.mapping.SubscriptionMediaTypeToSchemaIdGenerator;
 import uk.gov.justice.services.generators.subscription.parser.SubscriptionWrapper;
-import uk.gov.justice.subscription.domain.eventsource.EventSourceDefinition;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Event;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.Subscription;
 import uk.gov.justice.subscription.domain.subscriptiondescriptor.SubscriptionsDescriptor;
-import uk.gov.justice.subscription.jms.interceptor.EventFilterInterceptorCodeGenerator;
-import uk.gov.justice.subscription.jms.interceptor.EventInterceptorChainProviderCodeGenerator;
-import uk.gov.justice.subscription.jms.interceptor.EventValidationInterceptorCodeGenerator;
-import uk.gov.justice.subscription.jms.interceptor.JmsEventErrorReporterInterceptorCodeGenerator;
-import uk.gov.justice.subscription.jms.interceptor.JmsLoggerMetadataInterceptorCodeGenerator;
-import uk.gov.justice.subscription.jms.provider.JmsCommandHandlerDestinationNameProviderCodeGenerator;
+import uk.gov.justice.subscription.jms.generator.component.ServiceComponentGeneratorTypesFactory;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,43 +22,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Generates JMS endpoint classes out of RAML object
+ * Generates JMS endpoint classes out of subscriptions
  */
 public class SubscriptionJmsEndpointGenerator implements Generator<SubscriptionWrapper> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionJmsEndpointGenerator.class);
 
-
-    private final MessageListenerCodeGenerator messageListenerCodeGenerator;
-    private final EventFilterCodeGenerator eventFilterCodeGenerator;
     private final SubscriptionMediaTypeToSchemaIdGenerator subscriptionMediaTypeToSchemaIdGenerator;
-    private final EventFilterInterceptorCodeGenerator eventFilterInterceptorCodeGenerator;
-    private final EventValidationInterceptorCodeGenerator eventValidationInterceptorCodeGenerator;
-    private final EventInterceptorChainProviderCodeGenerator eventInterceptorChainProviderCodeGenerator;
-    private final JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator;
-    private final JmsCommandHandlerDestinationNameProviderCodeGenerator jmsCommandHandlerDestinationNameProviderCodeGenerator;
-    private final JmsEventErrorReporterInterceptorCodeGenerator jmsEventErrorReporterInterceptorCodeGenerator;
+    private final ServiceComponentGeneratorTypesFactory serviceComponentGeneratorTypesFactory;
 
-    public SubscriptionJmsEndpointGenerator(
-            final MessageListenerCodeGenerator messageListenerCodeGenerator,
-            final EventFilterCodeGenerator eventFilterCodeGenerator,
-            final SubscriptionMediaTypeToSchemaIdGenerator subscriptionMediaTypeToSchemaIdGenerator,
-            final EventFilterInterceptorCodeGenerator eventFilterInterceptorCodeGenerator,
-            final EventValidationInterceptorCodeGenerator eventValidationInterceptorCodeGenerator,
-            final EventInterceptorChainProviderCodeGenerator eventInterceptorChainProviderCodeGenerator,
-            final JmsLoggerMetadataInterceptorCodeGenerator jmsLoggerMetadataInterceptorCodeGenerator,
-            final JmsCommandHandlerDestinationNameProviderCodeGenerator jmsCommandHandlerDestinationNameProviderCodeGenerator,
-            final JmsEventErrorReporterInterceptorCodeGenerator jmsEventErrorReporterInterceptorCodeGenerator) {
-
-        this.messageListenerCodeGenerator = messageListenerCodeGenerator;
-        this.eventFilterCodeGenerator = eventFilterCodeGenerator;
+    public SubscriptionJmsEndpointGenerator(final SubscriptionMediaTypeToSchemaIdGenerator subscriptionMediaTypeToSchemaIdGenerator,
+                                            final ServiceComponentGeneratorTypesFactory serviceComponentGeneratorTypesFactory) {
         this.subscriptionMediaTypeToSchemaIdGenerator = subscriptionMediaTypeToSchemaIdGenerator;
-        this.eventFilterInterceptorCodeGenerator = eventFilterInterceptorCodeGenerator;
-        this.eventValidationInterceptorCodeGenerator = eventValidationInterceptorCodeGenerator;
-        this.eventInterceptorChainProviderCodeGenerator = eventInterceptorChainProviderCodeGenerator;
-        this.jmsLoggerMetadataInterceptorCodeGenerator = jmsLoggerMetadataInterceptorCodeGenerator;
-        this.jmsCommandHandlerDestinationNameProviderCodeGenerator = jmsCommandHandlerDestinationNameProviderCodeGenerator;
-        this.jmsEventErrorReporterInterceptorCodeGenerator = jmsEventErrorReporterInterceptorCodeGenerator;
+        this.serviceComponentGeneratorTypesFactory = serviceComponentGeneratorTypesFactory;
     }
 
     /**
@@ -110,47 +78,9 @@ public class SubscriptionJmsEndpointGenerator implements Generator<SubscriptionW
                                                   final CommonGeneratorProperties commonGeneratorProperties,
                                                   final String basePackageName) {
 
-        final Stream.Builder<TypeSpec> streamBuilder = Stream.builder();
-        final SubscriptionsDescriptor subscriptionsDescriptor = subscriptionWrapper.getSubscriptionsDescriptor();
-        final String contextName = subscriptionsDescriptor.getService();
-        final String componentName = subscriptionsDescriptor.getServiceComponent();
-
-
-        final EventSourceDefinition eventSourceDefinition = subscriptionWrapper.getEventSourceByName(subscription.getEventSourceName());
-
-        final ClassNameFactory classNameFactory = new ClassNameFactory(
-                basePackageName,
-                contextName,
-                componentName,
-                eventSourceDefinition.getLocation().getJmsUri());
-
-        if (shouldGenerateEventFilter(subscription.getEvents(), componentName)) {
-
-            streamBuilder
-                    .add(eventFilterCodeGenerator.generate(subscription, classNameFactory))
-                    .add(eventFilterInterceptorCodeGenerator.generate(classNameFactory))
-                    .add(eventValidationInterceptorCodeGenerator.generate(classNameFactory))
-                    .add(eventInterceptorChainProviderCodeGenerator.generate(
-                            commonGeneratorProperties.getServiceComponent(),
-                            classNameFactory))
-                    .add(jmsEventErrorReporterInterceptorCodeGenerator.generate(
-                            subscriptionWrapper,
-                            classNameFactory));
-        }
-
-        if (COMMAND_HANDLER.equals(componentName)) {
-            streamBuilder.add(jmsCommandHandlerDestinationNameProviderCodeGenerator.generate(subscriptionWrapper, subscription, classNameFactory));
-        }
-
-        return streamBuilder
-                .add(jmsLoggerMetadataInterceptorCodeGenerator.generate(
-                        subscriptionWrapper,
-                        classNameFactory))
-                .add(messageListenerCodeGenerator.generate(
-                        subscriptionWrapper,
-                        subscription,
-                        commonGeneratorProperties,
-                        classNameFactory))
+        return serviceComponentGeneratorTypesFactory
+                .componentTypeGeneratorFrom(subscriptionWrapper, subscription, basePackageName)
+                .generatedClassesFrom(Stream.builder(), subscriptionWrapper, subscription, commonGeneratorProperties)
                 .build();
     }
 }

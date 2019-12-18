@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.subscription.jms.core.JmsEndpointGenerationObjects;
+import uk.gov.justice.subscription.jms.generator.JmsEndpointGenerationObjects;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
