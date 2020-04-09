@@ -7,6 +7,9 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 ### Added
 - JMS error reporting interceptor generator for event listeners
 
+## [2.4.1] - 2020-04-09
+- Update framework to 6.4.0
+
 ## [2.4.0] - 2019-11-13
 - Update framework to 6.4.0
 

@@ -38,10 +38,10 @@
         <framework-api.version>4.2.1</framework-api.version>
         <utilities.version>1.20.3</utilities.version>
         <generator-maven-plugin.version>2.7.3</generator-maven-plugin.version>
-        <file.service.version>1.17.12</file.service.version>
+        <file.service.version>1.17.13</file.service.version>
         <raml-maven-plugin.version>1.6.9</raml-maven-plugin.version>
         <maven-test-utils.version>1.0.1</maven-test-utils.version>
-        <framework.version>6.5.0-M5</framework.version>
+        <framework.version>6.4.1</framework.version>
 
     </properties>
 
