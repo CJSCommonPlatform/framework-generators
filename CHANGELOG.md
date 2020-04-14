@@ -5,6 +5,10 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.4.2] - 2020-04-14
+- Update framework to 6.4.1
+- Update file-service to 1.17.13
+
 ## [2.4.0] - 2019-11-13
 - Update framework to 6.4.0
 
