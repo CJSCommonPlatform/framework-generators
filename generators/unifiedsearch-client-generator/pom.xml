@@ -16,27 +16,26 @@
             <artifactId>javaee-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
-
         <dependency>
             <groupId>uk.gov.justice.framework-generators</groupId>
             <artifactId>unifiedsearch-client-generator-plugin</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>uk.gov.justice.framework-generators</groupId>
             <artifactId>unifiedsearch-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-
         <dependency>
             <groupId>uk.gov.justice.framework-api</groupId>
             <artifactId>framework-api-unifiedsearch</artifactId>
             <version>${framework-api.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>uk.gov.justice.maven.generator</groupId>
+            <artifactId>parser-common</artifactId>
+            <version>${generator-maven-plugin.version}</version>
+        </dependency>
 
         <!-- Test Dependencies -->
         <dependency>
@@ -60,14 +59,16 @@
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>uk.gov.justice.maven.generator</groupId>
-            <artifactId>parser-common</artifactId>
-            <version>${generator-maven-plugin.version}</version>
+            <groupId>uk.gov.justice.services</groupId>
+            <artifactId>test-utils-enveloper-provider</artifactId>
+            <scope>test</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>uk.gov.justice.services</groupId>
+            <artifactId>test-utils-core</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -159,6 +160,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>
