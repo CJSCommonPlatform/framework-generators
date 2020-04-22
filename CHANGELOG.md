@@ -5,14 +5,21 @@ on [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to
 
 ## [Unreleased]
 
+## [2.4.3] - 2020-04-22
+### Changed
+- UnifiedSearchAdapter passes transformed payload wrapped in an envelope to the UnifiedSearchIndexer
+
 ## [2.4.2] - 2020-04-14
+### Changed
 - Update framework to 6.4.1
 - Update file-service to 1.17.13
 
 ## [2.4.0] - 2019-11-13
+### Changed
 - Update framework to 6.4.0
 
 ## [2.3.0] - 2019-11-07
+### Changed
 - Update framework to 6.3.0
 
 ## [2.2.3] - 2019-11-04
