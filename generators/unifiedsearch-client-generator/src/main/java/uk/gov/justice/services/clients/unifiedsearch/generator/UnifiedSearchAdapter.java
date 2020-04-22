@@ -1,5 +1,7 @@
 package uk.gov.justice.services.clients.unifiedsearch.generator;
 
+import static uk.gov.justice.services.core.enveloper.Enveloper.envelop;
+
 import uk.gov.justice.services.clients.unifiedsearch.core.UnifiedSearchTransformerCache;
 import uk.gov.justice.services.messaging.JsonEnvelope;
 import uk.gov.justice.services.unifiedsearch.TransformerApi;
@@ -22,7 +24,9 @@ public class UnifiedSearchAdapter {
         final String transformerConfig = unifiedSearchTransformerCache.getTransformerConfigBy(jsonEnvelope.metadata().name());
         final JsonObject transformedJson = transformerApi.transformWithJolt(transformerConfig, jsonEnvelope.payloadAsJsonObject());
 
-        indexer.indexData(transformedJson);
+        indexer.indexData(envelop(transformedJson)
+                .withName(jsonEnvelope.metadata().name())
+                .withMetadataFrom(jsonEnvelope));
     }
 }
 
