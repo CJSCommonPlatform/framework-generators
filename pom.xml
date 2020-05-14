@@ -12,7 +12,7 @@
 
     <groupId>uk.gov.justice.framework-generators</groupId>
     <artifactId>framework-generators</artifactId>
-    <version>2.4.1-SNAPSHOT</version>
+    <version>2.4.5-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Framework Generators</name>
@@ -35,13 +35,13 @@
 
         <common-bom.version>2.4.0</common-bom.version>
         <test-utils.version>1.24.3</test-utils.version>
-        <framework-api.version>4.1.0</framework-api.version>
+        <framework-api.version>4.3.0</framework-api.version>
         <utilities.version>1.20.3</utilities.version>
         <generator-maven-plugin.version>2.7.3</generator-maven-plugin.version>
-        <file.service.version>1.17.12</file.service.version>
+        <file.service.version>1.17.13</file.service.version>
         <raml-maven-plugin.version>1.6.9</raml-maven-plugin.version>
         <maven-test-utils.version>1.0.1</maven-test-utils.version>
-        <framework.version>6.4.0</framework.version>
+        <framework.version>6.4.2</framework.version>
 
     </properties>
     
