@@ -1,6 +1,6 @@
 # framework-generators
 
-##Deprecated
+## Deprecated
 
 _**This project has moved to be a sub-module of [Microservice Framework](https://github.com/CJSCommonPlatform/microservice-framework)**_
 
